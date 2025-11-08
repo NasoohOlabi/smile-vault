@@ -1,11 +1,18 @@
 <!DOCTYPE html>
-<html lang="en" class="dark:bg-black dark:text-white bg-white text-black">
+<html lang="en" class="dark:bg-gray-700 dark:text-gray-100 bg-white text-black">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Minimal Store</title>
 		<script src="https://cdn.tailwindcss.com"></script>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+			rel="stylesheet"
+		/>
 		<style>
+			body {
+				font-family: "Inter", sans-serif;
+			}
 			@media (prefers-color-scheme: dark) {
 				:root {
 					color-scheme: dark;
@@ -22,12 +29,12 @@
 		class="min-h-screen transition-colors duration-300 bg-white dark:bg-gray-700 text-black dark:text-gray-100"
 	>
 		<header
-			class="p-6 border-b border-gray-300 dark:border-gray-700 bg-gray-400 dark:bg-gray-600"
+			class="p-6 border-b border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-800"
 		>
 			<div class="container mx-auto flex justify-between items-center">
 				<h1 class="text-3xl font-bold">DAMA STORE</h1>
 				<button
-					class="px-4 py-2 border border-gray-400 dark:border-gray-600 rounded bg-gray-400 dark:bg-gray-600"
+					class="px-4 py-2 border border-gray-400 dark:border-gray-600 rounded bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 transition"
 					onclick="showOrderSummary()"
 				>
 					ORDER <span id="cartCount">0</span>
@@ -38,7 +45,7 @@
 		<main class="container mx-auto p-4">
 			<nav
 				id="tabNav"
-				class="flex gap-4 overflow-x-auto border-b pb-2 border-gray-300 dark:border-gray-700"
+				class="flex gap-4 overflow-x-auto border-b pb-2 border-gray-300 dark:border-gray-600"
 			></nav>
 			<div id="sectionsContainer" class="mt-6"></div>
 		</main>
@@ -48,10 +55,10 @@
 			class="fixed inset-0 hidden items-center justify-center bg-black/50 p-4"
 		>
 			<div
-				class="bg-gray-400 dark:bg-gray-600 border border-gray-300 dark:border-gray-700 p-6 max-w-xl w-full relative"
+				class="bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 p-6 max-w-xl w-full relative rounded-lg shadow-lg"
 			>
 				<button
-					class="absolute top-4 right-4"
+					class="absolute top-4 right-4 text-lg"
 					onclick="closeOrderSummary()"
 				>
 					✕
@@ -73,14 +80,11 @@
 			async function fetchProducts() {
 				const res = await fetch("./products.json");
 				const data = await res.json();
-
-				data.forEach((p) => {
-					(productsByCategory[p.category] ||= []).push(p);
-				});
-
+				data.forEach((p) =>
+					(productsByCategory[p.category] ||= []).push(p)
+				);
 				sections = Object.keys(productsByCategory);
 				allProducts = data;
-
 				createTabs();
 				createSections();
 				loadProducts();
@@ -91,7 +95,7 @@
 				sections.forEach((sec) => {
 					const btn = document.createElement("button");
 					btn.className =
-						"py-2 px-3 border border-gray-400 dark:border-gray-600 rounded bg-gray-400 dark:bg-gray-600";
+						"py-2 px-3 border border-gray-400 dark:border-gray-600 rounded bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 transition";
 					btn.textContent = sec;
 					btn.onclick = () => scrollTo(sec);
 					nav.appendChild(btn);
@@ -104,7 +108,7 @@
 					const el = document.createElement("section");
 					el.id = sec;
 					el.className = "py-10";
-					el.innerHTML = `<h2 class='text-2xl font-bold mb-4'>${sec}</h2><div id='${sec}Grid' class='grid gap-4 md:grid-cols-2 lg:grid-cols-3'></div>`;
+					el.innerHTML = `<h2 class='text-2xl font-bold mb-4'>${sec}</h2><div id='${sec}Grid' class='grid gap-4 grid-cols-2 md:grid-cols-2 lg:grid-cols-3'></div>`;
 					container.appendChild(el);
 				});
 			}
@@ -115,15 +119,15 @@
 					productsByCategory[sec].forEach((p) => {
 						const card = document.createElement("div");
 						card.className =
-							"border border-gray-300 dark:border-gray-700 p-4 flex flex-col bg-gray-400 dark:bg-gray-600";
+							"border border-gray-300 dark:border-gray-600 p-4 flex flex-col bg-gray-200 dark:bg-gray-600 rounded-lg shadow-md";
 						card.innerHTML = `
-            <img src="${p.image}" class="h-48 object-contain mb-3 shadow-md">
+            <img src="${p.image}" class="h-48 object-contain mb-3 shadow-lg">
             <h3 class="font-bold mb-2">${p.name}</h3>
             <p class="mb-3">$${p.price}</p>
-            <div class='flex items-center gap-2'>
-              <button class='px-2 py-1 border rounded' onclick='changeQty(${p.id}, -1)'>-</button>
-              <input type='number' id='qty-${p.id}' class='border p-1 w-16 text-center' value='0' min='0' max='99' onchange='setQty(${p.id}, this.value)'>
-              <button class='px-2 py-1 border rounded' onclick='changeQty(${p.id}, 1)'>+</button>
+            <div class='flex items-center gap-2 mt-auto'>
+              <button class='px-3 py-1 rounded bg-blue-500 text-white hover:bg-blue-600 transition' onclick='changeQty(${p.id}, -1)'>-</button>
+              <input type='number' id='qty-${p.id}' class='border p-1 w-16 text-center rounded' value='0' min='0' max='99' onchange='setQty(${p.id}, this.value)'>
+              <button class='px-3 py-1 rounded bg-blue-500 text-white hover:bg-blue-600 transition' onclick='changeQty(${p.id}, 1)'>+</button>
             </div>
           `;
 						grid.appendChild(card);
@@ -162,19 +166,16 @@
 				const content = document.getElementById("orderContent");
 				let total = 0;
 				content.innerHTML = "";
-
 				allProducts.forEach((p) => {
 					const qty = parseInt(localStorage.getItem(`p_${p.id}`) || 0);
 					if (qty > 0) {
 						const subtotal = qty * p.price;
 						total += subtotal;
-
 						const div = document.createElement("div");
 						div.textContent = `${p.name} x${qty} — $${subtotal}`;
 						content.appendChild(div);
 					}
 				});
-
 				document.getElementById(
 					"totalPrice"
 				).textContent = `$${total.toFixed(2)}`;
