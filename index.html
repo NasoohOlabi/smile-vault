@@ -1,844 +1,786 @@
 <!DOCTYPE html>
-<html
-	lang="en"
-	class="dark:bg-gray-900 dark:text-gray-100 bg-gray-50 text-gray-900"
->
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Refined Store</title>
-		<script src="https://cdn.tailwindcss.com"></script>
-		<link
-			href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Merriweather:wght@300;400;700&display=swap"
-			rel="stylesheet"
-		/>
-		<style>
-			/* Playfair Display for headings, Merriweather for body text */
-			body {
-				font-family: Arial, Helvetica, sans-serif;
-			}
-			h1,
-			h2,
-			h3 {
-				font-family: Arial, Helvetica, sans-serif;
-			}
-			/* Remove default scrollbar from the tabs container */
-			#tabNav::-webkit-scrollbar {
-				display: none;
-			}
-			#tabNav {
-				-ms-overflow-style: none; /* IE and Edge */
-				scrollbar-width: none; /* Firefox */
-			}
-			/* Active tab styling */
-			.tab-active {
-				color: #57534e !important; /* stone-600 */
-				border-bottom-color: #57534e !important; /* stone-600 */
-			}
-			.dark .tab-active {
-				color: #d6d3d1 !important; /* stone-300 */
-				border-bottom-color: #d6d3d1 !important; /* stone-300 */
-			}
-			@media (prefers-color-scheme: dark) {
-				:root {
-					color-scheme: dark;
-				}
-			}
-			@media (prefers-color-scheme: light) {
-				:root {
-					color-scheme: light;
-				}
-			}
-		</style>
-	</head>
-	<body
-		class="min-h-screen transition-colors duration-300 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100"
-	>
-		<header
-			class="sticky top-0 z-30 p-6 border-b border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-800 shadow-lg"
-		>
-			<div class="container mx-auto flex justify-between items-center">
-				<h1 class="text-4xl font-extrabold tracking-wider">
-					DAMA<span
-						class="text-stone-600 dark:text-stone-400 pl-2 text-3xl"
-						>OBSRV</span
-					>
-				</h1>
-				<button
-					class="px-5 py-2 text-sm font-semibold tracking-wide rounded-full bg-stone-600 text-white hover:bg-stone-700 dark:bg-stone-400 dark:text-gray-900 dark:hover:bg-stone-300 transition shadow-md"
-					onclick="showOrderSummary()"
-				>
-					ORDER (<span id="cartCount">0</span>)
-				</button>
-			</div>
-		</header>
+<html lang="en" class="dark:bg-gray-900 dark:text-gray-100 bg-gray-50 text-gray-900">
 
-		<div
-			id="sticky-tabs-wrapper"
-			class="sticky z-20 bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-800 py-2"
-		>
-			<nav
-				id="tabNav"
-				class="container mx-auto px-4 md:px-8 flex gap-4 overflow-x-scroll whitespace-nowrap pt-2 pb-0 scroll-smooth"
-			></nav>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Refined Store</title>
+	<script src="https://cdn.tailwindcss.com"></script>
+	<link
+		href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Merriweather:wght@300;400;700&display=swap"
+		rel="stylesheet" />
+	<style>
+		/* Playfair Display for headings, Merriweather for body text */
+		body {
+			font-family: Arial, Helvetica, sans-serif;
+		}
+
+		h1,
+		h2,
+		h3 {
+			font-family: Arial, Helvetica, sans-serif;
+		}
+
+		/* Remove default scrollbar from the tabs container */
+		#tabNav::-webkit-scrollbar {
+			display: none;
+		}
+
+		#tabNav {
+			-ms-overflow-style: none;
+			/* IE and Edge */
+			scrollbar-width: none;
+			/* Firefox */
+		}
+
+		/* Active tab styling */
+		.tab-active {
+			color: #57534e !important;
+			/* stone-600 */
+			border-bottom-color: #57534e !important;
+			/* stone-600 */
+		}
+
+		.dark .tab-active {
+			color: #d6d3d1 !important;
+			/* stone-300 */
+			border-bottom-color: #d6d3d1 !important;
+			/* stone-300 */
+		}
+
+		@media (prefers-color-scheme: dark) {
+			:root {
+				color-scheme: dark;
+			}
+		}
+
+		@media (prefers-color-scheme: light) {
+			:root {
+				color-scheme: light;
+			}
+		}
+	</style>
+</head>
+
+<body class="min-h-screen transition-colors duration-300 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+	<header
+		class="sticky top-0 z-30 p-6 border-b border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-800 shadow-lg">
+		<div class="container mx-auto flex justify-between items-center">
+			<h1 class="text-4xl font-extrabold tracking-wider">
+				DAMA<span class="text-stone-600 dark:text-stone-400 pl-2 text-3xl">OBSRV</span>
+			</h1>
+			<button
+				class="px-5 py-2 text-sm font-semibold tracking-wide rounded-full bg-stone-600 text-white hover:bg-stone-700 dark:bg-stone-400 dark:text-gray-900 dark:hover:bg-stone-300 transition shadow-md"
+				onclick="showOrderSummary()">
+				ORDER (<span id="cartCount">0</span>)
+			</button>
 		</div>
+	</header>
 
-		<main class="container mx-auto p-4 md:p-8 pt-0">
-			<div id="sectionsContainer" class="mt-6"></div>
-		</main>
+	<div id="sticky-tabs-wrapper"
+		class="sticky z-20 bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-800 py-2">
+		<nav id="tabNav"
+			class="container mx-auto px-4 md:px-8 flex gap-4 overflow-x-scroll whitespace-nowrap pt-2 pb-0 scroll-smooth">
+		</nav>
+	</div>
 
+	<main class="container mx-auto p-4 md:p-8 pt-0">
+		<div id="sectionsContainer" class="mt-6"></div>
+	</main>
+
+	<div id="orderModal" class="fixed inset-0 hidden flex items-center justify-center bg-black/60 z-50 p-4">
 		<div
-			id="orderModal"
-			class="fixed inset-0 hidden flex items-center justify-center bg-black/60 z-50 p-4"
-		>
-			<div
-				class="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 p-6 max-w-xl w-full relative rounded-xl shadow-2xl transition-all duration-300 transform scale-95 opacity-0 overflow-y-auto max-h-[90vh]"
-			>
-				<button
-					class="absolute top-4 right-4 text-xl text-gray-500 dark:text-gray-400 hover:text-red-500 transition"
-					onclick="closeOrderSummary()"
-				>
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						class="h-6 w-6"
-						fill="none"
-						viewBox="0 0 24 24"
-						stroke="currentColor"
-					>
-						<path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							stroke-width="2"
-							d="M6 18L18 6M6 6l12 12"
-						/>
-					</svg>
-				</button>
-				<h2
-					class="text-3xl font-bold mb-6 text-stone-600 dark:text-stone-400"
-				>
-					Order Summary
-				</h2>
-				<div
-					id="orderContent"
-					class="space-y-3 text-lg border-b pb-4 mb-4"
-				></div>
-				<div class="mt-4 flex justify-between text-2xl font-bold">
-					<span>Total:</span>
-					<span id="totalPrice">S.P. 0.00</span>
+			class="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 p-6 max-w-xl w-full relative rounded-xl shadow-2xl transition-all duration-300 transform scale-95 opacity-0 overflow-y-auto max-h-[90vh]">
+			<button
+				class="absolute top-4 right-4 text-xl text-gray-500 dark:text-gray-400 hover:text-red-500 transition"
+				onclick="closeOrderSummary()">
+				<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+					stroke="currentColor">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+				</svg>
+			</button>
+			<h2 class="text-3xl font-bold mb-6 text-stone-600 dark:text-stone-400">
+				Order Summary
+			</h2>
+			<div id="orderContent" class="space-y-3 text-lg border-b pb-4 mb-4"></div>
+			<div class="mt-4 flex justify-between text-2xl font-bold">
+				<span>Total:</span>
+				<span id="totalPrice">S.P. 0</span>
+			</div>
+
+			<form id="orderForm" class="mt-6 space-y-4" onsubmit="submitOrder(event)">
+				<div>
+					<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+						Name
+					</label>
+					<input type="text" id="customerName"
+						class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-stone-500 dark:bg-gray-700 dark:text-white"
+						placeholder="Your Name" />
 				</div>
-
-				<form
-					id="orderForm"
-					class="mt-6 space-y-4"
-					onsubmit="submitOrder(event)"
-				>
-					<div>
-						<label
-							class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
-						>
-							Name
-						</label>
-						<input
-							type="text"
-							id="customerName"
-							class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-stone-500 dark:bg-gray-700 dark:text-white"
-							placeholder="Your Name"
-						/>
-					</div>
-					<div>
-						<label
-							class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
-						>
-							Phone
-						</label>
-						<input
-							type="tel"
-							id="phone"
-							class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-stone-500 dark:bg-gray-700 dark:text-white"
-							placeholder="09XXXXXXXX"
-						/>
-					</div>
-					<div>
-						<label
-							class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
-						>
-							Insta Account
-						</label>
-						<input
-							type="text"
-							id="instaAccount"
-							class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-stone-500 dark:bg-gray-700 dark:text-white"
-							placeholder="@yourhandle"
-						/>
-					</div>
-					<div>
-						<label
-							class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
-						>
-							Shipping Address
-						</label>
-						<textarea
-							id="customerAddress"
-							rows="3"
-							class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-stone-500 dark:bg-gray-700 dark:text-white"
-							placeholder="123 Main St, City, State 12345"
-						></textarea>
-					</div>
-					<div>
-						<label
-							class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
-						>
-							Order Notes (Optional)
-						</label>
-						<textarea
-							id="orderNotes"
-							rows="2"
-							class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-stone-500 dark:bg-gray-700 dark:text-white"
-							placeholder="Special instructions..."
-						></textarea>
-					</div>
-					<div id="orderResponse" class="mt-2"></div>
-					<button
-						type="submit"
-						id="submitBtn"
-						class="w-full px-5 py-3 text-sm font-semibold tracking-wide rounded-full bg-stone-600 text-white hover:bg-stone-700 dark:bg-stone-400 dark:text-gray-900 dark:hover:bg-stone-300 transition shadow-md"
-					>
-						Submit Order
-					</button>
-				</form>
-			</div>
+				<div>
+					<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+						Phone
+					</label>
+					<input type="tel" id="phone"
+						class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-stone-500 dark:bg-gray-700 dark:text-white"
+						placeholder="09XXXXXXXX" />
+				</div>
+				<div>
+					<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+						Insta Account
+					</label>
+					<input type="text" id="instaAccount"
+						class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-stone-500 dark:bg-gray-700 dark:text-white"
+						placeholder="@yourhandle" />
+				</div>
+				<div>
+					<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+						Shipping Address
+					</label>
+					<textarea id="customerAddress" rows="3"
+						class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-stone-500 dark:bg-gray-700 dark:text-white"
+						placeholder="123 Main St, City, State 12345"></textarea>
+				</div>
+				<div>
+					<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+						Order Notes (Optional)
+					</label>
+					<textarea id="orderNotes" rows="2"
+						class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-stone-500 dark:bg-gray-700 dark:text-white"
+						placeholder="Special instructions..."></textarea>
+				</div>
+				<div id="orderResponse" class="mt-2"></div>
+				<button type="submit" id="submitBtn"
+					class="w-full px-5 py-3 text-sm font-semibold tracking-wide rounded-full bg-stone-600 text-white hover:bg-stone-700 dark:bg-stone-400 dark:text-gray-900 dark:hover:bg-stone-300 transition shadow-md">
+					Submit Order
+				</button>
+			</form>
 		</div>
+	</div>
 
-		<script>
-			let productsByCategory = {};
-			let allProducts = [];
-			let sections = [];
-			let tabButtons = {}; // Store references to tab buttons
-			let isScrolling = false; // Flag to prevent scroll event from triggering during programmatic scroll
+	<script>
+		let productsByCategory = {};
+		let allProducts = [];
+		let sections = [];
+		let tabButtons = {}; // Store references to tab buttons
+		let isScrolling = false; // Flag to prevent scroll event from triggering during programmatic scroll
 
-			async function fetchProducts() {
-				// Mock data for demonstration purposes, replace with actual fetch if available
-				const mockData = [
-					{
-						id: 1,
-						name: "Luxury Watch",
-						price: 350.0,
-						category: "Accessories",
-						image: "https://placehold.co/400x400/8b5cf6/ffffff?text=Luxury+Watch",
-					},
-					{
-						id: 2,
-						name: "Silk Scarf",
-						price: 55.0,
-						category: "Accessories",
-						image: "https://placehold.co/400x400/8b5cf6/ffffff?text=Silk+Scarf",
-					},
-					{
-						id: 3,
-						name: "Leather Wallet",
-						price: 90.0,
-						category: "Accessories",
-						image: "https://placehold.co/400x400/8b5cf6/ffffff?text=Leather+Wallet",
-					},
-					{
-						id: 4,
-						name: "Espresso Maker",
-						price: 199.0,
-						category: "Home Goods",
-						image: "https://placehold.co/400x400/10b981/ffffff?text=Espresso+Maker",
-					},
-					{
-						id: 5,
-						name: "Weighted Blanket",
-						price: 120.0,
-						category: "Home Goods",
-						image: "https://placehold.co/400x400/10b981/ffffff?text=Weighted+Blanket",
-					},
-					{
-						id: 6,
-						name: "Crystal Vase",
-						price: 75.0,
-						category: "Home Goods",
-						image: "https://placehold.co/400x400/10b981/ffffff?text=Crystal+Vase",
-					},
-					{
-						id: 7,
-						name: "Designer Sunglasses",
-						price: 180.0,
-						category: "Fashion",
-						image: "https://placehold.co/400x400/f59e0b/ffffff?text=Designer+Sunglasses",
-					},
-					{
-						id: 8,
-						name: "Leather Handbag",
-						price: 250.0,
-						category: "Fashion",
-						image: "https://placehold.co/400x400/f59e0b/ffffff?text=Leather+Handbag",
-					},
-					{
-						id: 9,
-						name: "Silk Dress",
-						price: 320.0,
-						category: "Fashion",
-						image: "https://placehold.co/400x400/f59e0b/ffffff?text=Silk+Dress",
-					},
-					{
-						id: 10,
-						name: "Ceramic Plate Set",
-						price: 85.0,
-						category: "Kitchen",
-						image: "https://placehold.co/400x400/3b82f6/ffffff?text=Ceramic+Plate+Set",
-					},
-					{
-						id: 11,
-						name: "Chef's Knife",
-						price: 120.0,
-						category: "Kitchen",
-						image: "https://placehold.co/400x400/3b82f6/ffffff?text=Chef's+Knife",
-					},
-					{
-						id: 12,
-						name: "Non-stick Pan Set",
-						price: 150.0,
-						category: "Kitchen",
-						image: "https://placehold.co/400x400/3b82f6/ffffff?text=Non-stick+Pan+Set",
-					},
-					{
-						id: 13,
-						name: "Yoga Mat",
-						price: 45.0,
-						category: "Sports",
-						image: "https://placehold.co/400x400/10b981/ffffff?text=Yoga+Mat",
-					},
-					{
-						id: 14,
-						name: "Running Shoes",
-						price: 130.0,
-						category: "Sports",
-						image: "https://placehold.co/400x400/10b981/ffffff?text=Running+Shoes",
-					},
-					{
-						id: 15,
-						name: "Water Bottle",
-						price: 25.0,
-						category: "Sports",
-						image: "https://placehold.co/400x400/10b981/ffffff?text=Water+Bottle",
-					},
-				];
+		async function fetchProducts() {
+			// Mock data for demonstration purposes, replace with actual fetch if available
+			const mockData = [
+				{
+					id: 1,
+					name: "Luxury Watch",
+					price: 350.0,
+					category: "Accessories",
+					image: "https://placehold.co/400x400/8b5cf6/ffffff?text=Luxury+Watch",
+				},
+				{
+					id: 2,
+					name: "Silk Scarf",
+					price: 55.0,
+					category: "Accessories",
+					image: "https://placehold.co/400x400/8b5cf6/ffffff?text=Silk+Scarf",
+				},
+				{
+					id: 3,
+					name: "Leather Wallet",
+					price: 90.0,
+					category: "Accessories",
+					image: "https://placehold.co/400x400/8b5cf6/ffffff?text=Leather+Wallet",
+				},
+				{
+					id: 4,
+					name: "Espresso Maker",
+					price: 199.0,
+					category: "Home Goods",
+					image: "https://placehold.co/400x400/10b981/ffffff?text=Espresso+Maker",
+				},
+				{
+					id: 5,
+					name: "Weighted Blanket",
+					price: 120.0,
+					category: "Home Goods",
+					image: "https://placehold.co/400x400/10b981/ffffff?text=Weighted+Blanket",
+				},
+				{
+					id: 6,
+					name: "Crystal Vase",
+					price: 75.0,
+					category: "Home Goods",
+					image: "https://placehold.co/400x400/10b981/ffffff?text=Crystal+Vase",
+				},
+				{
+					id: 7,
+					name: "Designer Sunglasses",
+					price: 180.0,
+					category: "Fashion",
+					image: "https://placehold.co/400x400/f59e0b/ffffff?text=Designer+Sunglasses",
+				},
+				{
+					id: 8,
+					name: "Leather Handbag",
+					price: 250.0,
+					category: "Fashion",
+					image: "https://placehold.co/400x400/f59e0b/ffffff?text=Leather+Handbag",
+				},
+				{
+					id: 9,
+					name: "Silk Dress",
+					price: 320.0,
+					category: "Fashion",
+					image: "https://placehold.co/400x400/f59e0b/ffffff?text=Silk+Dress",
+				},
+				{
+					id: 10,
+					name: "Ceramic Plate Set",
+					price: 85.0,
+					category: "Kitchen",
+					image: "https://placehold.co/400x400/3b82f6/ffffff?text=Ceramic+Plate+Set",
+				},
+				{
+					id: 11,
+					name: "Chef's Knife",
+					price: 120.0,
+					category: "Kitchen",
+					image: "https://placehold.co/400x400/3b82f6/ffffff?text=Chef's+Knife",
+				},
+				{
+					id: 12,
+					name: "Non-stick Pan Set",
+					price: 150.0,
+					category: "Kitchen",
+					image: "https://placehold.co/400x400/3b82f6/ffffff?text=Non-stick+Pan+Set",
+				},
+				{
+					id: 13,
+					name: "Yoga Mat",
+					price: 45.0,
+					category: "Sports",
+					image: "https://placehold.co/400x400/10b981/ffffff?text=Yoga+Mat",
+				},
+				{
+					id: 14,
+					name: "Running Shoes",
+					price: 130.0,
+					category: "Sports",
+					image: "https://placehold.co/400x400/10b981/ffffff?text=Running+Shoes",
+				},
+				{
+					id: 15,
+					name: "Water Bottle",
+					price: 25.0,
+					category: "Sports",
+					image: "https://placehold.co/400x400/10b981/ffffff?text=Water+Bottle",
+				},
+			];
 
-				// Check if products.json exists or use mock data
-				let data;
-				try {
-					const res = await fetch("./products.json");
-					if (res.ok) {
-						data = await res.json();
-					} else {
-						console.warn("products.json not found, using mock data.");
-						data = mockData;
-					}
-				} catch (e) {
-					console.error("Fetch failed, using mock data.", e);
+			// Check if products.json exists or use mock data
+			let data;
+			try {
+				const res = await fetch("./products.json");
+				if (res.ok) {
+					data = await res.json();
+				} else {
+					console.warn("products.json not found, using mock data.");
 					data = mockData;
 				}
-
-				data.forEach((p) =>
-					(productsByCategory[p.category] ||= []).push(p)
-				);
-				sections = Object.keys(productsByCategory);
-				allProducts = data;
-				createTabs();
-				createSections();
-				loadProducts();
-				updateCart(); // Load initial cart count
+			} catch (e) {
+				console.error("Fetch failed, using mock data.", e);
+				data = mockData;
 			}
 
-			function createTabs() {
-				const nav = document.getElementById("tabNav");
-				// Added an 'All' tab
-				const allBtn = createTabButton("All Products", () => {
-					setActiveTab("All Products");
-					window.scrollTo({ top: 0, behavior: "smooth" });
+			data.forEach((p) =>
+				(productsByCategory[p.category] ||= []).push(p)
+			);
+			sections = Object.keys(productsByCategory);
+			allProducts = data;
+			createTabs();
+			createSections();
+			loadProducts();
+			updateCart(); // Load initial cart count
+		}
+
+		function createTabs() {
+			const nav = document.getElementById("tabNav");
+			// Added an 'All' tab
+			const allBtn = createTabButton("All Products", () => {
+				setActiveTab("All Products");
+				window.scrollTo({ top: 0, behavior: "smooth" });
+			});
+			nav.appendChild(allBtn);
+			tabButtons["All Products"] = allBtn;
+
+			sections.forEach((sec) => {
+				const btn = createTabButton(sec, () => {
+					setActiveTab(sec);
+					scrollToSection(sec);
 				});
-				nav.appendChild(allBtn);
-				tabButtons["All Products"] = allBtn;
+				nav.appendChild(btn);
+				tabButtons[sec] = btn;
+			});
+		}
 
-				sections.forEach((sec) => {
-					const btn = createTabButton(sec, () => {
-						setActiveTab(sec);
-						scrollToSection(sec);
-					});
-					nav.appendChild(btn);
-					tabButtons[sec] = btn;
-				});
-			}
+		function createTabButton(text, onClick) {
+			const btn = document.createElement("button");
+			btn.className =
+				"text-xl font-semibold py-3 px-3 mx-1 relative text-gray-600 dark:text-gray-300 hover:text-stone-600 dark:hover:text-stone-400 transition duration-200 border-b-4 border-transparent hover:border-stone-600 dark:hover:border-stone-400 whitespace-nowrap";
+			btn.textContent = text;
+			btn.onclick = onClick;
+			return btn;
+		}
 
-			function createTabButton(text, onClick) {
-				const btn = document.createElement("button");
-				btn.className =
-					"text-xl font-semibold py-3 px-3 mx-1 relative text-gray-600 dark:text-gray-300 hover:text-stone-600 dark:hover:text-stone-400 transition duration-200 border-b-4 border-transparent hover:border-stone-600 dark:hover:border-stone-400 whitespace-nowrap";
-				btn.textContent = text;
-				btn.onclick = onClick;
-				return btn;
-			}
+		function createSections() {
+			const container = document.getElementById("sectionsContainer");
+			sections.forEach((sec) => {
+				const el = document.createElement("section");
+				el.id = sec;
+				el.className = "py-10 first:pt-0"; // Ensure sections are properly spaced
+				el.innerHTML = `<h2 class='text-3xl font-bold mb-6 text-stone-600 dark:text-stone-400'>${sec}</h2><div id='${sec}Grid' class='grid gap-8 grid-cols-2 md:grid-cols-3 lg:grid-cols-4'></div>`;
+				container.appendChild(el);
+			});
+		}
 
-			function createSections() {
-				const container = document.getElementById("sectionsContainer");
-				sections.forEach((sec) => {
-					const el = document.createElement("section");
-					el.id = sec;
-					el.className = "py-10 first:pt-0"; // Ensure sections are properly spaced
-					el.innerHTML = `<h2 class='text-3xl font-bold mb-6 text-stone-600 dark:text-stone-400'>${sec}</h2><div id='${sec}Grid' class='grid gap-8 grid-cols-2 md:grid-cols-3 lg:grid-cols-4'></div>`;
-					container.appendChild(el);
-				});
-			}
-
-			function loadProducts() {
-				sections.forEach((sec) => {
-					const grid = document.getElementById(`${sec}Grid`);
-					productsByCategory[sec].forEach((p) => {
-						const card = document.createElement("div");
-						// Increased padding and rounded corners, more subtle card background
-						card.className =
-							"p-5 flex flex-col bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300";
-						// FIXED BUTTONS ISSUE: The HTML template is now clean without leading/trailing whitespace around the span/buttons.
-						card.innerHTML = `
+		function loadProducts() {
+			sections.forEach((sec) => {
+				const grid = document.getElementById(`${sec}Grid`);
+				productsByCategory[sec].forEach((p) => {
+					const card = document.createElement("div");
+					// Increased padding and rounded corners, more subtle card background
+					card.className =
+						"p-5 flex flex-col bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300";
+					// FIXED BUTTONS ISSUE: The HTML template is now clean without leading/trailing whitespace around the span/buttons.
+					card.innerHTML = `
                             <div class="h-48 flex items-center justify-center mb-4 bg-gray-100 dark:bg-gray-700 rounded-lg">
-                                <img src="${
-												p.image
-											}" class="max-h-full max-w-full object-contain p-2" onerror="this.onerror=null;this.src='https://placehold.co/400x400/aaaaaa/000000?text=Image+Error';" alt="${
-							p.name
+                                <img src="${p.image
+						}" class="max-h-full max-w-full object-contain p-2" onerror="this.onerror=null;this.src='https://placehold.co/400x400/aaaaaa/000000?text=Image+Error';" alt="${p.name
 						}">
                             </div>
-                            <h3 class="text-xl font-semibold mb-1">${
-											p.name
-										}</h3>
+                            <h3 class="text-xl font-semibold mb-1">${p.name
+						}</h3>
                             <p class="mb-3 text-lg font-bold text-stone-600 dark:text-stone-400">S.P. ${p.price.toFixed(
-											2
-										)}</p>
+							2
+						)}</p>
                             <div class='flex items-center justify-between gap-3 mt-auto pt-3 border-t border-gray-100 dark:border-gray-700'>
-                                <button class='h-8 w-8 flex items-center justify-center text-2xl font-light rounded-full bg-stone-500 text-white hover:bg-stone-600 dark:bg-stone-400 dark:text-gray-900 dark:hover:bg-stone-300 transition shadow-md' onclick='changeQty(${
-												p.id
-											}, -1)'>-</button>
-                                <span id='qty-${
-												p.id
-											}' class='text-xl font-bold w-10 text-center select-none'>${parseInt(
+                                <button class='h-8 w-8 flex items-center justify-center text-2xl font-light rounded-full bg-stone-500 text-white hover:bg-stone-600 dark:bg-stone-400 dark:text-gray-900 dark:hover:bg-stone-300 transition shadow-md' onclick='changeQty(${p.id
+						}, -1)'>-</button>
+                                <span id='qty-${p.id
+						}' class='text-xl font-bold w-10 text-center select-none'>${parseInt(
 							localStorage.getItem(`p_${p.id}`) || 0
 						)}</span>
-                                <button class='h-8 w-8 flex items-center justify-center text-2xl font-light rounded-full bg-stone-500 text-white hover:bg-stone-600 dark:bg-stone-400 dark:text-gray-900 dark:hover:bg-stone-300 transition shadow-md' onclick='changeQty(${
-												p.id
-											}, 1)'>+</button>
+                                <button class='h-8 w-8 flex items-center justify-center text-2xl font-light rounded-full bg-stone-500 text-white hover:bg-stone-600 dark:bg-stone-400 dark:text-gray-900 dark:hover:bg-stone-300 transition shadow-md' onclick='changeQty(${p.id
+						}, 1)'>+</button>
                             </div>
                         `;
-						grid.appendChild(card);
-					});
+					grid.appendChild(card);
 				});
+			});
+		}
+
+		// Function to dynamically set the sticky position of the tab bar
+		function setStickyPositions() {
+			const header = document.querySelector("header");
+			const tabsWrapper = document.getElementById("sticky-tabs-wrapper");
+
+			if (header && tabsWrapper) {
+				// Set the 'top' style property for the tabs wrapper based on the header's actual height.
+				// We subtract 1px to ensure a perfect, gap-free seal between the header and the tabs, fixing the visual gap.
+				tabsWrapper.style.top = `${header.offsetHeight - 1}px`;
+			}
+		}
+
+		// Function to scroll the tab navigation to bring a specific tab into view
+		function scrollTabIntoView(tabName) {
+			const tab = tabButtons[tabName];
+			if (!tab) return;
+
+			const tabNav = document.getElementById("tabNav");
+			const tabRect = tab.getBoundingClientRect();
+			const navRect = tabNav.getBoundingClientRect();
+
+			// Calculate the position to scroll to
+			// We want to center the tab in the visible area
+			const tabCenter = tabRect.left - navRect.left + tabRect.width / 2;
+			const navCenter = navRect.width / 2;
+			const scrollPosition = tabNav.scrollLeft + tabCenter - navCenter;
+
+			// Scroll to the calculated position with smooth behavior
+			tabNav.scrollTo({
+				left: scrollPosition,
+				behavior: "smooth",
+			});
+		}
+
+		// Function to set the active tab
+		function setActiveTab(tabName) {
+			// Remove active class from all tabs
+			Object.values(tabButtons).forEach((btn) => {
+				btn.classList.remove("tab-active");
+			});
+
+			// Add active class to the selected tab
+			if (tabButtons[tabName]) {
+				tabButtons[tabName].classList.add("tab-active");
+				// Scroll the tab into view horizontally
+				scrollTabIntoView(tabName);
+			}
+		}
+
+		// Function to determine which section is currently in view
+		function updateActiveTabOnScroll() {
+			if (isScrolling) return; // Skip if we're in the middle of a programmatic scroll
+
+			const header = document.querySelector("header");
+			const tabsWrapper = document.getElementById("sticky-tabs-wrapper");
+			const headerHeight = header.offsetHeight;
+			const tabsHeight = tabsWrapper.offsetHeight;
+			const totalOffset = headerHeight + tabsHeight;
+
+			// Get current scroll position
+			const scrollPosition = window.scrollY + totalOffset + 100; // Add 100px for better detection
+
+			// Check if we're at the top of the page
+			if (scrollPosition <= totalOffset + 100) {
+				setActiveTab("All Products");
+				return;
 			}
 
-			// Function to dynamically set the sticky position of the tab bar
-			function setStickyPositions() {
-				const header = document.querySelector("header");
-				const tabsWrapper = document.getElementById("sticky-tabs-wrapper");
+			// Find which section is currently in view
+			let currentSection = "";
+			sections.forEach((sec) => {
+				const section = document.getElementById(sec);
+				if (section) {
+					const sectionTop = section.offsetTop;
+					const sectionBottom = sectionTop + section.offsetHeight;
 
-				if (header && tabsWrapper) {
-					// Set the 'top' style property for the tabs wrapper based on the header's actual height.
-					// We subtract 1px to ensure a perfect, gap-free seal between the header and the tabs, fixing the visual gap.
-					tabsWrapper.style.top = `${header.offsetHeight - 1}px`;
+					if (
+						scrollPosition >= sectionTop &&
+						scrollPosition < sectionBottom
+					) {
+						currentSection = sec;
+					}
 				}
+			});
+
+			if (currentSection) {
+				setActiveTab(currentSection);
 			}
+		}
 
-			// Function to scroll the tab navigation to bring a specific tab into view
-			function scrollTabIntoView(tabName) {
-				const tab = tabButtons[tabName];
-				if (!tab) return;
+		// Renamed function to avoid conflict with window.scrollTo
+		function scrollToSection(id) {
+			const element = document.getElementById(id);
+			const header = document.querySelector("header");
+			const tabsWrapper = document.getElementById("sticky-tabs-wrapper");
 
-				const tabNav = document.getElementById("tabNav");
-				const tabRect = tab.getBoundingClientRect();
-				const navRect = tabNav.getBoundingClientRect();
+			if (element && header && tabsWrapper) {
+				// Set flag to prevent scroll event from triggering
+				isScrolling = true;
 
-				// Calculate the position to scroll to
-				// We want to center the tab in the visible area
-				const tabCenter = tabRect.left - navRect.left + tabRect.width / 2;
-				const navCenter = navRect.width / 2;
-				const scrollPosition = tabNav.scrollLeft + tabCenter - navCenter;
-
-				// Scroll to the calculated position with smooth behavior
-				tabNav.scrollTo({
-					left: scrollPosition,
-					behavior: "smooth",
-				});
-			}
-
-			// Function to set the active tab
-			function setActiveTab(tabName) {
-				// Remove active class from all tabs
-				Object.values(tabButtons).forEach((btn) => {
-					btn.classList.remove("tab-active");
-				});
-
-				// Add active class to the selected tab
-				if (tabButtons[tabName]) {
-					tabButtons[tabName].classList.add("tab-active");
-					// Scroll the tab into view horizontally
-					scrollTabIntoView(tabName);
-				}
-			}
-
-			// Function to determine which section is currently in view
-			function updateActiveTabOnScroll() {
-				if (isScrolling) return; // Skip if we're in the middle of a programmatic scroll
-
-				const header = document.querySelector("header");
-				const tabsWrapper = document.getElementById("sticky-tabs-wrapper");
+				// Calculate the total height of the fixed elements (Header + Tab Bar)
 				const headerHeight = header.offsetHeight;
 				const tabsHeight = tabsWrapper.offsetHeight;
 				const totalOffset = headerHeight + tabsHeight;
 
-				// Get current scroll position
-				const scrollPosition = window.scrollY + totalOffset + 100; // Add 100px for better detection
+				// Get the element's position relative to the document
+				const elementPosition =
+					element.getBoundingClientRect().top + window.pageYOffset;
 
-				// Check if we're at the top of the page
-				if (scrollPosition <= totalOffset + 100) {
-					setActiveTab("All Products");
-					return;
-				}
+				// Calculate the final scroll position
+				const offsetPosition = elementPosition - totalOffset;
 
-				// Find which section is currently in view
-				let currentSection = "";
-				sections.forEach((sec) => {
-					const section = document.getElementById(sec);
-					if (section) {
-						const sectionTop = section.offsetTop;
-						const sectionBottom = sectionTop + section.offsetHeight;
-
-						if (
-							scrollPosition >= sectionTop &&
-							scrollPosition < sectionBottom
-						) {
-							currentSection = sec;
-						}
-					}
+				// Scroll to the calculated position
+				window.scrollTo({
+					top: offsetPosition,
+					behavior: "smooth",
 				});
 
-				if (currentSection) {
-					setActiveTab(currentSection);
-				}
-			}
-
-			// Renamed function to avoid conflict with window.scrollTo
-			function scrollToSection(id) {
-				const element = document.getElementById(id);
-				const header = document.querySelector("header");
-				const tabsWrapper = document.getElementById("sticky-tabs-wrapper");
-
-				if (element && header && tabsWrapper) {
-					// Set flag to prevent scroll event from triggering
-					isScrolling = true;
-
-					// Calculate the total height of the fixed elements (Header + Tab Bar)
-					const headerHeight = header.offsetHeight;
-					const tabsHeight = tabsWrapper.offsetHeight;
-					const totalOffset = headerHeight + tabsHeight;
-
-					// Get the element's position relative to the document
-					const elementPosition =
-						element.getBoundingClientRect().top + window.pageYOffset;
-
-					// Calculate the final scroll position
-					const offsetPosition = elementPosition - totalOffset;
-
-					// Scroll to the calculated position
-					window.scrollTo({
-						top: offsetPosition,
-						behavior: "smooth",
-					});
-
-					// Reset flag after scroll completes
-					setTimeout(() => {
-						isScrolling = false;
-					}, 1000); // Give enough time for smooth scroll to complete
-				} else {
-					console.error(
-						"Scroll failed: Missing target element or sticky elements."
-					);
-				}
-			}
-
-			function changeQty(id, delta) {
-				let current = parseInt(localStorage.getItem(`p_${id}`) || 0);
-				// Ensure quantity never goes below 0
-				current = Math.max(0, current + delta);
-				localStorage.setItem(`p_${id}`, current);
-
-				// Update the span's text content
-				const qtySpan = document.getElementById(`qty-${id}`);
-				if (qtySpan) {
-					qtySpan.textContent = current;
-				}
-
-				updateCart();
-			}
-
-			function updateCart() {
-				let total = 0;
-				allProducts.forEach(
-					(p) =>
-						(total += parseInt(localStorage.getItem(`p_${p.id}`) || 0))
+				// Reset flag after scroll completes
+				setTimeout(() => {
+					isScrolling = false;
+				}, 1000); // Give enough time for smooth scroll to complete
+			} else {
+				console.error(
+					"Scroll failed: Missing target element or sticky elements."
 				);
-				document.getElementById("cartCount").textContent = total;
+			}
+		}
+
+		function changeQty(id, delta) {
+			let current = parseInt(localStorage.getItem(`p_${id}`) || 0);
+			// Ensure quantity never goes below 0
+			current = Math.max(0, current + delta);
+			localStorage.setItem(`p_${id}`, current);
+
+			// Update the span's text content
+			const qtySpan = document.getElementById(`qty-${id}`);
+			if (qtySpan) {
+				qtySpan.textContent = current;
 			}
 
-			function showOrderSummary() {
-				const modal = document.getElementById("orderModal");
-				const modalContent = modal.querySelector("div");
-				const content = document.getElementById("orderContent");
-				let total = 0;
-				let hasItems = false;
-				content.innerHTML = "";
-				// Clear response on opening
-				document.getElementById("orderResponse").innerHTML = "";
+			updateCart();
+		}
 
-				allProducts.forEach((p) => {
-					const qty = parseInt(localStorage.getItem(`p_${p.id}`) || 0);
-					if (qty > 0) {
-						hasItems = true;
-						const subtotal = qty * p.price;
-						total += subtotal;
-						const div = document.createElement("div");
-						div.className = "flex justify-between items-center";
-						div.innerHTML = `
-                            <span>${
-											p.name
-										} <span class="text-stone-500 dark:text-stone-300">x${qty}</span></span>
+		function updateCart() {
+			let total = 0;
+			allProducts.forEach(
+				(p) =>
+					(total += parseInt(localStorage.getItem(`p_${p.id}`) || 0))
+			);
+			document.getElementById("cartCount").textContent = total;
+		}
+
+		function showOrderSummary() {
+			const modal = document.getElementById("orderModal");
+			const modalContent = modal.querySelector("div");
+			const content = document.getElementById("orderContent");
+			let total = 0;
+			let hasItems = false;
+			content.innerHTML = "";
+			// Clear response on opening
+			document.getElementById("orderResponse").innerHTML = "";
+
+			allProducts.forEach((p) => {
+				const qty = parseInt(localStorage.getItem(`p_${p.id}`) || 0);
+				if (qty > 0) {
+					hasItems = true;
+					const subtotal = qty * p.price;
+					total += subtotal;
+					const div = document.createElement("div");
+					div.className = "flex justify-between items-center";
+					div.innerHTML = `
+                            <span>${p.name
+						} <span class="text-stone-500 dark:text-stone-300">x${qty}</span></span>
                             <span class="font-medium">S.P. ${subtotal.toFixed(
-											2
-										)}</span>
+							2
+						)}</span>
                         `;
-						content.appendChild(div);
-					}
-				});
-
-				if (!hasItems) {
-					content.innerHTML =
-						"<p class='text-center text-gray-500 dark:text-gray-400 italic'>Your order is currently empty.</p>";
+					content.appendChild(div);
 				}
+			});
 
-				document.getElementById(
-					"totalPrice"
-				).textContent = `S.P. ${total.toFixed(2)}`;
-
-				// Show the modal with transition effect
-				modal.classList.remove("hidden");
-				setTimeout(() => {
-					modalContent.classList.remove("scale-95", "opacity-0");
-					modalContent.classList.add("scale-100", "opacity-100");
-				}, 10);
+			if (!hasItems) {
+				content.innerHTML =
+					"<p class='text-center text-gray-500 dark:text-gray-400 italic'>Your order is currently empty.</p>";
 			}
 
-			function closeOrderSummary() {
-				const modal = document.getElementById("orderModal");
-				const modalContent = modal.querySelector("div");
+			document.getElementById(
+				"totalPrice"
+			).textContent = `S.P. ${total.toFixed(2)}`;
 
-				// Hide the modal with transition effect
-				modalContent.classList.remove("scale-100", "opacity-100");
-				modalContent.classList.add("scale-95", "opacity-0");
+			// Show the modal with transition effect
+			modal.classList.remove("hidden");
+			setTimeout(() => {
+				modalContent.classList.remove("scale-95", "opacity-0");
+				modalContent.classList.add("scale-100", "opacity-100");
+			}, 10);
+		}
 
-				setTimeout(() => {
-					modal.classList.add("hidden");
-				}, 300); // Match transition duration
+		function closeOrderSummary() {
+			const modal = document.getElementById("orderModal");
+			const modalContent = modal.querySelector("div");
+
+			// Hide the modal with transition effect
+			modalContent.classList.remove("scale-100", "opacity-100");
+			modalContent.classList.add("scale-95", "opacity-0");
+
+			setTimeout(() => {
+				modal.classList.add("hidden");
+			}, 300); // Match transition duration
+		}
+
+		// Function to submit the order
+		function submitOrder(event) {
+			event.preventDefault();
+
+			const submitBtn = document.getElementById("submitBtn");
+			const originalText = submitBtn.textContent;
+			const responseDiv = document.getElementById("orderResponse");
+
+			// Clear previous response
+			responseDiv.innerHTML = "";
+
+			// Collect form values
+			const customerName = document
+				.getElementById("customerName")
+				.value.trim();
+			const phone = document.getElementById("phone").value.trim();
+			const instaAccount = document
+				.getElementById("instaAccount")
+				.value.trim();
+			const customerAddress = document
+				.getElementById("customerAddress")
+				.value.trim();
+			const orderNotes = document
+				.getElementById("orderNotes")
+				.value.trim();
+			const timestamp = new Date().toISOString();
+
+			// --- FRONT-END VALIDATION LOGIC ---
+			const requiredFields = {
+				Name: customerName,
+				Phone: phone,
+				"Insta Account": instaAccount,
+				"Shipping Address": customerAddress,
+			};
+
+			let missingFields = [];
+			for (const [key, value] of Object.entries(requiredFields)) {
+				if (value === "" || (key === "Phone" && value.length !== 10)) {
+					missingFields.push(key);
+				}
 			}
 
-			// Function to submit the order
-			function submitOrder(event) {
-				event.preventDefault();
+			if (missingFields.length > 0) {
+				const missingFieldsStr = missingFields.join(", ");
+				const errorMessage = `Please fill out all mandatory fields: **${missingFieldsStr}**.`;
 
-				const submitBtn = document.getElementById("submitBtn");
-				const originalText = submitBtn.textContent;
-				const responseDiv = document.getElementById("orderResponse");
-
-				// Clear previous response
-				responseDiv.innerHTML = "";
-
-				// Collect form values
-				const customerName = document
-					.getElementById("customerName")
-					.value.trim();
-				const phone = document.getElementById("phone").value.trim();
-				const instaAccount = document
-					.getElementById("instaAccount")
-					.value.trim();
-				const customerAddress = document
-					.getElementById("customerAddress")
-					.value.trim();
-				const orderNotes = document
-					.getElementById("orderNotes")
-					.value.trim();
-				const timestamp = new Date().toISOString();
-
-				// --- FRONT-END VALIDATION LOGIC ---
-				const requiredFields = {
-					Name: customerName,
-					Phone: phone,
-					"Insta Account": instaAccount,
-					"Shipping Address": customerAddress,
-				};
-
-				let missingFields = [];
-				for (const [key, value] of Object.entries(requiredFields)) {
-					if (value === "" || (key === "Phone" && value.length !== 10)) {
-						missingFields.push(key);
-					}
-				}
-
-				if (missingFields.length > 0) {
-					const missingFieldsStr = missingFields.join(", ");
-					const errorMessage = `Please fill out all mandatory fields: **${missingFieldsStr}**.`;
-
-					// Display error message in the modal (now replacing the FireToast logic)
-					responseDiv.innerHTML = `
+				// Display error message in the modal (now replacing the FireToast logic)
+				responseDiv.innerHTML = `
                         <div class="p-3 bg-yellow-100 dark:bg-yellow-900 border border-yellow-300 dark:border-yellow-700 rounded-md">
                             <p class="text-yellow-800 dark:text-yellow-200 font-semibold">${errorMessage.replace(
-											/\*\*/g,
-											""
-										)}</p>
+					/\*\*/g,
+					""
+				)}</p>
                         </div>
                     `;
-					// Stop submission
-					return;
+				// Stop submission
+				return;
+			}
+			// --- END VALIDATION LOGIC ---
+
+			// Show loading state
+			submitBtn.textContent = "Submitting...";
+			submitBtn.disabled = true;
+
+			let orderItems = [];
+			let total = 0;
+
+			allProducts.forEach((p) => {
+				const qty = parseInt(localStorage.getItem(`p_${p.id}`) || 0);
+				if (qty > 0) {
+					const subtotal = qty * p.price;
+					total += subtotal;
+					orderItems.push({
+						id: p.id,
+						name: p.name,
+						category: p.category,
+						quantity: qty,
+						price: p.price,
+						subtotal: subtotal,
+					});
 				}
-				// --- END VALIDATION LOGIC ---
+			});
 
-				// Show loading state
-				submitBtn.textContent = "Submitting...";
-				submitBtn.disabled = true;
-
-				let orderItems = [];
-				let total = 0;
-
-				allProducts.forEach((p) => {
-					const qty = parseInt(localStorage.getItem(`p_${p.id}`) || 0);
-					if (qty > 0) {
-						const subtotal = qty * p.price;
-						total += subtotal;
-						orderItems.push({
-							id: p.id,
-							name: p.name,
-							category: p.category,
-							quantity: qty,
-							price: p.price,
-							subtotal: subtotal,
-						});
-					}
-				});
-
-				// Check if cart is empty
-				if (orderItems.length === 0) {
-					responseDiv.innerHTML = `
+			// Check if cart is empty
+			if (orderItems.length === 0) {
+				responseDiv.innerHTML = `
                         <div class="p-3 bg-red-100 dark:bg-red-900 border border-red-300 dark:border-red-700 rounded-md">
                             <p class="text-red-800 dark:text-red-200">Your cart is empty. Please add items before submitting.</p>
                         </div>
                     `;
-					submitBtn.textContent = originalText;
-					submitBtn.disabled = false;
-					return;
-				}
+				submitBtn.textContent = originalText;
+				submitBtn.disabled = false;
+				return;
+			}
 
-				// Prepare data for SheetDB
-				const sheetData = {
-					Timestamp: timestamp,
-					Name: customerName,
-					Phone: phone,
-					"Insta Account": instaAccount,
-					Address: customerAddress,
-					Notes: orderNotes,
-					Items: JSON.stringify(orderItems, null, 2),
-					Total: total,
-				};
+			// Prepare data for SheetDB
+			const sheetData = {
+				Timestamp: timestamp,
+				Name: customerName,
+				Phone: phone,
+				"Insta Account": instaAccount,
+				Address: customerAddress,
+				Notes: orderNotes,
+				Items: JSON.stringify(orderItems, null, 2),
+				Total: total,
+			};
 
-				// Send data to SheetDB
-				fetch("https://sheetdb.io/api/v1/jog7er8l976bz", {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({
-						data: sheetData,
-					}),
-				})
-					.then((response) => {
-						// Check if the response is successful (2xx status codes).
-						if (response.ok) {
-							return response.json();
-						}
-						// If response is not ok (4xx, 5xx), still read the body if possible for debugging.
-						return response.json().then((err) => {
-							throw new Error(
-								`HTTP Error: ${response.status} ${
-									response.statusText
-								}. Response body: ${JSON.stringify(err)}`
-							);
-						});
-					})
-					.then((data) => {
-						console.log(
-							"Order submitted successfully. API response:",
-							data
+			// Send data to SheetDB
+			fetch("https://sheetdb.io/api/v1/jog7er8l976bz", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					data: sheetData,
+				}),
+			})
+				.then((response) => {
+					// Check if the response is successful (2xx status codes).
+					if (response.ok) {
+						return response.json();
+					}
+					// If response is not ok (4xx, 5xx), still read the body if possible for debugging.
+					return response.json().then((err) => {
+						throw new Error(
+							`HTTP Error: ${response.status} ${response.statusText
+							}. Response body: ${JSON.stringify(err)}`
 						);
-						// Show success message
-						responseDiv.innerHTML = `
+					});
+				})
+				.then((data) => {
+					console.log(
+						"Order submitted successfully. API response:",
+						data
+					);
+					// Show success message
+					responseDiv.innerHTML = `
                         <div class="p-3 bg-green-100 dark:bg-green-900 border border-green-300 dark:border-green-700 rounded-md">
                             <p class="text-green-800 dark:text-green-200">Order submitted successfully! Your cart has been reset.</p>
                         </div>
                     `;
 
-						// Reset cart after successful submission
-						setTimeout(() => {
-							resetCart();
-							closeOrderSummary();
-						}, 1500); // Shorter delay for better UX
-					})
-					.catch((error) => {
-						// This block will catch network errors and the custom error from the response check
-						console.error("Error submitting order:", error);
+					// Reset cart after successful submission
+					setTimeout(() => {
+						resetCart();
+						closeOrderSummary();
+					}, 1500); // Shorter delay for better UX
+				})
+				.catch((error) => {
+					// This block will catch network errors and the custom error from the response check
+					console.error("Error submitting order:", error);
 
-						// Show error message
-						responseDiv.innerHTML = `
+					// Show error message
+					responseDiv.innerHTML = `
                         <div class="p-3 bg-red-100 dark:bg-red-900 border border-red-300 dark:border-red-700 rounded-md">
                             <p class="text-red-800 dark:text-red-200">Failed to submit order. Please try again. (Details in console)</p>
                         </div>
                     `;
-					})
-					.finally(() => {
-						// Reset button state
-						submitBtn.textContent = originalText;
-						submitBtn.disabled = false;
-					});
-			}
-
-			// Function to reset the cart
-			function resetCart() {
-				allProducts.forEach((p) => {
-					localStorage.removeItem(`p_${p.id}`);
-					const qtySpan = document.getElementById(`qty-${p.id}`);
-					if (qtySpan) {
-						qtySpan.textContent = "0";
-					}
+				})
+				.finally(() => {
+					// Reset button state
+					submitBtn.textContent = originalText;
+					submitBtn.disabled = false;
 				});
-				updateCart();
-			}
+		}
 
-			document.addEventListener("DOMContentLoaded", () => {
-				fetchProducts();
-				// Set initial sticky positions after DOM is loaded
-				setStickyPositions();
-
-				// Set initial active tab
-				setActiveTab("All Products");
-
-				// Add scroll event listener to update active tab
-				window.addEventListener("scroll", updateActiveTabOnScroll);
+		// Function to reset the cart
+		function resetCart() {
+			allProducts.forEach((p) => {
+				localStorage.removeItem(`p_${p.id}`);
+				const qtySpan = document.getElementById(`qty-${p.id}`);
+				if (qtySpan) {
+					qtySpan.textContent = "0";
+				}
 			});
-			// Recalculate positions if the window size changes
-			window.addEventListener("resize", setStickyPositions);
-		</script>
-	</body>
+			updateCart();
+		}
+
+		document.addEventListener("DOMContentLoaded", () => {
+			fetchProducts();
+			// Set initial sticky positions after DOM is loaded
+			setStickyPositions();
+
+			// Set initial active tab
+			setActiveTab("All Products");
+
+			// Add scroll event listener to update active tab
+			window.addEventListener("scroll", updateActiveTabOnScroll);
+		});
+		// Recalculate positions if the window size changes
+		window.addEventListener("resize", setStickyPositions);
+	</script>
+</body>
+
 </html>
