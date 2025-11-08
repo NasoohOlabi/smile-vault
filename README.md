@@ -1,7 +1,7 @@
 # Dama obsrv
 
 deplyed prod at
-https://dama-store.wuaze.com/?i=2
+https://dama-store.wuaze.com/
 
 deployed dev at 
 https://nasooholabi.github.io/smile-vault/
