@@ -1,17 +1,35 @@
 <!DOCTYPE html>
-<html lang="en" class="dark:bg-gray-700 dark:text-gray-100 bg-white text-black">
+<html
+	lang="en"
+	class="dark:bg-gray-900 dark:text-gray-100 bg-gray-50 text-gray-900"
+>
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Minimal Store</title>
+		<title>Refined Store</title>
 		<script src="https://cdn.tailwindcss.com"></script>
+		<!-- Swapping Inter for a more creative, elegant font combination -->
 		<link
-			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+			href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Merriweather:wght@300;400;700&display=swap"
 			rel="stylesheet"
 		/>
 		<style>
+			/* Playfair Display for headings, Merriweather for body text */
 			body {
-				font-family: "Inter", sans-serif;
+				font-family: "Merriweather", serif;
+			}
+			h1,
+			h2,
+			h3 {
+				font-family: "Playfair Display", serif;
+			}
+			/* Remove default scrollbar from the tabs container */
+			#tabNav::-webkit-scrollbar {
+				display: none;
+			}
+			#tabNav {
+				-ms-overflow-style: none; /* IE and Edge */
+				scrollbar-width: none; /* Firefox */
 			}
 			@media (prefers-color-scheme: dark) {
 				:root {
@@ -26,46 +44,79 @@
 		</style>
 	</head>
 	<body
-		class="min-h-screen transition-colors duration-300 bg-white dark:bg-gray-700 text-black dark:text-gray-100"
+		class="min-h-screen transition-colors duration-300 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100"
 	>
+		<!-- HEADER: Now sticky at the top with high Z-index -->
 		<header
-			class="p-6 border-b border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-800"
+			class="sticky top-0 z-30 p-6 border-b border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-800 shadow-lg"
 		>
 			<div class="container mx-auto flex justify-between items-center">
-				<h1 class="text-3xl font-bold">DAMA STORE</h1>
+				<h1 class="text-4xl font-extrabold tracking-wider">
+					DAMA
+					<span class="text-stone-600 dark:text-stone-400">STORE</span>
+				</h1>
 				<button
-					class="px-4 py-2 border border-gray-400 dark:border-gray-600 rounded bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 transition"
+					class="px-5 py-2 text-sm font-semibold tracking-wide rounded-full bg-stone-600 text-white hover:bg-stone-700 dark:bg-stone-400 dark:text-gray-900 dark:hover:bg-stone-300 transition shadow-md"
 					onclick="showOrderSummary()"
 				>
-					ORDER <span id="cartCount">0</span>
+					VIEW ORDER (<span id="cartCount">0</span>)
 				</button>
 			</div>
 		</header>
 
-		<main class="container mx-auto p-4">
+		<!-- TAB BAR: Made sticky, top position set dynamically for perfect alignment -->
+		<div
+			id="sticky-tabs-wrapper"
+			class="sticky z-20 bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-800 py-2"
+		>
 			<nav
 				id="tabNav"
-				class="flex gap-4 overflow-x-auto border-b pb-2 border-gray-300 dark:border-gray-600"
+				class="container mx-auto px-4 md:px-8 flex gap-4 overflow-x-scroll whitespace-nowrap pt-2 pb-0"
 			></nav>
+		</div>
+
+		<!-- MAIN CONTENT: top padding removed (pt-0) as the sticky tab bar now provides necessary spacing -->
+		<main class="container mx-auto p-4 md:p-8 pt-0">
 			<div id="sectionsContainer" class="mt-6"></div>
 		</main>
 
+		<!-- Order Summary Modal -->
 		<div
 			id="orderModal"
-			class="fixed inset-0 hidden items-center justify-center bg-black/50 p-4"
+			class="fixed inset-0 hidden items-center justify-center bg-black/60 z-50 p-4"
 		>
 			<div
-				class="bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 p-6 max-w-xl w-full relative rounded-lg shadow-lg"
+				class="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 p-6 max-w-xl w-full relative rounded-xl shadow-2xl transition-all duration-300 transform scale-95 opacity-0"
 			>
 				<button
-					class="absolute top-4 right-4 text-lg"
+					class="absolute top-4 right-4 text-xl text-gray-500 dark:text-gray-400 hover:text-red-500 transition"
 					onclick="closeOrderSummary()"
 				>
-					✕
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						class="h-6 w-6"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke="currentColor"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+							d="M6 18L18 6M6 6l12 12"
+						/>
+					</svg>
 				</button>
-				<h2 class="text-2xl font-bold mb-4">ORDER SUMMARY</h2>
-				<div id="orderContent" class="space-y-2"></div>
-				<div class="mt-6 flex justify-between text-xl font-bold">
+				<h2
+					class="text-3xl font-bold mb-6 text-stone-600 dark:text-stone-400"
+				>
+					Order Summary
+				</h2>
+				<div
+					id="orderContent"
+					class="space-y-3 text-lg border-b pb-4 mb-4"
+				></div>
+				<div class="mt-4 flex justify-between text-2xl font-bold">
 					<span>Total:</span>
 					<span id="totalPrice">$0.00</span>
 				</div>
@@ -78,8 +129,67 @@
 			let sections = [];
 
 			async function fetchProducts() {
-				const res = await fetch("./products.json");
-				const data = await res.json();
+				// Mock data for demonstration purposes, replace with actual fetch if available
+				const mockData = [
+					{
+						id: 1,
+						name: "Luxury Watch",
+						price: 350.0,
+						category: "Accessories",
+						image: "https://placehold.co/400x400/8b5cf6/ffffff?text=Luxury+Watch",
+					},
+					{
+						id: 2,
+						name: "Silk Scarf",
+						price: 55.0,
+						category: "Accessories",
+						image: "https://placehold.co/400x400/8b5cf6/ffffff?text=Silk+Scarf",
+					},
+					{
+						id: 3,
+						name: "Leather Wallet",
+						price: 90.0,
+						category: "Accessories",
+						image: "https://placehold.co/400x400/8b5cf6/ffffff?text=Leather+Wallet",
+					},
+					{
+						id: 4,
+						name: "Espresso Maker",
+						price: 199.0,
+						category: "Home Goods",
+						image: "https://placehold.co/400x400/10b981/ffffff?text=Espresso+Maker",
+					},
+					{
+						id: 5,
+						name: "Weighted Blanket",
+						price: 120.0,
+						category: "Home Goods",
+						image: "https://placehold.co/400x400/10b981/ffffff?text=Weighted+Blanket",
+					},
+					{
+						id: 6,
+						name: "Crystal Vase",
+						price: 75.0,
+						category: "Home Goods",
+						image: "https://placehold.co/400x400/10b981/ffffff?text=Crystal+Vase",
+					},
+				];
+
+				// Check if products.json exists or use mock data
+				let data;
+				try {
+					const res = await fetch("./products.json");
+					if (res.ok) {
+						data = await res.json();
+					} else {
+						console.warn("products.json not found, using mock data.");
+						data = mockData;
+					}
+				} catch (e) {
+					console.error("Fetch failed, using mock data.", e);
+					data = mockData;
+				}
+
 				data.forEach((p) =>
 					(productsByCategory[p.category] ||= []).push(p)
 				);
@@ -88,18 +198,30 @@
 				createTabs();
 				createSections();
 				loadProducts();
+				updateCart(); // Load initial cart count
 			}
 
 			function createTabs() {
 				const nav = document.getElementById("tabNav");
+				// Added an 'All' tab
+				const allBtn = createTabButton("All Products", () =>
+					window.scrollTo({ top: 0, behavior: "smooth" })
+				);
+				nav.appendChild(allBtn);
+
 				sections.forEach((sec) => {
-					const btn = document.createElement("button");
-					btn.className =
-						"py-2 px-3 border border-gray-400 dark:border-gray-600 rounded bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 transition";
-					btn.textContent = sec;
-					btn.onclick = () => scrollTo(sec);
+					const btn = createTabButton(sec, () => scrollTo(sec));
 					nav.appendChild(btn);
 				});
+			}
+
+			function createTabButton(text, onClick) {
+				const btn = document.createElement("button");
+				btn.className =
+					"text-xl font-semibold py-3 px-3 mx-1 relative text-gray-600 dark:text-gray-300 hover:text-stone-600 dark:hover:text-stone-400 transition duration-200 border-b-4 border-transparent hover:border-stone-600 dark:hover:border-stone-400 whitespace-nowrap";
+				btn.textContent = text;
+				btn.onclick = onClick;
+				return btn;
 			}
 
 			function createSections() {
@@ -107,8 +229,8 @@
 				sections.forEach((sec) => {
 					const el = document.createElement("section");
 					el.id = sec;
-					el.className = "py-10";
-					el.innerHTML = `<h2 class='text-2xl font-bold mb-4'>${sec}</h2><div id='${sec}Grid' class='grid gap-4 grid-cols-2 md:grid-cols-2 lg:grid-cols-3'></div>`;
+					el.className = "py-10 first:pt-0"; // Ensure sections are properly spaced
+					el.innerHTML = `<h2 class='text-3xl font-bold mb-6 text-stone-600 dark:text-stone-400'>${sec}</h2><div id='${sec}Grid' class='grid gap-8 grid-cols-2 md:grid-cols-3 lg:grid-cols-4'></div>`;
 					container.appendChild(el);
 				});
 			}
@@ -118,37 +240,94 @@
 					const grid = document.getElementById(`${sec}Grid`);
 					productsByCategory[sec].forEach((p) => {
 						const card = document.createElement("div");
+						// Increased padding and rounded corners, more subtle card background
 						card.className =
-							"border border-gray-300 dark:border-gray-600 p-4 flex flex-col bg-gray-200 dark:bg-gray-600 rounded-lg shadow-md";
+							"p-5 flex flex-col bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300";
 						card.innerHTML = `
-            <img src="${p.image}" class="h-48 object-contain mb-3 shadow-lg">
-            <h3 class="font-bold mb-2">${p.name}</h3>
-            <p class="mb-3">$${p.price}</p>
-            <div class='flex items-center gap-2 mt-auto'>
-              <button class='px-3 py-1 rounded bg-blue-500 text-white hover:bg-blue-600 transition' onclick='changeQty(${p.id}, -1)'>-</button>
-              <input type='number' id='qty-${p.id}' class='border p-1 w-16 text-center rounded' value='0' min='0' max='99' onchange='setQty(${p.id}, this.value)'>
-              <button class='px-3 py-1 rounded bg-blue-500 text-white hover:bg-blue-600 transition' onclick='changeQty(${p.id}, 1)'>+</button>
-            </div>
-          `;
+				<!-- Removed shadow around the image -->
+				<div class="h-48 flex items-center justify-center mb-4 bg-gray-100 dark:bg-gray-700 rounded-lg">
+					<img src="${
+						p.image
+					}" class="max-h-full max-w-full object-contain p-2" onerror="this.onerror=null;this.src='https://placehold.co/400x400/aaaaaa/000000?text=Image+Error';" alt="${
+							p.name
+						}">
+				</div>
+				<h3 class="text-xl font-semibold mb-1">${p.name}</h3>
+				<p class="mb-3 text-lg font-bold text-stone-600 dark:text-stone-400">$${p.price.toFixed(
+					2
+				)}</p>
+				<div class='flex items-center justify-between gap-3 mt-auto pt-3 border-t border-gray-100 dark:border-gray-700'>
+					<!-- Plus/Minus buttons color fixed to match scheme, with rounded shape -->
+					<button class='h-8 w-8 flex items-center justify-center text-2xl font-light rounded-full bg-stone-500 text-white hover:bg-stone-600 dark:bg-stone-400 dark:text-gray-900 dark:hover:bg-stone-300 transition shadow-md' onclick='changeQty(${
+						p.id
+					}, -1)'>-</button>
+					
+					<!-- Replaced input with a simple span and custom styling -->
+					<span id='qty-${
+						p.id
+					}' class='text-xl font-bold w-10 text-center select-none'>${parseInt(
+							localStorage.getItem(`p_${p.id}`) || 0
+						)}</span> 
+					
+					<button class='h-8 w-8 flex items-center justify-center text-2xl font-light rounded-full bg-stone-500 text-white hover:bg-stone-600 dark:bg-stone-400 dark:text-gray-900 dark:hover:bg-stone-300 transition shadow-md' onclick='changeQty(${
+						p.id
+					}, 1)'>+</button>
+				</div>
+			`;
 						grid.appendChild(card);
 					});
 				});
 			}
 
+			// Function to dynamically set the sticky position of the tab bar
+			function setStickyPositions() {
+				const header = document.querySelector("header");
+				const tabsWrapper = document.getElementById("sticky-tabs-wrapper");
+
+				if (header && tabsWrapper) {
+					// Set the 'top' style property for the tabs wrapper based on the header's actual height.
+					// We subtract 1px to ensure a perfect, gap-free seal between the header and the tabs, fixing the visual gap.
+					tabsWrapper.style.top = `${header.offsetHeight - 1}px`;
+				}
+			}
+
 			function scrollTo(id) {
-				document.getElementById(id).scrollIntoView({ behavior: "smooth" });
+				const element = document.getElementById(id);
+				const header = document.querySelector("header");
+				const tabsWrapper = document.getElementById("sticky-tabs-wrapper");
+
+				if (element && header && tabsWrapper) {
+					// Dynamically calculate the total height of the fixed elements (Header + Tab Bar).
+					const totalOffset =
+						header.offsetHeight + tabsWrapper.offsetHeight + 1; // +1 for small padding after scroll
+
+					// Use element.offsetTop for the target section's reliable absolute position
+					const targetPosition = element.offsetTop;
+
+					// Target scroll position: Absolute position minus the height of the sticky bars.
+					window.scrollTo({
+						top: targetPosition - totalOffset,
+						behavior: "smooth",
+					});
+				} else {
+					console.error(
+						"Scroll failed: Missing target element or sticky elements."
+					);
+				}
 			}
 
 			function changeQty(id, delta) {
 				let current = parseInt(localStorage.getItem(`p_${id}`) || 0);
+				// Ensure quantity never goes below 0
 				current = Math.max(0, current + delta);
 				localStorage.setItem(`p_${id}`, current);
-				document.getElementById(`qty-${id}`).value = current;
-				updateCart();
-			}
 
-			function setQty(id, val) {
-				localStorage.setItem(`p_${id}`, val);
+				// Update the span's text content
+				const qtySpan = document.getElementById(`qty-${id}`);
+				if (qtySpan) {
+					qtySpan.textContent = current;
+				}
+
 				updateCart();
 			}
 
@@ -163,30 +342,69 @@
 
 			function showOrderSummary() {
 				const modal = document.getElementById("orderModal");
+				const modalContent = modal.querySelector("div");
 				const content = document.getElementById("orderContent");
 				let total = 0;
+				let hasItems = false;
 				content.innerHTML = "";
+
 				allProducts.forEach((p) => {
 					const qty = parseInt(localStorage.getItem(`p_${p.id}`) || 0);
 					if (qty > 0) {
+						hasItems = true;
 						const subtotal = qty * p.price;
 						total += subtotal;
 						const div = document.createElement("div");
-						div.textContent = `${p.name} x${qty} — $${subtotal}`;
+						div.className = "flex justify-between items-center";
+						div.innerHTML = `
+                            <span>${
+											p.name
+										} <span class="text-stone-500 dark:text-stone-300">x${qty}</span></span>
+                            <span class="font-medium">$${subtotal.toFixed(
+											2
+										)}</span>
+                        `;
 						content.appendChild(div);
 					}
 				});
+
+				if (!hasItems) {
+					content.innerHTML =
+						"<p class='text-center text-gray-500 dark:text-gray-400 italic'>Your order is currently empty.</p>";
+				}
+
 				document.getElementById(
 					"totalPrice"
 				).textContent = `$${total.toFixed(2)}`;
+
+				// Show the modal with transition effect
 				modal.classList.remove("hidden");
+				setTimeout(() => {
+					modalContent.classList.remove("scale-95", "opacity-0");
+					modalContent.classList.add("scale-100", "opacity-100");
+				}, 10);
 			}
 
 			function closeOrderSummary() {
-				document.getElementById("orderModal").classList.add("hidden");
+				const modal = document.getElementById("orderModal");
+				const modalContent = modal.querySelector("div");
+
+				// Hide the modal with transition effect
+				modalContent.classList.remove("scale-100", "opacity-100");
+				modalContent.classList.add("scale-95", "opacity-0");
+
+				setTimeout(() => {
+					modal.classList.add("hidden");
+				}, 300); // Match transition duration
 			}
 
-			document.addEventListener("DOMContentLoaded", fetchProducts);
+			document.addEventListener("DOMContentLoaded", () => {
+				fetchProducts();
+				// Set initial sticky positions after DOM is loaded
+				setStickyPositions();
+			});
+			// Recalculate positions if the window size changes
+			window.addEventListener("resize", setStickyPositions);
 		</script>
 	</body>
 </html>
