@@ -124,7 +124,7 @@
 				></div>
 				<div class="mt-4 flex justify-between text-2xl font-bold">
 					<span>Total:</span>
-					<span id="totalPrice">$0.00</span>
+					<span id="totalPrice">S.P. 0.00</span>
 				</div>
 
 				<form
@@ -412,7 +412,7 @@
                             <h3 class="text-xl font-semibold mb-1">${
 											p.name
 										}</h3>
-                            <p class="mb-3 text-lg font-bold text-stone-600 dark:text-stone-400">$${p.price.toFixed(
+                            <p class="mb-3 text-lg font-bold text-stone-600 dark:text-stone-400">S.P. ${p.price.toFixed(
 											2
 										)}</p>
                             <div class='flex items-center justify-between gap-3 mt-auto pt-3 border-t border-gray-100 dark:border-gray-700'>
@@ -609,7 +609,7 @@
                             <span>${
 											p.name
 										} <span class="text-stone-500 dark:text-stone-300">x${qty}</span></span>
-                            <span class="font-medium">$${subtotal.toFixed(
+                            <span class="font-medium">S.P. ${subtotal.toFixed(
 											2
 										)}</span>
                         `;
@@ -624,7 +624,7 @@
 
 				document.getElementById(
 					"totalPrice"
-				).textContent = `$${total.toFixed(2)}`;
+				).textContent = `S.P. ${total.toFixed(2)}`;
 
 				// Show the modal with transition effect
 				modal.classList.remove("hidden");
