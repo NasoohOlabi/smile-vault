@@ -16,12 +16,12 @@
 		<style>
 			/* Playfair Display for headings, Merriweather for body text */
 			body {
-				font-family: "Merriweather", serif;
+				font-family: Arial, Helvetica, sans-serif;
 			}
 			h1,
 			h2,
 			h3 {
-				font-family: "Playfair Display", serif;
+				font-family: Arial, Helvetica, sans-serif;
 			}
 			/* Remove default scrollbar from the tabs container */
 			#tabNav::-webkit-scrollbar {
@@ -30,6 +30,15 @@
 			#tabNav {
 				-ms-overflow-style: none; /* IE and Edge */
 				scrollbar-width: none; /* Firefox */
+			}
+			/* Active tab styling */
+			.tab-active {
+				color: #57534e !important; /* stone-600 */
+				border-bottom-color: #57534e !important; /* stone-600 */
+			}
+			.dark .tab-active {
+				color: #d6d3d1 !important; /* stone-300 */
+				border-bottom-color: #d6d3d1 !important; /* stone-300 */
 			}
 			@media (prefers-color-scheme: dark) {
 				:root {
@@ -52,14 +61,16 @@
 		>
 			<div class="container mx-auto flex justify-between items-center">
 				<h1 class="text-4xl font-extrabold tracking-wider">
-					DAMA
-					<span class="text-stone-600 dark:text-stone-400">STORE</span>
+					DAMA<span
+						class="text-stone-600 dark:text-stone-400 pl-2 text-3xl"
+						>OBSRV</span
+					>
 				</h1>
 				<button
 					class="px-5 py-2 text-sm font-semibold tracking-wide rounded-full bg-stone-600 text-white hover:bg-stone-700 dark:bg-stone-400 dark:text-gray-900 dark:hover:bg-stone-300 transition shadow-md"
 					onclick="showOrderSummary()"
 				>
-					VIEW ORDER (<span id="cartCount">0</span>)
+					ORDER (<span id="cartCount">0</span>)
 				</button>
 			</div>
 		</header>
@@ -71,7 +82,7 @@
 		>
 			<nav
 				id="tabNav"
-				class="container mx-auto px-4 md:px-8 flex gap-4 overflow-x-scroll whitespace-nowrap pt-2 pb-0"
+				class="container mx-auto px-4 md:px-8 flex gap-4 overflow-x-scroll whitespace-nowrap pt-2 pb-0 scroll-smooth"
 			></nav>
 		</div>
 
@@ -127,6 +138,8 @@
 			let productsByCategory = {};
 			let allProducts = [];
 			let sections = [];
+			let tabButtons = {}; // Store references to tab buttons
+			let isScrolling = false; // Flag to prevent scroll event from triggering during programmatic scroll
 
 			async function fetchProducts() {
 				// Mock data for demonstration purposes, replace with actual fetch if available
@@ -173,6 +186,69 @@
 						category: "Home Goods",
 						image: "https://placehold.co/400x400/10b981/ffffff?text=Crystal+Vase",
 					},
+					{
+						id: 7,
+						name: "Designer Sunglasses",
+						price: 180.0,
+						category: "Fashion",
+						image: "https://placehold.co/400x400/f59e0b/ffffff?text=Designer+Sunglasses",
+					},
+					{
+						id: 8,
+						name: "Leather Handbag",
+						price: 250.0,
+						category: "Fashion",
+						image: "https://placehold.co/400x400/f59e0b/ffffff?text=Leather+Handbag",
+					},
+					{
+						id: 9,
+						name: "Silk Dress",
+						price: 320.0,
+						category: "Fashion",
+						image: "https://placehold.co/400x400/f59e0b/ffffff?text=Silk+Dress",
+					},
+					{
+						id: 10,
+						name: "Ceramic Plate Set",
+						price: 85.0,
+						category: "Kitchen",
+						image: "https://placehold.co/400x400/3b82f6/ffffff?text=Ceramic+Plate+Set",
+					},
+					{
+						id: 11,
+						name: "Chef's Knife",
+						price: 120.0,
+						category: "Kitchen",
+						image: "https://placehold.co/400x400/3b82f6/ffffff?text=Chef's+Knife",
+					},
+					{
+						id: 12,
+						name: "Non-stick Pan Set",
+						price: 150.0,
+						category: "Kitchen",
+						image: "https://placehold.co/400x400/3b82f6/ffffff?text=Non-stick+Pan+Set",
+					},
+					{
+						id: 13,
+						name: "Yoga Mat",
+						price: 45.0,
+						category: "Sports",
+						image: "https://placehold.co/400x400/10b981/ffffff?text=Yoga+Mat",
+					},
+					{
+						id: 14,
+						name: "Running Shoes",
+						price: 130.0,
+						category: "Sports",
+						image: "https://placehold.co/400x400/10b981/ffffff?text=Running+Shoes",
+					},
+					{
+						id: 15,
+						name: "Water Bottle",
+						price: 25.0,
+						category: "Sports",
+						image: "https://placehold.co/400x400/10b981/ffffff?text=Water+Bottle",
+					},
 				];
 
 				// Check if products.json exists or use mock data
@@ -204,14 +280,20 @@
 			function createTabs() {
 				const nav = document.getElementById("tabNav");
 				// Added an 'All' tab
-				const allBtn = createTabButton("All Products", () =>
-					window.scrollTo({ top: 0, behavior: "smooth" })
-				);
+				const allBtn = createTabButton("All Products", () => {
+					setActiveTab("All Products");
+					window.scrollTo({ top: 0, behavior: "smooth" });
+				});
 				nav.appendChild(allBtn);
+				tabButtons["All Products"] = allBtn;
 
 				sections.forEach((sec) => {
-					const btn = createTabButton(sec, () => scrollTo(sec));
+					const btn = createTabButton(sec, () => {
+						setActiveTab(sec);
+						scrollToSection(sec);
+					});
 					nav.appendChild(btn);
+					tabButtons[sec] = btn;
 				});
 			}
 
@@ -244,36 +326,36 @@
 						card.className =
 							"p-5 flex flex-col bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300";
 						card.innerHTML = `
-				<!-- Removed shadow around the image -->
-				<div class="h-48 flex items-center justify-center mb-4 bg-gray-100 dark:bg-gray-700 rounded-lg">
-					<img src="${
-						p.image
-					}" class="max-h-full max-w-full object-contain p-2" onerror="this.onerror=null;this.src='https://placehold.co/400x400/aaaaaa/000000?text=Image+Error';" alt="${
+                <!-- Removed shadow around the image -->
+                <div class="h-48 flex items-center justify-center mb-4 bg-gray-100 dark:bg-gray-700 rounded-lg">
+                    <img src="${
+								p.image
+							}" class="max-h-full max-w-full object-contain p-2" onerror="this.onerror=null;this.src='https://placehold.co/400x400/aaaaaa/000000?text=Image+Error';" alt="${
 							p.name
 						}">
-				</div>
-				<h3 class="text-xl font-semibold mb-1">${p.name}</h3>
-				<p class="mb-3 text-lg font-bold text-stone-600 dark:text-stone-400">$${p.price.toFixed(
-					2
-				)}</p>
-				<div class='flex items-center justify-between gap-3 mt-auto pt-3 border-t border-gray-100 dark:border-gray-700'>
-					<!-- Plus/Minus buttons color fixed to match scheme, with rounded shape -->
-					<button class='h-8 w-8 flex items-center justify-center text-2xl font-light rounded-full bg-stone-500 text-white hover:bg-stone-600 dark:bg-stone-400 dark:text-gray-900 dark:hover:bg-stone-300 transition shadow-md' onclick='changeQty(${
-						p.id
-					}, -1)'>-</button>
-					
-					<!-- Replaced input with a simple span and custom styling -->
-					<span id='qty-${
-						p.id
-					}' class='text-xl font-bold w-10 text-center select-none'>${parseInt(
+                </div>
+                <h3 class="text-xl font-semibold mb-1">${p.name}</h3>
+                <p class="mb-3 text-lg font-bold text-stone-600 dark:text-stone-400">$${p.price.toFixed(
+							2
+						)}</p>
+                <div class='flex items-center justify-between gap-3 mt-auto pt-3 border-t border-gray-100 dark:border-gray-700'>
+                    <!-- Plus/Minus buttons color fixed to match scheme, with rounded shape -->
+                    <button class='h-8 w-8 flex items-center justify-center text-2xl font-light rounded-full bg-stone-500 text-white hover:bg-stone-600 dark:bg-stone-400 dark:text-gray-900 dark:hover:bg-stone-300 transition shadow-md' onclick='changeQty(${
+								p.id
+							}, -1)'>-</button>
+                    
+                    <!-- Replaced input with a simple span and custom styling -->
+                    <span id='qty-${
+								p.id
+							}' class='text-xl font-bold w-10 text-center select-none'>${parseInt(
 							localStorage.getItem(`p_${p.id}`) || 0
 						)}</span> 
-					
-					<button class='h-8 w-8 flex items-center justify-center text-2xl font-light rounded-full bg-stone-500 text-white hover:bg-stone-600 dark:bg-stone-400 dark:text-gray-900 dark:hover:bg-stone-300 transition shadow-md' onclick='changeQty(${
-						p.id
-					}, 1)'>+</button>
-				</div>
-			`;
+                    
+                    <button class='h-8 w-8 flex items-center justify-center text-2xl font-light rounded-full bg-stone-500 text-white hover:bg-stone-600 dark:bg-stone-400 dark:text-gray-900 dark:hover:bg-stone-300 transition shadow-md' onclick='changeQty(${
+								p.id
+							}, 1)'>+</button>
+                </div>
+            `;
 						grid.appendChild(card);
 					});
 				});
@@ -291,24 +373,116 @@
 				}
 			}
 
-			function scrollTo(id) {
+			// Function to scroll the tab navigation to bring a specific tab into view
+			function scrollTabIntoView(tabName) {
+				const tab = tabButtons[tabName];
+				if (!tab) return;
+
+				const tabNav = document.getElementById("tabNav");
+				const tabRect = tab.getBoundingClientRect();
+				const navRect = tabNav.getBoundingClientRect();
+
+				// Calculate the position to scroll to
+				// We want to center the tab in the visible area
+				const tabCenter = tabRect.left - navRect.left + tabRect.width / 2;
+				const navCenter = navRect.width / 2;
+				const scrollPosition = tabNav.scrollLeft + tabCenter - navCenter;
+
+				// Scroll to the calculated position with smooth behavior
+				tabNav.scrollTo({
+					left: scrollPosition,
+					behavior: "smooth",
+				});
+			}
+
+			// Function to set the active tab
+			function setActiveTab(tabName) {
+				// Remove active class from all tabs
+				Object.values(tabButtons).forEach((btn) => {
+					btn.classList.remove("tab-active");
+				});
+
+				// Add active class to the selected tab
+				if (tabButtons[tabName]) {
+					tabButtons[tabName].classList.add("tab-active");
+					// Scroll the tab into view horizontally
+					scrollTabIntoView(tabName);
+				}
+			}
+
+			// Function to determine which section is currently in view
+			function updateActiveTabOnScroll() {
+				if (isScrolling) return; // Skip if we're in the middle of a programmatic scroll
+
+				const header = document.querySelector("header");
+				const tabsWrapper = document.getElementById("sticky-tabs-wrapper");
+				const headerHeight = header.offsetHeight;
+				const tabsHeight = tabsWrapper.offsetHeight;
+				const totalOffset = headerHeight + tabsHeight;
+
+				// Get current scroll position
+				const scrollPosition = window.scrollY + totalOffset + 100; // Add 100px for better detection
+
+				// Check if we're at the top of the page
+				if (scrollPosition <= totalOffset + 100) {
+					setActiveTab("All Products");
+					return;
+				}
+
+				// Find which section is currently in view
+				let currentSection = "";
+				sections.forEach((sec) => {
+					const section = document.getElementById(sec);
+					if (section) {
+						const sectionTop = section.offsetTop;
+						const sectionBottom = sectionTop + section.offsetHeight;
+
+						if (
+							scrollPosition >= sectionTop &&
+							scrollPosition < sectionBottom
+						) {
+							currentSection = sec;
+						}
+					}
+				});
+
+				if (currentSection) {
+					setActiveTab(currentSection);
+				}
+			}
+
+			// Renamed function to avoid conflict with window.scrollTo
+			function scrollToSection(id) {
 				const element = document.getElementById(id);
 				const header = document.querySelector("header");
 				const tabsWrapper = document.getElementById("sticky-tabs-wrapper");
 
 				if (element && header && tabsWrapper) {
-					// Dynamically calculate the total height of the fixed elements (Header + Tab Bar).
-					const totalOffset =
-						header.offsetHeight + tabsWrapper.offsetHeight + 1; // +1 for small padding after scroll
+					// Set flag to prevent scroll event from triggering
+					isScrolling = true;
 
-					// Use element.offsetTop for the target section's reliable absolute position
-					const targetPosition = element.offsetTop;
+					// Calculate the total height of the fixed elements (Header + Tab Bar)
+					const headerHeight = header.offsetHeight;
+					const tabsHeight = tabsWrapper.offsetHeight;
+					const totalOffset = headerHeight + tabsHeight;
 
-					// Target scroll position: Absolute position minus the height of the sticky bars.
+					// Get the element's position relative to the document
+					const elementPosition =
+						element.getBoundingClientRect().top + window.pageYOffset;
+
+					// Calculate the final scroll position
+					const offsetPosition = elementPosition - totalOffset;
+
+					// Scroll to the calculated position
 					window.scrollTo({
-						top: targetPosition - totalOffset,
+						top: offsetPosition,
 						behavior: "smooth",
 					});
+
+					// Reset flag after scroll completes
+					setTimeout(() => {
+						isScrolling = false;
+					}, 1000); // Give enough time for smooth scroll to complete
 				} else {
 					console.error(
 						"Scroll failed: Missing target element or sticky elements."
@@ -402,6 +576,12 @@
 				fetchProducts();
 				// Set initial sticky positions after DOM is loaded
 				setStickyPositions();
+
+				// Set initial active tab
+				setActiveTab("All Products");
+
+				// Add scroll event listener to update active tab
+				window.addEventListener("scroll", updateActiveTabOnScroll);
 			});
 			// Recalculate positions if the window size changes
 			window.addEventListener("resize", setStickyPositions);
