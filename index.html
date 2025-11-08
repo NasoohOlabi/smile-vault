@@ -4,17 +4,17 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>DAMA STORE - Anarchy in Your Cart</title>
-		<script src="https://cdn.tailwindcss.com"></script>
-		<script src="https://unpkg.com/htmx.org@1.9.10"></script>
+		<script src="https://cdn.tailwindcss.com "></script>
+		<script src="https://unpkg.com/htmx.org@1.9.10 "></script>
 		<link
-			href="https://fonts.googleapis.com/css2?family=Rubik+Mono+One&family=Permanent+Marker&family=Bungee&display=swap"
+			href="https://fonts.googleapis.com/css2?family=Rubik+Mono+One&family=Permanent+Marker&family=Bungee&display=swap "
 			rel="stylesheet"
 		/>
 		<link
 			rel="stylesheet"
-			href="https://cdn.jsdelivr.net/npm/firetoast@2.0.3/dist/firetoast.min.css"
+			href="https://cdn.jsdelivr.net/npm/firetoast@2.0.3/dist/firetoast.min.css "
 		/>
-		<script src="https://cdn.jsdelivr.net/npm/firetoast@2.0.3/dist/firetoast.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/firetoast@2.0.3/dist/firetoast.min.js "></script>
 		<style>
 			body {
 				background: #0a0a0a;
@@ -50,6 +50,260 @@
 			.modal-backdrop {
 				background: rgba(0, 0, 0, 0.9);
 			}
+
+			/* Tab navigation styles */
+			.tab-nav {
+				display: flex;
+				justify-content: center;
+				margin-bottom: 2rem;
+				border-bottom: 2px solid #ff006e;
+				position: sticky;
+				top: 0;
+				background: #0a0a0a;
+				z-index: 40;
+				padding: 1rem 0;
+				box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+				overflow-x: auto;
+			}
+
+			.tab-btn {
+				padding: 0.75rem 2rem;
+				font-family: "Rubik Mono One", monospace;
+				text-transform: uppercase;
+				color: #ffbe0b;
+				border: none;
+				background: transparent;
+				cursor: pointer;
+				position: relative;
+				transition: all 0.3s;
+				font-size: 1.1rem;
+				white-space: nowrap;
+			}
+
+			.tab-btn:hover {
+				color: #ff006e;
+				transform: translateY(-2px);
+			}
+
+			.tab-btn.active {
+				color: #ff006e;
+			}
+
+			.tab-btn.active::after {
+				content: "";
+				position: absolute;
+				bottom: -2px;
+				left: 0;
+				width: 100%;
+				height: 3px;
+				background: #ff006e;
+				animation: pulse 2s infinite;
+			}
+
+			@keyframes pulse {
+				0% {
+					opacity: 1;
+				}
+				50% {
+					opacity: 0.7;
+				}
+				100% {
+					opacity: 1;
+				}
+			}
+
+			/* Section styles */
+			.category-section {
+				min-height: 100vh;
+				padding: 4rem 0;
+				position: relative;
+			}
+
+			.category-header {
+				text-align: center;
+				margin-bottom: 3rem;
+				position: relative;
+			}
+
+			.category-icon {
+				font-size: 4rem;
+				margin-bottom: 1rem;
+				display: inline-block;
+				animation: float 3s ease-in-out infinite;
+			}
+
+			@keyframes float {
+				0%,
+				100% {
+					transform: translateY(0px);
+				}
+				50% {
+					transform: translateY(-10px);
+				}
+			}
+
+			.product-card {
+				transition: all 0.3s;
+				position: relative;
+				overflow: hidden;
+			}
+
+			.product-card::before {
+				content: "";
+				position: absolute;
+				top: 0;
+				left: -100%;
+				width: 100%;
+				height: 100%;
+				background: linear-gradient(
+					90deg,
+					transparent,
+					rgba(255, 0, 110, 0.2),
+					transparent
+				);
+				transition: left 0.5s;
+			}
+
+			.product-card:hover::before {
+				left: 100%;
+			}
+
+			.product-card:hover {
+				transform: translateY(-5px) scale(1.02);
+				box-shadow: 0 10px 30px rgba(255, 0, 110, 0.3);
+			}
+
+			/* Scroll indicator */
+			.scroll-indicator {
+				position: fixed;
+				bottom: 30px;
+				right: 30px;
+				background: rgba(255, 0, 110, 0.9);
+				padding: 15px 25px;
+				border-radius: 30px;
+				font-family: "Rubik Mono One", monospace;
+				z-index: 30;
+				animation: bounce 2s infinite;
+				cursor: pointer;
+				transition: all 0.3s;
+			}
+
+			.scroll-indicator:hover {
+				background: #ff006e;
+				transform: scale(1.1);
+			}
+
+			@keyframes bounce {
+				0%,
+				20%,
+				50%,
+				80%,
+				100% {
+					transform: translateY(0);
+				}
+				40% {
+					transform: translateY(-10px);
+				}
+				60% {
+					transform: translateY(-5px);
+				}
+			}
+
+			/* Section dividers */
+			.section-divider {
+				height: 100px;
+				position: relative;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				margin: 2rem 0;
+			}
+
+			.section-divider::before {
+				content: "⚡";
+				font-size: 3rem;
+				color: #ff006e;
+				animation: rotate 4s linear infinite;
+			}
+
+			@keyframes rotate {
+				from {
+					transform: rotate(0deg);
+				}
+				to {
+					transform: rotate(360deg);
+				}
+			}
+
+			/* Smooth scroll behavior */
+			html {
+				scroll-behavior: smooth;
+			}
+
+			/* Back to top button */
+			.back-to-top {
+				position: fixed;
+				bottom: 30px;
+				left: 30px;
+				background: rgba(255, 190, 11, 0.9);
+				color: black;
+				padding: 15px 20px;
+				border-radius: 30px;
+				font-family: "Rubik Mono One", monospace;
+				z-index: 30;
+				cursor: pointer;
+				transition: all 0.3s;
+				display: none;
+			}
+
+			.back-to-top:hover {
+				background: #ffbe0b;
+				transform: scale(1.1);
+			}
+
+			.back-to-top.show {
+				display: block;
+			}
+
+			/* Loading indicator */
+			.loading {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				height: 200px;
+			}
+
+			.loading-spinner {
+				width: 50px;
+				height: 50px;
+				border: 5px solid rgba(255, 0, 110, 0.3);
+				border-radius: 50%;
+				border-top-color: #ff006e;
+				animation: spin 1s ease-in-out infinite;
+			}
+
+			@keyframes spin {
+				to {
+					transform: rotate(360deg);
+				}
+			}
+
+			/* Debug console */
+			.debug-console {
+				position: fixed;
+				bottom: 100px;
+				right: 30px;
+				background: rgba(0, 0, 0, 0.8);
+				color: #0f0;
+				font-family: monospace;
+				padding: 10px;
+				border-radius: 5px;
+				max-width: 300px;
+				max-height: 200px;
+				overflow-y: auto;
+				z-index: 100;
+				font-size: 12px;
+			}
 		</style>
 	</head>
 	<body class="min-h-screen">
@@ -66,7 +320,7 @@
 						class="text-yellow-400 text-xl"
 						style="font-family: 'Rubik Mono One', monospace"
 					>
-						🎸 NO RULES, NO REGRETS 🎸
+						🎸شركة نصوح المتحدة 🎸
 					</p>
 				</div>
 				<button
@@ -83,18 +337,39 @@
 			</div>
 		</header>
 
-		<main class="container mx-auto px-4 py-8">
+		<main class="container mx-auto px-4">
 			<div class="text-center mb-8">
 				<button onclick="resetAll()" class="btn-punk px-6 py-3 text-lg">
 					💣 RESET ALL 💣
 				</button>
 			</div>
 
-			<div
-				id="productsGrid"
-				class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
-			></div>
+			<!-- Dynamic Tab Navigation -->
+			<nav id="tabNav" class="tab-nav">
+				<!-- Tabs will be dynamically generated -->
+			</nav>
+
+			<!-- Dynamic Sections Container -->
+			<div id="sectionsContainer">
+				<!-- Sections will be dynamically generated -->
+			</div>
 		</main>
+
+		<!-- Scroll Indicator -->
+		<div class="scroll-indicator" onclick="scrollToNextSection()">
+			<span id="scrollText">SCROLL DOWN →</span>
+		</div>
+
+		<!-- Back to Top Button -->
+		<div class="back-to-top" id="backToTop" onclick="scrollToTop()">
+			↑ BACK TO TOP
+		</div>
+
+		<!-- Debug Console -->
+		<div id="debugConsole" class="debug-console">
+			<div>Debug Console:</div>
+			<div id="debugLog"></div>
+		</div>
 
 		<div
 			id="orderModal"
@@ -129,7 +404,7 @@
 
 						<form
 							id="orderForm"
-							hx-post="https://sheetdb.io/api/v1/jog7er8l976bz"
+							hx-post="https://sheetdb.io/api/v1/jog7er8l976bz "
 							hx-trigger="submit"
 							hx-target="#orderResponse"
 							hx-swap="innerHTML"
@@ -177,85 +452,295 @@
 		</div>
 
 		<script>
-			const products = [
-				{
-					id: 1,
-					name: "ANARCHY TEE",
-					price: 29.99,
-					image: "https://picsum.photos/seed/punk1/300/300",
-				},
-				{
-					id: 2,
-					name: "SAFETY PIN JACKET",
-					price: 89.99,
-					image: "https://picsum.photos/seed/punk2/300/300",
-				},
-				{
-					id: 3,
-					name: "RIPPED JEANS",
-					price: 59.99,
-					image: "https://picsum.photos/seed/punk3/300/300",
-				},
-				{
-					id: 4,
-					name: "COMBAT BOOTS",
-					price: 129.99,
-					image: "https://picsum.photos/seed/punk4/300/300",
-				},
-				{
-					id: 5,
-					name: "SPIKE BRACELET",
-					price: 19.99,
-					image: "https://picsum.photos/seed/punk5/300/300",
-				},
-				{
-					id: 6,
-					name: "LEATHER JACKET",
-					price: 199.99,
-					image: "https://picsum.photos/seed/punk6/300/300",
-				},
-				{
-					id: 7,
-					name: "CHAIN WALLET",
-					price: 34.99,
-					image: "https://picsum.photos/seed/punk7/300/300",
-				},
-				{
-					id: 8,
-					name: "SKULL TEE",
-					price: 24.99,
-					image: "https://picsum.photos/seed/punk8/300/300",
-				},
-			];
+			// Product data will be loaded from JSON
+			let productsByCategory = {};
+			let allProducts = [];
+			let sections = [];
+			let currentSection = 0;
 
-			function initializeProducts() {
-				const grid = document.getElementById("productsGrid");
-				grid.innerHTML = "";
-
-				products.forEach((product) => {
-					const savedQuantity =
-						localStorage.getItem(`product_${product.id}`) || "0";
-					const productCard = document.createElement("div");
-					productCard.className = "grunge-border p-4 bg-gray-900";
-					productCard.innerHTML = `
-          <div class="relative">
-            <img src="${product.image}" alt="${product.name}" class="w-full h-64 object-cover">
-            <div class="absolute top-2 right-2"><span class="price-tag">$${product.price}</span></div>
-          </div>
-          <h3 class="text-xl font-bold mt-4 text-yellow-400" style="font-family: 'Rubik Mono One', monospace;">${product.name}</h3>
-          <div class="mt-4 flex items-center justify-center space-x-4">
-            <button onclick="updateQuantity(${product.id}, -1)" class="bg-pink-500 hover:bg-pink-600 text-black w-10 h-10 font-bold text-xl">-</button>
-            <input type="number" id="qty-${product.id}" value="${savedQuantity}" min="0" max="99" onchange="setQuantity(${product.id}, this.value)" class="bg-transparent text-center text-2xl font-bold text-yellow-400 w-16 focus:outline-none" />
-            <button onclick="updateQuantity(${product.id}, 1)" class="bg-green-500 hover:bg-green-600 text-black w-10 h-10 font-bold text-xl">+</button>
-          </div>
-        `;
-					grid.appendChild(productCard);
-				});
-				updateCartCount();
+			// Debug logging function
+			function debugLog(message) {
+				const debugLogElement = document.getElementById("debugLog");
+				const timestamp = new Date().toLocaleTimeString();
+				debugLogElement.innerHTML += `<div>[${timestamp}] ${message}</div>`;
+				debugLogElement.scrollTop = debugLogElement.scrollHeight;
+				console.log(message);
 			}
 
+			// Fetch products from JSON file
+			async function fetchProducts() {
+				debugLog("Starting to fetch products...");
+				try {
+					const response = await fetch("./products.json");
+					if (!response.ok) {
+						throw new Error(`HTTP error! status: ${response.status}`);
+					}
+					const data = await response.json();
+					debugLog(`Successfully fetched ${data.length} products`);
+
+					// Group products by category
+					data.forEach((product) => {
+						const category = product.category;
+						if (!productsByCategory[category]) {
+							productsByCategory[category] = [];
+						}
+						productsByCategory[category].push(product);
+					});
+
+					// Get all unique categories
+					sections = Object.keys(productsByCategory);
+					debugLog(
+						`Found ${sections.length} categories: ${sections.join(", ")}`
+					);
+
+					// Combine all products for cart functionality
+					allProducts = data;
+
+					// Create dynamic tabs and sections
+					createTabsAndSections();
+
+					// Initialize products after data is loaded
+					initializeProducts();
+				} catch (error) {
+					debugLog(`Error loading products: ${error.message}`);
+					console.error("Error loading products:", error);
+					// Display error message
+					displayErrorMessage();
+				}
+			}
+
+			// Create tabs and sections dynamically based on categories
+			function createTabsAndSections() {
+				debugLog("Creating tabs and sections...");
+
+				// Create tabs
+				const tabNav = document.getElementById("tabNav");
+				tabNav.innerHTML = "";
+
+				sections.forEach((section, index) => {
+					const tabBtn = document.createElement("button");
+					tabBtn.className = `tab-btn ${index === 0 ? "active" : ""}`;
+					tabBtn.textContent = section.toUpperCase();
+					tabBtn.onclick = () => scrollToSection(section);
+					tabNav.appendChild(tabBtn);
+				});
+
+				// Create sections
+				const sectionsContainer =
+					document.getElementById("sectionsContainer");
+				sectionsContainer.innerHTML = "";
+
+				sections.forEach((section, index) => {
+					const sectionElement = document.createElement("section");
+					sectionElement.id = section;
+					sectionElement.className = "category-section";
+
+					// Add section divider except for first section
+					if (index > 0) {
+						const divider = document.createElement("div");
+						divider.className = "section-divider";
+						sectionsContainer.appendChild(divider);
+					}
+
+					sectionElement.innerHTML = `
+                        <div class="category-header">
+                            <div class="category-icon">${getCategoryIcon(
+											section
+										)}</div>
+                            <h2 class="text-5xl text-pink-500 font-bold" style="font-family: 'Bungee', cursive">
+                                ${section.toUpperCase()} COLLECTION
+                            </h2>
+                            <p class="text-yellow-400 mt-2 text-xl">
+                                ${getCategoryDescription(section)}
+                            </p>
+                        </div>
+                        <div id="${section}Grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                            <div class="loading">
+                                <div class="loading-spinner"></div>
+                            </div>
+                        </div>
+                    `;
+
+					sectionsContainer.appendChild(sectionElement);
+				});
+
+				debugLog("Tabs and sections created successfully");
+			}
+
+			// Get appropriate icon for category
+			function getCategoryIcon(category) {
+				const icons = {
+					backboneAndStories: "📚",
+					blackAndWhite: "⚫",
+					life: "🌱",
+					newThings: "✨",
+					nostalgia: "🕰️",
+				};
+				return icons[category] || "📦";
+			}
+
+			// Get appropriate description for category
+			function getCategoryDescription(category) {
+				const descriptions = {
+					backboneAndStories:
+						"Stories that form the backbone of our culture",
+					blackAndWhite: "Classic monochrome designs",
+					life: "Capturing the essence of life",
+					newThings: "Fresh designs and new perspectives",
+					nostalgia: "Relive memories from the past",
+				};
+				return descriptions[category] || "Explore our collection";
+			}
+
+			// Display error message when products can't be loaded
+			function displayErrorMessage() {
+				const sectionsContainer =
+					document.getElementById("sectionsContainer");
+				sectionsContainer.innerHTML = `
+                    <div class="col-span-full text-center text-red-500 p-8">
+                        <p class="text-xl">Failed to load products. Please try again later.</p>
+                    </div>
+                `;
+			}
+
+			// Initialize products
+			function initializeProducts() {
+				debugLog("Initializing products...");
+
+				sections.forEach((section) => {
+					const grid = document.getElementById(`${section}Grid`);
+					if (!grid) {
+						debugLog(`Grid not found for section: ${section}`);
+						return;
+					}
+
+					grid.innerHTML = "";
+					const products = productsByCategory[section];
+
+					if (!products || products.length === 0) {
+						debugLog(`No products found for section: ${section}`);
+						grid.innerHTML = `
+                            <div class="col-span-full text-center text-gray-400 p-8">
+                                <p class="text-xl">No products available in this category</p>
+                            </div>
+                        `;
+						return;
+					}
+
+					debugLog(
+						`Adding ${products.length} products to ${section} section`
+					);
+
+					products.forEach((product) => {
+						grid.appendChild(createProductCard(product));
+					});
+				});
+
+				updateCartCount();
+				debugLog("Products initialized successfully");
+			}
+
+			// Create product card element
+			function createProductCard(product) {
+				const savedQuantity =
+					localStorage.getItem(`product_${product.id}`) || "0";
+				const productCard = document.createElement("div");
+				productCard.className =
+					"grunge-border p-4 bg-gray-900 product-card";
+				productCard.innerHTML = `
+                    <div class="relative">
+                        <img src="${product.image}" alt="${product.name}" class="w-full h-64 object-contain">
+                        <div class="absolute top-2 right-2"><span class="price-tag">$${product.price}</span></div>
+                    </div>
+                    <h3 class="text-xl font-bold mt-4 text-yellow-400" style="font-family: 'Rubik Mono One', monospace;">${product.name}</h3>
+                    <div class="mt-4 flex items-center justify-center space-x-4">
+                        <button onclick="updateQuantity(${product.id}, -1)" class="bg-pink-500 hover:bg-pink-600 text-black w-10 h-10 font-bold text-xl">-</button>
+                        <input type="number" id="qty-${product.id}" value="${savedQuantity}" min="0" max="99" onchange="setQuantity(${product.id}, this.value)" class="bg-transparent text-center text-2xl font-bold text-yellow-400 w-16 focus:outline-none" />
+                        <button onclick="updateQuantity(${product.id}, 1)" class="bg-green-500 hover:bg-green-600 text-black w-10 h-10 font-bold text-xl">+</button>
+                    </div>
+                `;
+				return productCard;
+			}
+
+			// Scroll to specific section
+			function scrollToSection(sectionId) {
+				debugLog(`Scrolling to section: ${sectionId}`);
+				const section = document.getElementById(sectionId);
+				if (section) {
+					section.scrollIntoView({ behavior: "smooth", block: "start" });
+				} else {
+					debugLog(`Section not found: ${sectionId}`);
+				}
+			}
+
+			// Scroll to next section
+			function scrollToNextSection() {
+				currentSection = (currentSection + 1) % sections.length;
+				scrollToSection(sections[currentSection]);
+			}
+
+			// Scroll to top
+			function scrollToTop() {
+				window.scrollTo({ top: 0, behavior: "smooth" });
+			}
+
+			// Update active tab based on scroll position
+			function updateActiveTab() {
+				const scrollPosition = window.scrollY + 100;
+
+				sections.forEach((sectionId, index) => {
+					const section = document.getElementById(sectionId);
+					if (section) {
+						const sectionTop = section.offsetTop;
+						const sectionBottom = sectionTop + section.offsetHeight;
+
+						if (
+							scrollPosition >= sectionTop &&
+							scrollPosition < sectionBottom
+						) {
+							currentSection = index;
+							updateTabButtons(index);
+							updateScrollIndicator(index);
+						}
+					}
+				});
+
+				// Show/hide back to top button
+				const backToTop = document.getElementById("backToTop");
+				if (window.scrollY > 500) {
+					backToTop.classList.add("show");
+				} else {
+					backToTop.classList.remove("show");
+				}
+			}
+
+			// Update tab button active state
+			function updateTabButtons(activeIndex) {
+				const tabBtns = document.querySelectorAll(".tab-btn");
+				tabBtns.forEach((btn, index) => {
+					if (index === activeIndex) {
+						btn.classList.add("active");
+					} else {
+						btn.classList.remove("active");
+					}
+				});
+			}
+
+			// Update scroll indicator text
+			function updateScrollIndicator(index) {
+				const scrollText = document.getElementById("scrollText");
+				if (index === sections.length - 1) {
+					scrollText.textContent = "↑ BACK TO TOP";
+				} else {
+					scrollText.textContent = "SCROLL DOWN →";
+				}
+			}
+
+			// Product functions
 			function updateQuantity(id, change) {
 				const input = document.getElementById(`qty-${id}`);
+				if (!input) return;
+
 				let newValue = parseInt(input.value) + change;
 				newValue = Math.max(0, Math.min(99, newValue));
 				input.value = newValue;
@@ -264,15 +749,18 @@
 			}
 
 			function setQuantity(id, value) {
+				const input = document.getElementById(`qty-${id}`);
+				if (!input) return;
+
 				const newValue = Math.max(0, Math.min(99, parseInt(value) || 0));
-				document.getElementById(`qty-${id}`).value = newValue;
+				input.value = newValue;
 				localStorage.setItem(`product_${id}`, newValue);
 				updateCartCount();
 			}
 
 			function updateCartCount() {
 				let total = 0;
-				products.forEach(
+				allProducts.forEach(
 					(p) =>
 						(total += parseInt(
 							localStorage.getItem(`product_${p.id}`) || "0"
@@ -282,7 +770,7 @@
 			}
 
 			function resetAll() {
-				products.forEach((p) => {
+				allProducts.forEach((p) => {
 					localStorage.removeItem(`product_${p.id}`);
 					const input = document.getElementById(`qty-${p.id}`);
 					if (input) input.value = "0";
@@ -296,7 +784,7 @@
 				let total = 0;
 				content.innerHTML = "";
 
-				products.forEach((product) => {
+				allProducts.forEach((product) => {
 					const qty = parseInt(
 						localStorage.getItem(`product_${product.id}`) || "0"
 					);
@@ -337,7 +825,7 @@
 					const timestamp = new Date().toISOString();
 					let sheetData = [];
 
-					products.forEach((p) => {
+					allProducts.forEach((p) => {
 						const qty = parseInt(
 							localStorage.getItem(`product_${p.id}`) || "0"
 						);
@@ -384,10 +872,44 @@
 				});
 			});
 
-			document.addEventListener("DOMContentLoaded", initializeProducts);
+			// Event listeners
+			document.addEventListener("DOMContentLoaded", () => {
+				debugLog("DOM loaded, initializing...");
+				// Fetch products from JSON file
+				fetchProducts();
+				updateActiveTab();
+				a;
+			});
+
+			window.addEventListener("scroll", updateActiveTab);
+
 			document.addEventListener("keydown", (e) => {
 				if (e.key === "Escape") closeOrderSummary();
+				if (e.key === "ArrowDown") {
+					e.preventDefault();
+					scrollToNextSection();
+				}
+				if (e.key === "ArrowUp") {
+					e.preventDefault();
+					if (currentSection > 0) {
+						currentSection--;
+						scrollToSection(sections[currentSection]);
+					} else {
+						scrollToTop();
+					}
+				}
 			});
+
+			// Handle scroll indicator click
+			document
+				.querySelector(".scroll-indicator")
+				.addEventListener("click", () => {
+					if (currentSection === sections.length - 1) {
+						scrollToTop();
+					} else {
+						scrollToNextSection();
+					}
+				});
 		</script>
 	</body>
 </html>
