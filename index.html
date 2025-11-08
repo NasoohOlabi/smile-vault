@@ -8,7 +8,6 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Refined Store</title>
 		<script src="https://cdn.tailwindcss.com"></script>
-		<!-- Swapping Inter for a more creative, elegant font combination -->
 		<link
 			href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Merriweather:wght@300;400;700&display=swap"
 			rel="stylesheet"
@@ -55,7 +54,6 @@
 	<body
 		class="min-h-screen transition-colors duration-300 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100"
 	>
-		<!-- HEADER: Now sticky at the top with high Z-index -->
 		<header
 			class="sticky top-0 z-30 p-6 border-b border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-800 shadow-lg"
 		>
@@ -75,7 +73,6 @@
 			</div>
 		</header>
 
-		<!-- TAB BAR: Made sticky, top position set dynamically for perfect alignment -->
 		<div
 			id="sticky-tabs-wrapper"
 			class="sticky z-20 bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-800 py-2"
@@ -86,18 +83,16 @@
 			></nav>
 		</div>
 
-		<!-- MAIN CONTENT: top padding removed (pt-0) as the sticky tab bar now provides necessary spacing -->
 		<main class="container mx-auto p-4 md:p-8 pt-0">
 			<div id="sectionsContainer" class="mt-6"></div>
 		</main>
 
-		<!-- Order Summary Modal -->
 		<div
 			id="orderModal"
-			class="fixed inset-0 hidden items-center justify-center bg-black/60 z-50 p-4"
+			class="fixed inset-0 hidden flex items-center justify-center bg-black/60 z-50 p-4"
 		>
 			<div
-				class="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 p-6 max-w-xl w-full relative rounded-xl shadow-2xl transition-all duration-300 transform scale-95 opacity-0"
+				class="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 p-6 max-w-xl w-full relative rounded-xl shadow-2xl transition-all duration-300 transform scale-95 opacity-0 overflow-y-auto max-h-[90vh]"
 			>
 				<button
 					class="absolute top-4 right-4 text-xl text-gray-500 dark:text-gray-400 hover:text-red-500 transition"
@@ -131,6 +126,86 @@
 					<span>Total:</span>
 					<span id="totalPrice">$0.00</span>
 				</div>
+
+				<form
+					id="orderForm"
+					class="mt-6 space-y-4"
+					onsubmit="submitOrder(event)"
+				>
+					<div>
+						<label
+							class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+						>
+							Name
+						</label>
+						<input
+							type="text"
+							id="customerName"
+							class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-stone-500 dark:bg-gray-700 dark:text-white"
+							placeholder="Your Name"
+						/>
+					</div>
+					<div>
+						<label
+							class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+						>
+							Phone
+						</label>
+						<input
+							type="tel"
+							id="phone"
+							class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-stone-500 dark:bg-gray-700 dark:text-white"
+							placeholder="09XXXXXXXX"
+						/>
+					</div>
+					<div>
+						<label
+							class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+						>
+							Insta Account
+						</label>
+						<input
+							type="text"
+							id="instaAccount"
+							class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-stone-500 dark:bg-gray-700 dark:text-white"
+							placeholder="@yourhandle"
+						/>
+					</div>
+					<div>
+						<label
+							class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+						>
+							Shipping Address
+						</label>
+						<textarea
+							id="customerAddress"
+							rows="3"
+							class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-stone-500 dark:bg-gray-700 dark:text-white"
+							placeholder="123 Main St, City, State 12345"
+						></textarea>
+					</div>
+					<div>
+						<label
+							class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+						>
+							Order Notes (Optional)
+						</label>
+						<textarea
+							id="orderNotes"
+							rows="2"
+							class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-stone-500 dark:bg-gray-700 dark:text-white"
+							placeholder="Special instructions..."
+						></textarea>
+					</div>
+					<div id="orderResponse" class="mt-2"></div>
+					<button
+						type="submit"
+						id="submitBtn"
+						class="w-full px-5 py-3 text-sm font-semibold tracking-wide rounded-full bg-stone-600 text-white hover:bg-stone-700 dark:bg-stone-400 dark:text-gray-900 dark:hover:bg-stone-300 transition shadow-md"
+					>
+						Submit Order
+					</button>
+				</form>
 			</div>
 		</div>
 
@@ -325,37 +400,35 @@
 						// Increased padding and rounded corners, more subtle card background
 						card.className =
 							"p-5 flex flex-col bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300";
+						// FIXED BUTTONS ISSUE: The HTML template is now clean without leading/trailing whitespace around the span/buttons.
 						card.innerHTML = `
-                <!-- Removed shadow around the image -->
-                <div class="h-48 flex items-center justify-center mb-4 bg-gray-100 dark:bg-gray-700 rounded-lg">
-                    <img src="${
-								p.image
-							}" class="max-h-full max-w-full object-contain p-2" onerror="this.onerror=null;this.src='https://placehold.co/400x400/aaaaaa/000000?text=Image+Error';" alt="${
+                            <div class="h-48 flex items-center justify-center mb-4 bg-gray-100 dark:bg-gray-700 rounded-lg">
+                                <img src="${
+												p.image
+											}" class="max-h-full max-w-full object-contain p-2" onerror="this.onerror=null;this.src='https://placehold.co/400x400/aaaaaa/000000?text=Image+Error';" alt="${
 							p.name
 						}">
-                </div>
-                <h3 class="text-xl font-semibold mb-1">${p.name}</h3>
-                <p class="mb-3 text-lg font-bold text-stone-600 dark:text-stone-400">$${p.price.toFixed(
-							2
-						)}</p>
-                <div class='flex items-center justify-between gap-3 mt-auto pt-3 border-t border-gray-100 dark:border-gray-700'>
-                    <!-- Plus/Minus buttons color fixed to match scheme, with rounded shape -->
-                    <button class='h-8 w-8 flex items-center justify-center text-2xl font-light rounded-full bg-stone-500 text-white hover:bg-stone-600 dark:bg-stone-400 dark:text-gray-900 dark:hover:bg-stone-300 transition shadow-md' onclick='changeQty(${
-								p.id
-							}, -1)'>-</button>
-                    
-                    <!-- Replaced input with a simple span and custom styling -->
-                    <span id='qty-${
-								p.id
-							}' class='text-xl font-bold w-10 text-center select-none'>${parseInt(
+                            </div>
+                            <h3 class="text-xl font-semibold mb-1">${
+											p.name
+										}</h3>
+                            <p class="mb-3 text-lg font-bold text-stone-600 dark:text-stone-400">$${p.price.toFixed(
+											2
+										)}</p>
+                            <div class='flex items-center justify-between gap-3 mt-auto pt-3 border-t border-gray-100 dark:border-gray-700'>
+                                <button class='h-8 w-8 flex items-center justify-center text-2xl font-light rounded-full bg-stone-500 text-white hover:bg-stone-600 dark:bg-stone-400 dark:text-gray-900 dark:hover:bg-stone-300 transition shadow-md' onclick='changeQty(${
+												p.id
+											}, -1)'>-</button>
+                                <span id='qty-${
+												p.id
+											}' class='text-xl font-bold w-10 text-center select-none'>${parseInt(
 							localStorage.getItem(`p_${p.id}`) || 0
-						)}</span> 
-                    
-                    <button class='h-8 w-8 flex items-center justify-center text-2xl font-light rounded-full bg-stone-500 text-white hover:bg-stone-600 dark:bg-stone-400 dark:text-gray-900 dark:hover:bg-stone-300 transition shadow-md' onclick='changeQty(${
-								p.id
-							}, 1)'>+</button>
-                </div>
-            `;
+						)}</span>
+                                <button class='h-8 w-8 flex items-center justify-center text-2xl font-light rounded-full bg-stone-500 text-white hover:bg-stone-600 dark:bg-stone-400 dark:text-gray-900 dark:hover:bg-stone-300 transition shadow-md' onclick='changeQty(${
+												p.id
+											}, 1)'>+</button>
+                            </div>
+                        `;
 						grid.appendChild(card);
 					});
 				});
@@ -521,6 +594,8 @@
 				let total = 0;
 				let hasItems = false;
 				content.innerHTML = "";
+				// Clear response on opening
+				document.getElementById("orderResponse").innerHTML = "";
 
 				allProducts.forEach((p) => {
 					const qty = parseInt(localStorage.getItem(`p_${p.id}`) || 0);
@@ -570,6 +645,185 @@
 				setTimeout(() => {
 					modal.classList.add("hidden");
 				}, 300); // Match transition duration
+			}
+
+			// Function to submit the order
+			function submitOrder(event) {
+				event.preventDefault();
+
+				const submitBtn = document.getElementById("submitBtn");
+				const originalText = submitBtn.textContent;
+				const responseDiv = document.getElementById("orderResponse");
+
+				// Clear previous response
+				responseDiv.innerHTML = "";
+
+				// Collect form values
+				const customerName = document
+					.getElementById("customerName")
+					.value.trim();
+				const phone = document.getElementById("phone").value.trim();
+				const instaAccount = document
+					.getElementById("instaAccount")
+					.value.trim();
+				const customerAddress = document
+					.getElementById("customerAddress")
+					.value.trim();
+				const orderNotes = document
+					.getElementById("orderNotes")
+					.value.trim();
+				const timestamp = new Date().toISOString();
+
+				// --- FRONT-END VALIDATION LOGIC ---
+				const requiredFields = {
+					Name: customerName,
+					Phone: phone,
+					"Insta Account": instaAccount,
+					"Shipping Address": customerAddress,
+				};
+
+				let missingFields = [];
+				for (const [key, value] of Object.entries(requiredFields)) {
+					if (value === "" || (key === "Phone" && value.length !== 10)) {
+						missingFields.push(key);
+					}
+				}
+
+				if (missingFields.length > 0) {
+					const missingFieldsStr = missingFields.join(", ");
+					const errorMessage = `Please fill out all mandatory fields: **${missingFieldsStr}**.`;
+
+					// Display error message in the modal (now replacing the FireToast logic)
+					responseDiv.innerHTML = `
+                        <div class="p-3 bg-yellow-100 dark:bg-yellow-900 border border-yellow-300 dark:border-yellow-700 rounded-md">
+                            <p class="text-yellow-800 dark:text-yellow-200 font-semibold">${errorMessage.replace(
+											/\*\*/g,
+											""
+										)}</p>
+                        </div>
+                    `;
+					// Stop submission
+					return;
+				}
+				// --- END VALIDATION LOGIC ---
+
+				// Show loading state
+				submitBtn.textContent = "Submitting...";
+				submitBtn.disabled = true;
+
+				let orderItems = [];
+				let total = 0;
+
+				allProducts.forEach((p) => {
+					const qty = parseInt(localStorage.getItem(`p_${p.id}`) || 0);
+					if (qty > 0) {
+						const subtotal = qty * p.price;
+						total += subtotal;
+						orderItems.push({
+							id: p.id,
+							name: p.name,
+							category: p.category,
+							quantity: qty,
+							price: p.price,
+							subtotal: subtotal,
+						});
+					}
+				});
+
+				// Check if cart is empty
+				if (orderItems.length === 0) {
+					responseDiv.innerHTML = `
+                        <div class="p-3 bg-red-100 dark:bg-red-900 border border-red-300 dark:border-red-700 rounded-md">
+                            <p class="text-red-800 dark:text-red-200">Your cart is empty. Please add items before submitting.</p>
+                        </div>
+                    `;
+					submitBtn.textContent = originalText;
+					submitBtn.disabled = false;
+					return;
+				}
+
+				// Prepare data for SheetDB
+				const sheetData = {
+					Timestamp: timestamp,
+					Name: customerName,
+					Phone: phone,
+					"Insta Account": instaAccount,
+					Address: customerAddress,
+					Notes: orderNotes,
+					Items: JSON.stringify(orderItems, null, 2),
+					Total: total,
+				};
+
+				// Send data to SheetDB
+				fetch("https://sheetdb.io/api/v1/jog7er8l976bz", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						data: sheetData,
+					}),
+				})
+					.then((response) => {
+						// Check if the response is successful (2xx status codes).
+						if (response.ok) {
+							return response.json();
+						}
+						// If response is not ok (4xx, 5xx), still read the body if possible for debugging.
+						return response.json().then((err) => {
+							throw new Error(
+								`HTTP Error: ${response.status} ${
+									response.statusText
+								}. Response body: ${JSON.stringify(err)}`
+							);
+						});
+					})
+					.then((data) => {
+						console.log(
+							"Order submitted successfully. API response:",
+							data
+						);
+						// Show success message
+						responseDiv.innerHTML = `
+                        <div class="p-3 bg-green-100 dark:bg-green-900 border border-green-300 dark:border-green-700 rounded-md">
+                            <p class="text-green-800 dark:text-green-200">Order submitted successfully! Your cart has been reset.</p>
+                        </div>
+                    `;
+
+						// Reset cart after successful submission
+						setTimeout(() => {
+							resetCart();
+							closeOrderSummary();
+						}, 1500); // Shorter delay for better UX
+					})
+					.catch((error) => {
+						// This block will catch network errors and the custom error from the response check
+						console.error("Error submitting order:", error);
+
+						// Show error message
+						responseDiv.innerHTML = `
+                        <div class="p-3 bg-red-100 dark:bg-red-900 border border-red-300 dark:border-red-700 rounded-md">
+                            <p class="text-red-800 dark:text-red-200">Failed to submit order. Please try again. (Details in console)</p>
+                        </div>
+                    `;
+					})
+					.finally(() => {
+						// Reset button state
+						submitBtn.textContent = originalText;
+						submitBtn.disabled = false;
+					});
+			}
+
+			// Function to reset the cart
+			function resetCart() {
+				allProducts.forEach((p) => {
+					localStorage.removeItem(`p_${p.id}`);
+					const qtySpan = document.getElementById(`qty-${p.id}`);
+					if (qtySpan) {
+						qtySpan.textContent = "0";
+					}
+				});
+				updateCart();
 			}
 
 			document.addEventListener("DOMContentLoaded", () => {
