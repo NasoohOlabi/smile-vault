@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" class="dark:bg-gray-900 dark:text-gray-100 bg-gray-50 text-gray-900">
 
 <head>
@@ -358,9 +358,7 @@
                             </div>
                             <h3 class="text-xl font-semibold mb-1">${p.name
 						}</h3>
-                            <p class="mb-3 text-lg font-bold text-stone-600 dark:text-stone-400">S.P. ${p.price.toFixed(
-							2
-						)}</p>
+                            <p class="mb-3 text-lg font-bold text-stone-600 dark:text-stone-400">S.P. ${p.price.toLocaleString()}</p>
                             <div class='flex items-center justify-between gap-3 mt-auto pt-3 border-t border-gray-100 dark:border-gray-700'>
                                 <button class='h-8 w-8 flex items-center justify-center text-2xl font-light rounded-full bg-stone-500 text-white hover:bg-stone-600 dark:bg-stone-400 dark:text-gray-900 dark:hover:bg-stone-300 transition shadow-md' onclick='changeQty(${p.id
 						}, -1)'>-</button>
@@ -551,9 +549,7 @@
 					div.innerHTML = `
                             <span>${p.name
 						} <span class="text-stone-500 dark:text-stone-300">x${qty}</span></span>
-                            <span class="font-medium">S.P. ${subtotal.toFixed(
-							2
-						)}</span>
+                            <span class="font-medium">S.P. ${subtotal.toLocaleString()}</span>
                         `;
 					content.appendChild(div);
 				}
@@ -566,7 +562,7 @@
 
 			document.getElementById(
 				"totalPrice"
-			).textContent = `S.P. ${total.toFixed(2)}`;
+			).textContent = `S.P. ${total.toLocaleString()}`;
 
 			// Show the modal with transition effect
 			modal.classList.remove("hidden");
@@ -726,10 +722,10 @@
 					);
 					// Show success message
 					responseDiv.innerHTML = `
-                        <div class="p-3 bg-green-100 dark:bg-green-900 border border-green-300 dark:border-green-700 rounded-md">
-                            <p class="text-green-800 dark:text-green-200">Order submitted successfully! Your cart has been reset.</p>
-                        </div>
-                    `;
+Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  <div class="p-3 bg-green-100 dark:bg-green-900 border border-green-300 dark:border-green-700 rounded-md">
+Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  <p class="text-green-800 dark:text-green-200">Order submitted successfully! Your cart has been reset.</p>
+Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  </div>
+Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  `;
 
 					// Reset cart after successful submission
 					setTimeout(() => {
@@ -743,10 +739,10 @@
 
 					// Show error message
 					responseDiv.innerHTML = `
-                        <div class="p-3 bg-red-100 dark:bg-red-900 border border-red-300 dark:border-red-700 rounded-md">
-                            <p class="text-red-800 dark:text-red-200">Failed to submit order. Please try again. (Details in console)</p>
-                        </div>
-                    `;
+Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  <div class="p-3 bg-red-100 dark:bg-red-900 border border-red-300 dark:border-red-700 rounded-md">
+Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  <p class="text-red-800 dark:text-red-200">Failed to submit order. Please try again. (Details in console)</p>
+Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  </div>
+Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  `;
 				})
 				.finally(() => {
 					// Reset button state

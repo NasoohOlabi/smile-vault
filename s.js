@@ -1,4 +1,4 @@
-const fs = require("fs");
+﻿const fs = require("fs");
 const path = require("path");
 
 async function scrapeDirectory(directoryPath, outputFileName = "output.json") {
@@ -24,7 +24,7 @@ async function scrapeDirectory(directoryPath, outputFileName = "output.json") {
 						result.push({
 							id: idCounter++,
 							name: path.parse(file.name).name, // Get file name without extension
-							price: 10.0, // Always 10
+							price: 5000, // Always 10
 							image: path.join(categoryName, file.name), // Relative path to the image
 							category: categoryName,
 						});
@@ -54,3 +54,4 @@ scrapeDirectory(currentDirectory, "scraped_data.json")
 	.catch((error) => {
 		console.error("Failed to scrape directory:", error);
 	});
+

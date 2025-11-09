@@ -1,464 +1,464 @@
-[
+﻿[
     {
-        "id": 9,
-        "name": "07 ع-small",
-        "price": 4,
-        "image": "backboneAndStories/07 ع-small.png",
-        "category": "Backbone And Stories"
+        "id":  9,
+        "name":  "07 Ø¹-small",
+        "price":  5000,
+        "image":  "backboneAndStories/07 Ø¹-small.png",
+        "category":  "Backbone And Stories"
     },
     {
-        "id": 10,
-        "name": "08 ع-small",
-        "price": 4,
-        "image": "backboneAndStories/08 ع-small.png",
-        "category": "Backbone And Stories"
+        "id":  10,
+        "name":  "08 Ø¹-small",
+        "price":  5000,
+        "image":  "backboneAndStories/08 Ø¹-small.png",
+        "category":  "Backbone And Stories"
     },
     {
-        "id": 11,
-        "name": "100 ع-small",
-        "price": 4,
-        "image": "backboneAndStories/100 ع-small.png",
-        "category": "Backbone And Stories"
+        "id":  11,
+        "name":  "100 Ø¹-small",
+        "price":  5000,
+        "image":  "backboneAndStories/100 Ø¹-small.png",
+        "category":  "Backbone And Stories"
     },
     {
-        "id": 12,
-        "name": "1012 2-small",
-        "price": 4,
-        "image": "backboneAndStories/1012 2-small.png",
-        "category": "Backbone And Stories"
+        "id":  12,
+        "name":  "1012 2-small",
+        "price":  5000,
+        "image":  "backboneAndStories/1012 2-small.png",
+        "category":  "Backbone And Stories"
     },
     {
-        "id": 13,
-        "name": "1014 ع-small",
-        "price": 4,
-        "image": "backboneAndStories/1014 ع-small.png",
-        "category": "Backbone And Stories"
+        "id":  13,
+        "name":  "1014 Ø¹-small",
+        "price":  5000,
+        "image":  "backboneAndStories/1014 Ø¹-small.png",
+        "category":  "Backbone And Stories"
     },
     {
-        "id": 14,
-        "name": "1014-small",
-        "price": 4,
-        "image": "backboneAndStories/1014-small.png",
-        "category": "Backbone And Stories"
+        "id":  14,
+        "name":  "1014-small",
+        "price":  5000,
+        "image":  "backboneAndStories/1014-small.png",
+        "category":  "Backbone And Stories"
     },
     {
-        "id": 15,
-        "name": "19 ع-small",
-        "price": 4,
-        "image": "backboneAndStories/19 ع-small.png",
-        "category": "Backbone And Stories"
+        "id":  15,
+        "name":  "19 Ø¹-small",
+        "price":  5000,
+        "image":  "backboneAndStories/19 Ø¹-small.png",
+        "category":  "Backbone And Stories"
     },
     {
-        "id": 16,
-        "name": "201 ع-small",
-        "price": 4,
-        "image": "backboneAndStories/201 ع-small.png",
-        "category": "Backbone And Stories"
+        "id":  16,
+        "name":  "201 Ø¹-small",
+        "price":  5000,
+        "image":  "backboneAndStories/201 Ø¹-small.png",
+        "category":  "Backbone And Stories"
     },
     {
-        "id": 17,
-        "name": "24 ع-small",
-        "price": 4,
-        "image": "backboneAndStories/24 ع-small.png",
-        "category": "Backbone And Stories"
+        "id":  17,
+        "name":  "24 Ø¹-small",
+        "price":  5000,
+        "image":  "backboneAndStories/24 Ø¹-small.png",
+        "category":  "Backbone And Stories"
     },
     {
-        "id": 18,
-        "name": "47 ع-small",
-        "price": 4,
-        "image": "backboneAndStories/47 ع-small.png",
-        "category": "Backbone And Stories"
+        "id":  18,
+        "name":  "47 Ø¹-small",
+        "price":  5000,
+        "image":  "backboneAndStories/47 Ø¹-small.png",
+        "category":  "Backbone And Stories"
     },
     {
-        "id": 19,
-        "name": "51 ع-small",
-        "price": 1,
-        "image": "backboneAndStories/51 ع-small.png",
-        "category": "Backbone And Stories"
+        "id":  19,
+        "name":  "51 Ø¹-small",
+        "price":  5000,
+        "image":  "backboneAndStories/51 Ø¹-small.png",
+        "category":  "Backbone And Stories"
     },
     {
-        "id": 20,
-        "name": "76 ع-small",
-        "price": 4,
-        "image": "backboneAndStories/76 ع-small.png",
-        "category": "Backbone And Stories"
+        "id":  20,
+        "name":  "76 Ø¹-small",
+        "price":  5000,
+        "image":  "backboneAndStories/76 Ø¹-small.png",
+        "category":  "Backbone And Stories"
     },
     {
-        "id": 21,
-        "name": "78 ع-small",
-        "price": 4,
-        "image": "backboneAndStories/78 ع-small.png",
-        "category": "Backbone And Stories"
+        "id":  21,
+        "name":  "78 Ø¹-small",
+        "price":  5000,
+        "image":  "backboneAndStories/78 Ø¹-small.png",
+        "category":  "Backbone And Stories"
     },
     {
-        "id": 22,
-        "name": "85 ع-small",
-        "price": 4,
-        "image": "backboneAndStories/85 ع-small.png",
-        "category": "Backbone And Stories"
+        "id":  22,
+        "name":  "85 Ø¹-small",
+        "price":  5000,
+        "image":  "backboneAndStories/85 Ø¹-small.png",
+        "category":  "Backbone And Stories"
     },
     {
-        "id": 23,
-        "name": "96 ع-small",
-        "price": 4,
-        "image": "backboneAndStories/96 ع-small.png",
-        "category": "Backbone And Stories"
+        "id":  23,
+        "name":  "96 Ø¹-small",
+        "price":  5000,
+        "image":  "backboneAndStories/96 Ø¹-small.png",
+        "category":  "Backbone And Stories"
     },
     {
-        "id": 24,
-        "name": "04 ع-small",
-        "price": 4,
-        "image": "blackAndWhite/04 ع-small.png",
-        "category": "blackAndWhite"
+        "id":  24,
+        "name":  "04 Ø¹-small",
+        "price":  5000,
+        "image":  "blackAndWhite/04 Ø¹-small.png",
+        "category":  "blackAndWhite"
     },
     {
-        "id": 25,
-        "name": "21 ع-small",
-        "price": 4,
-        "image": "blackAndWhite/21 ع-small.png",
-        "category": "blackAndWhite"
+        "id":  25,
+        "name":  "21 Ø¹-small",
+        "price":  5000,
+        "image":  "blackAndWhite/21 Ø¹-small.png",
+        "category":  "blackAndWhite"
     },
     {
-        "id": 26,
-        "name": "22 ع-small",
-        "price": 4,
-        "image": "blackAndWhite/22 ع-small.png",
-        "category": "blackAndWhite"
+        "id":  26,
+        "name":  "22 Ø¹-small",
+        "price":  5000,
+        "image":  "blackAndWhite/22 Ø¹-small.png",
+        "category":  "blackAndWhite"
     },
     {
-        "id": 27,
-        "name": "32 ع-small",
-        "price": 4,
-        "image": "blackAndWhite/32 ع-small.png",
-        "category": "blackAndWhite"
+        "id":  27,
+        "name":  "32 Ø¹-small",
+        "price":  5000,
+        "image":  "blackAndWhite/32 Ø¹-small.png",
+        "category":  "blackAndWhite"
     },
     {
-        "id": 28,
-        "name": "39 ع (2)-small",
-        "price": 4,
-        "image": "blackAndWhite/39 ع (2)-small.png",
-        "category": "blackAndWhite"
+        "id":  28,
+        "name":  "39 Ø¹ (2)-small",
+        "price":  5000,
+        "image":  "blackAndWhite/39 Ø¹ (2)-small.png",
+        "category":  "blackAndWhite"
     },
     {
-        "id": 29,
-        "name": "49 ع-small",
-        "price": 4,
-        "image": "blackAndWhite/49 ع-small.png",
-        "category": "blackAndWhite"
+        "id":  29,
+        "name":  "49 Ø¹-small",
+        "price":  5000,
+        "image":  "blackAndWhite/49 Ø¹-small.png",
+        "category":  "blackAndWhite"
     },
     {
-        "id": 30,
-        "name": "62 ع-small",
-        "price": 4,
-        "image": "blackAndWhite/62 ع-small.png",
-        "category": "blackAndWhite"
+        "id":  30,
+        "name":  "62 Ø¹-small",
+        "price":  5000,
+        "image":  "blackAndWhite/62 Ø¹-small.png",
+        "category":  "blackAndWhite"
     },
     {
-        "id": 31,
-        "name": "63 ع-small",
-        "price": 4,
-        "image": "blackAndWhite/63 ع-small.png",
-        "category": "blackAndWhite"
+        "id":  31,
+        "name":  "63 Ø¹-small",
+        "price":  5000,
+        "image":  "blackAndWhite/63 Ø¹-small.png",
+        "category":  "blackAndWhite"
     },
     {
-        "id": 32,
-        "name": "65 ع-small",
-        "price": 4,
-        "image": "blackAndWhite/65 ع-small.png",
-        "category": "blackAndWhite"
+        "id":  32,
+        "name":  "65 Ø¹-small",
+        "price":  5000,
+        "image":  "blackAndWhite/65 Ø¹-small.png",
+        "category":  "blackAndWhite"
     },
     {
-        "id": 33,
-        "name": "67 ع (2)-small",
-        "price": 4,
-        "image": "blackAndWhite/67 ع (2)-small.png",
-        "category": "blackAndWhite"
+        "id":  33,
+        "name":  "67 Ø¹ (2)-small",
+        "price":  5000,
+        "image":  "blackAndWhite/67 Ø¹ (2)-small.png",
+        "category":  "blackAndWhite"
     },
     {
-        "id": 34,
-        "name": "03 ع-small",
-        "price": 4,
-        "image": "life/03 ع-small.png",
-        "category": "life"
+        "id":  34,
+        "name":  "03 Ø¹-small",
+        "price":  5000,
+        "image":  "life/03 Ø¹-small.png",
+        "category":  "life"
     },
     {
-        "id": 35,
-        "name": "10189-small",
-        "price": 4,
-        "image": "life/10189-small.png",
-        "category": "life"
+        "id":  35,
+        "name":  "10189-small",
+        "price":  5000,
+        "image":  "life/10189-small.png",
+        "category":  "life"
     },
     {
-        "id": 36,
-        "name": "29 ع-small",
-        "price": 4,
-        "image": "life/29 ع-small.png",
-        "category": "life"
+        "id":  36,
+        "name":  "29 Ø¹-small",
+        "price":  5000,
+        "image":  "life/29 Ø¹-small.png",
+        "category":  "life"
     },
     {
-        "id": 37,
-        "name": "52 ع-small",
-        "price": 4,
-        "image": "life/52 ع-small.png",
-        "category": "life"
+        "id":  37,
+        "name":  "52 Ø¹-small",
+        "price":  5000,
+        "image":  "life/52 Ø¹-small.png",
+        "category":  "life"
     },
     {
-        "id": 38,
-        "name": "55 ع-small",
-        "price": 4,
-        "image": "life/55 ع-small.png",
-        "category": "life"
+        "id":  38,
+        "name":  "55 Ø¹-small",
+        "price":  5000,
+        "image":  "life/55 Ø¹-small.png",
+        "category":  "life"
     },
     {
-        "id": 39,
-        "name": "83 L-small",
-        "price": 4,
-        "image": "life/83 L-small.png",
-        "category": "life"
+        "id":  39,
+        "name":  "83 L-small",
+        "price":  5000,
+        "image":  "life/83 L-small.png",
+        "category":  "life"
     },
     {
-        "id": 40,
-        "name": "897 ش-small",
-        "price": 4,
-        "image": "life/897 ش-small.png",
-        "category": "life"
+        "id":  40,
+        "name":  "897 Ø´-small",
+        "price":  5000,
+        "image":  "life/897 Ø´-small.png",
+        "category":  "life"
     },
     {
-        "id": 41,
-        "name": "897-small",
-        "price": 4,
-        "image": "life/897-small.png",
-        "category": "life"
+        "id":  41,
+        "name":  "897-small",
+        "price":  5000,
+        "image":  "life/897-small.png",
+        "category":  "life"
     },
     {
-        "id": 42,
-        "name": "26 ع-small",
-        "price": 4,
-        "image": "newThings/26 ع-small.png",
-        "category": "newThings"
+        "id":  42,
+        "name":  "26 Ø¹-small",
+        "price":  5000,
+        "image":  "newThings/26 Ø¹-small.png",
+        "category":  "newThings"
     },
     {
-        "id": 43,
-        "name": "34 ع-small",
-        "price": 4,
-        "image": "newThings/34 ع-small.png",
-        "category": "newThings"
+        "id":  43,
+        "name":  "34 Ø¹-small",
+        "price":  5000,
+        "image":  "newThings/34 Ø¹-small.png",
+        "category":  "newThings"
     },
     {
-        "id": 44,
-        "name": "36 ع-small",
-        "price": 4,
-        "image": "newThings/36 ع-small.png",
-        "category": "newThings"
+        "id":  44,
+        "name":  "36 Ø¹-small",
+        "price":  5000,
+        "image":  "newThings/36 Ø¹-small.png",
+        "category":  "newThings"
     },
     {
-        "id": 45,
-        "name": "37 ع-small",
-        "price": 4,
-        "image": "newThings/37 ع-small.png",
-        "category": "newThings"
+        "id":  45,
+        "name":  "37 Ø¹-small",
+        "price":  5000,
+        "image":  "newThings/37 Ø¹-small.png",
+        "category":  "newThings"
     },
     {
-        "id": 46,
-        "name": "40 ع-small",
-        "price": 4,
-        "image": "newThings/40 ع-small.png",
-        "category": "newThings"
+        "id":  46,
+        "name":  "40 Ø¹-small",
+        "price":  5000,
+        "image":  "newThings/40 Ø¹-small.png",
+        "category":  "newThings"
     },
     {
-        "id": 47,
-        "name": "56 ع-small",
-        "price": 4,
-        "image": "newThings/56 ع-small.png",
-        "category": "newThings"
+        "id":  47,
+        "name":  "56 Ø¹-small",
+        "price":  5000,
+        "image":  "newThings/56 Ø¹-small.png",
+        "category":  "newThings"
     },
     {
-        "id": 48,
-        "name": "61 ع-small",
-        "price": 4,
-        "image": "newThings/61 ع-small.png",
-        "category": "newThings"
+        "id":  48,
+        "name":  "61 Ø¹-small",
+        "price":  5000,
+        "image":  "newThings/61 Ø¹-small.png",
+        "category":  "newThings"
     },
     {
-        "id": 49,
-        "name": "64 ع-small",
-        "price": 4,
-        "image": "newThings/64 ع-small.png",
-        "category": "newThings"
+        "id":  49,
+        "name":  "64 Ø¹-small",
+        "price":  5000,
+        "image":  "newThings/64 Ø¹-small.png",
+        "category":  "newThings"
     },
     {
-        "id": 50,
-        "name": "66 ع (2)-small",
-        "price": 4,
-        "image": "newThings/66 ع (2)-small.png",
-        "category": "newThings"
+        "id":  50,
+        "name":  "66 Ø¹ (2)-small",
+        "price":  5000,
+        "image":  "newThings/66 Ø¹ (2)-small.png",
+        "category":  "newThings"
     },
     {
-        "id": 51,
-        "name": "80 ع-small",
-        "price": 4,
-        "image": "newThings/80 ع-small.png",
-        "category": "newThings"
+        "id":  51,
+        "name":  "80 Ø¹-small",
+        "price":  5000,
+        "image":  "newThings/80 Ø¹-small.png",
+        "category":  "newThings"
     },
     {
-        "id": 52,
-        "name": "84 ع-small",
-        "price": 4,
-        "image": "newThings/84 ع-small.png",
-        "category": "newThings"
+        "id":  52,
+        "name":  "84 Ø¹-small",
+        "price":  5000,
+        "image":  "newThings/84 Ø¹-small.png",
+        "category":  "newThings"
     },
     {
-        "id": 53,
-        "name": "87 ع-small",
-        "price": 4,
-        "image": "newThings/87 ع-small.png",
-        "category": "newThings"
+        "id":  53,
+        "name":  "87 Ø¹-small",
+        "price":  5000,
+        "image":  "newThings/87 Ø¹-small.png",
+        "category":  "newThings"
     },
     {
-        "id": 54,
-        "name": "91 ع-small",
-        "price": 4,
-        "image": "newThings/91 ع-small.png",
-        "category": "newThings"
+        "id":  54,
+        "name":  "91 Ø¹-small",
+        "price":  5000,
+        "image":  "newThings/91 Ø¹-small.png",
+        "category":  "newThings"
     },
     {
-        "id": 55,
-        "name": "92 ع-small",
-        "price": 4,
-        "image": "newThings/92 ع-small.png",
-        "category": "newThings"
+        "id":  55,
+        "name":  "92 Ø¹-small",
+        "price":  5000,
+        "image":  "newThings/92 Ø¹-small.png",
+        "category":  "newThings"
     },
     {
-        "id": 56,
-        "name": "98 ع-small",
-        "price": 4,
-        "image": "newThings/98 ع-small.png",
-        "category": "newThings"
+        "id":  56,
+        "name":  "98 Ø¹-small",
+        "price":  5000,
+        "image":  "newThings/98 Ø¹-small.png",
+        "category":  "newThings"
     },
     {
-        "id": 57,
-        "name": "Matisse - Dance but Syrian-small",
-        "price": 4,
-        "image": "newThings/Matisse - Dance but Syrian-small.png",
-        "category": "newThings"
+        "id":  57,
+        "name":  "Matisse - Dance but Syrian-small",
+        "price":  5000,
+        "image":  "newThings/Matisse - Dance but Syrian-small.png",
+        "category":  "newThings"
     },
     {
-        "id": 58,
-        "name": "02 ع-small",
-        "price": 4,
-        "image": "nostalgia/02 ع-small.png",
-        "category": "nostalgia"
+        "id":  58,
+        "name":  "02 Ø¹-small",
+        "price":  5000,
+        "image":  "nostalgia/02 Ø¹-small.png",
+        "category":  "nostalgia"
     },
     {
-        "id": 59,
-        "name": "05 ع-small",
-        "price": 4,
-        "image": "nostalgia/05 ع-small.png",
-        "category": "nostalgia"
+        "id":  59,
+        "name":  "05 Ø¹-small",
+        "price":  5000,
+        "image":  "nostalgia/05 Ø¹-small.png",
+        "category":  "nostalgia"
     },
     {
-        "id": 60,
-        "name": "06 ع-small",
-        "price": 4,
-        "image": "nostalgia/06 ع-small.png",
-        "category": "nostalgia"
+        "id":  60,
+        "name":  "06 Ø¹-small",
+        "price":  5000,
+        "image":  "nostalgia/06 Ø¹-small.png",
+        "category":  "nostalgia"
     },
     {
-        "id": 61,
-        "name": "09 ع-small",
-        "price": 4,
-        "image": "nostalgia/09 ع-small.png",
-        "category": "nostalgia"
+        "id":  61,
+        "name":  "09 Ø¹-small",
+        "price":  5000,
+        "image":  "nostalgia/09 Ø¹-small.png",
+        "category":  "nostalgia"
     },
     {
-        "id": 62,
-        "name": "4 ع-small",
-        "price": 4,
-        "image": "nostalgia/4 ع-small.png",
-        "category": "nostalgia"
+        "id":  62,
+        "name":  "4 Ø¹-small",
+        "price":  5000,
+        "image":  "nostalgia/4 Ø¹-small.png",
+        "category":  "nostalgia"
     },
     {
-        "id": 63,
-        "name": "1011-small",
-        "price": 4,
-        "image": "nostalgia/1011-small.png",
-        "category": "nostalgia"
+        "id":  63,
+        "name":  "1011-small",
+        "price":  5000,
+        "image":  "nostalgia/1011-small.png",
+        "category":  "nostalgia"
     },
     {
-        "id": 64,
-        "name": "11 ع-small",
-        "price": 4,
-        "image": "nostalgia/11 ع-small.png",
-        "category": "nostalgia"
+        "id":  64,
+        "name":  "11 Ø¹-small",
+        "price":  5000,
+        "image":  "nostalgia/11 Ø¹-small.png",
+        "category":  "nostalgia"
     },
     {
-        "id": 65,
-        "name": "12 ع-small",
-        "price": 4,
-        "image": "nostalgia/12 ع-small.png",
-        "category": "nostalgia"
+        "id":  65,
+        "name":  "12 Ø¹-small",
+        "price":  5000,
+        "image":  "nostalgia/12 Ø¹-small.png",
+        "category":  "nostalgia"
     },
     {
-        "id": 66,
-        "name": "15 ع-small",
-        "price": 4,
-        "image": "nostalgia/15 ع-small.png",
-        "category": "nostalgia"
+        "id":  66,
+        "name":  "15 Ø¹-small",
+        "price":  5000,
+        "image":  "nostalgia/15 Ø¹-small.png",
+        "category":  "nostalgia"
     },
     {
-        "id": 67,
-        "name": "20 ع-small",
-        "price": 4,
-        "image": "nostalgia/20 ع-small.png",
-        "category": "nostalgia"
+        "id":  67,
+        "name":  "20 Ø¹-small",
+        "price":  5000,
+        "image":  "nostalgia/20 Ø¹-small.png",
+        "category":  "nostalgia"
     },
     {
-        "id": 68,
-        "name": "23 ع-small",
-        "price": 4,
-        "image": "nostalgia/23 ع-small.png",
-        "category": "nostalgia"
+        "id":  68,
+        "name":  "23 Ø¹-small",
+        "price":  5000,
+        "image":  "nostalgia/23 Ø¹-small.png",
+        "category":  "nostalgia"
     },
     {
-        "id": 69,
-        "name": "25 ع-small",
-        "price": 4,
-        "image": "nostalgia/25 ع-small.png",
-        "category": "nostalgia"
+        "id":  69,
+        "name":  "25 Ø¹-small",
+        "price":  5000,
+        "image":  "nostalgia/25 Ø¹-small.png",
+        "category":  "nostalgia"
     },
     {
-        "id": 70,
-        "name": "27 ع-small",
-        "price": 4,
-        "image": "nostalgia/27 ع-small.png",
-        "category": "nostalgia"
+        "id":  70,
+        "name":  "27 Ø¹-small",
+        "price":  5000,
+        "image":  "nostalgia/27 Ø¹-small.png",
+        "category":  "nostalgia"
     },
     {
-        "id": 71,
-        "name": "75 ع-small",
-        "price": 4,
-        "image": "nostalgia/75 ع-small.png",
-        "category": "nostalgia"
+        "id":  71,
+        "name":  "75 Ø¹-small",
+        "price":  5000,
+        "image":  "nostalgia/75 Ø¹-small.png",
+        "category":  "nostalgia"
     },
     {
-        "id": 72,
-        "name": "90 ع-small",
-        "price": 4,
-        "image": "nostalgia/90 ع-small.png",
-        "category": "nostalgia"
+        "id":  72,
+        "name":  "90 Ø¹-small",
+        "price":  5000,
+        "image":  "nostalgia/90 Ø¹-small.png",
+        "category":  "nostalgia"
     },
     {
-        "id": 73,
-        "name": "mirro3r ع-small",
-        "price": 4,
-        "image": "nostalgia/mirro3r ع-small.png",
-        "category": "nostalgia"
+        "id":  73,
+        "name":  "mirro3r Ø¹-small",
+        "price":  5000,
+        "image":  "nostalgia/mirro3r Ø¹-small.png",
+        "category":  "nostalgia"
     },
     {
-        "id": 74,
-        "name": "mirror ع-small",
-        "price": 4,
-        "image": "nostalgia/mirror ع-small.png",
-        "category": "nostalgia"
+        "id":  74,
+        "name":  "mirror Ø¹-small",
+        "price":  5000,
+        "image":  "nostalgia/mirror Ø¹-small.png",
+        "category":  "nostalgia"
     }
 ]
