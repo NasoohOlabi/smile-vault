@@ -4,454 +4,454 @@
         "name": "الحرب مو منيحة لصحتك",
         "price": 5000,
         "image": "backboneAndStories/07 ع-small.png",
-        "category": "Backbone And Stories"
+        "category": "01"
     },
     {
         "id": 10,
         "name": "الناطق الرسمي",
         "price": 5000,
         "image": "backboneAndStories/08 ع-small.png",
-        "category": "Backbone And Stories"
+        "category": "01"
     },
     {
         "id": 11,
         "name": "هالضفدع ما حيموت سلق",
         "price": 5000,
         "image": "backboneAndStories/100 ع-small.png",
-        "category": "Backbone And Stories"
+        "category": "01"
     },
     {
         "id": 12,
         "name": "المقاومة مو جكر",
         "price": 5000,
         "image": "backboneAndStories/1012 2-small.png",
-        "category": "Backbone And Stories"
+        "category": "01"
     },
     {
         "id": 13,
         "name": "فيقي وصحصحي",
         "price": 5000,
         "image": "backboneAndStories/1014 ع-small.png",
-        "category": "Backbone And Stories"
+        "category": "01"
     },
     {
         "id": 14,
         "name": "فيق وصحصح",
         "price": 5000,
         "image": "backboneAndStories/1014-small.png",
-        "category": "Backbone And Stories"
+        "category": "01"
     },
     {
         "id": 15,
         "name": "هدوا بالنا",
         "price": 5000,
         "image": "backboneAndStories/19 ع-small.png",
-        "category": "Backbone And Stories"
+        "category": "01"
     },
     {
         "id": 16,
         "name": "مو صاير علينا شي",
         "price": 5000,
         "image": "backboneAndStories/201 ع-small.png",
-        "category": "Backbone And Stories"
+        "category": "01"
     },
     {
         "id": 17,
         "name": "ما في رجعة",
         "price": 5000,
         "image": "backboneAndStories/24 ع-small.png",
-        "category": "Backbone And Stories"
+        "category": "01"
     },
     {
         "id": 18,
         "name": "خدلك موقف - رسم",
         "price": 5000,
         "image": "backboneAndStories/47 ع-small.png",
-        "category": "Backbone And Stories"
+        "category": "01"
     },
     {
         "id": 19,
         "name": "مو صاير علينا شي - رسم",
         "price": 5000,
         "image": "backboneAndStories/51 ع-small.png",
-        "category": "Backbone And Stories"
+        "category": "01"
     },
     {
         "id": 20,
         "name": "جنين، جنين",
         "price": 5000,
         "image": "backboneAndStories/76 ع-small.png",
-        "category": "Backbone And Stories"
+        "category": "01"
     },
     {
         "id": 21,
         "name": "كلمات متقاطعة",
         "price": 5000,
         "image": "backboneAndStories/78 ع-small.png",
-        "category": "Backbone And Stories"
+        "category": "01"
     },
     {
         "id": 22,
         "name": "تسقط للأبد",
         "price": 5000,
         "image": "backboneAndStories/85 ع-small.png",
-        "category": "Backbone And Stories"
+        "category": "01"
     },
     {
         "id": 23,
         "name": "لا تكب عالأرض",
         "price": 5000,
         "image": "backboneAndStories/96 ع-small.png",
-        "category": "Backbone And Stories"
+        "category": "01"
     },
     {
         "id": 24,
         "name": "معلش",
         "price": 5000,
         "image": "blackAndWhite/04 ع-small.png",
-        "category": "blackAndWhite"
+        "category": "02"
     },
     {
         "id": 25,
         "name": "راس واسع مجرة",
         "price": 5000,
         "image": "blackAndWhite/21 ع-small.png",
-        "category": "blackAndWhite"
+        "category": "02"
     },
     {
         "id": 26,
         "name": "العيون عليها",
         "price": 5000,
         "image": "blackAndWhite/22 ع-small.png",
-        "category": "blackAndWhite"
+        "category": "02"
     },
     {
         "id": 27,
         "name": "سلالم وحيايا",
         "price": 5000,
         "image": "blackAndWhite/32 ع-small.png",
-        "category": "blackAndWhite"
+        "category": "02"
     },
     {
         "id": 28,
         "name": "السلاح الفلتان، اربطوه",
         "price": 5000,
         "image": "blackAndWhite/39 ع (2)-small.png",
-        "category": "blackAndWhite"
+        "category": "02"
     },
     {
         "id": 29,
         "name": "قلب دمشق",
         "price": 5000,
         "image": "blackAndWhite/49 ع-small.png",
-        "category": "blackAndWhite"
+        "category": "02"
     },
     {
         "id": 30,
         "name": "حب ميت",
         "price": 5000,
         "image": "blackAndWhite/62 ع-small.png",
-        "category": "blackAndWhite"
+        "category": "02"
     },
     {
         "id": 31,
         "name": "حب سام",
         "price": 5000,
         "image": "blackAndWhite/63 ع-small.png",
-        "category": "blackAndWhite"
+        "category": "02"
     },
     {
         "id": 32,
         "name": "دخان وطني",
         "price": 5000,
         "image": "blackAndWhite/65 ع-small.png",
-        "category": "blackAndWhite"
+        "category": "02"
     },
     {
         "id": 33,
         "name": "سحر دمشق",
         "price": 5000,
         "image": "blackAndWhite/67 ع (2)-small.png",
-        "category": "blackAndWhite"
+        "category": "02"
     },
     {
         "id": 34,
         "name": "الحياة مدرسة",
         "price": 5000,
         "image": "life/03 ع-small.png",
-        "category": "life"
+        "category": "03"
     },
     {
         "id": 35,
         "name": "ساخر وواعي",
         "price": 5000,
         "image": "life/10189-small.png",
-        "category": "life"
+        "category": "03"
     },
     {
         "id": 36,
         "name": "معي تلاتمية",
         "price": 5000,
         "image": "life/29 ع-small.png",
-        "category": "life"
+        "category": "03"
     },
     {
         "id": 37,
         "name": "معلش معلش",
         "price": 5000,
         "image": "life/52 ع-small.png",
-        "category": "life"
+        "category": "03"
     },
     {
         "id": 38,
         "name": "يارب احميها",
         "price": 5000,
         "image": "life/55 ع-small.png",
-        "category": "life"
+        "category": "03"
     },
     {
         "id": 39,
         "name": "مليت بس مكمل",
         "price": 5000,
         "image": "life/83 L-small.png",
-        "category": "life"
+        "category": "03"
     },
     {
         "id": 40,
         "name": "بحب سوريا، أغلب الأوقات",
         "price": 5000,
-        "image": "life/897 Ø´-small.png",
-        "category": "life"
+        "image": "life/897 ع-small.png",
+        "category": "03"
     },
     {
         "id": 41,
         "name": "بحب سوريا، أحيانا",
         "price": 5000,
         "image": "life/897-small.png",
-        "category": "life"
+        "category": "04"
     },
     {
         "id": 42,
         "name": "مجنونة",
         "price": 5000,
         "image": "newThings/26 ع-small.png",
-        "category": "newThings"
+        "category": "04"
     },
     {
         "id": 43,
         "name": "Yves Saint Dama",
         "price": 5000,
         "image": "newThings/34 ع-small.png",
-        "category": "newThings"
+        "category": "04"
     },
     {
         "id": 44,
         "name": "Damascape_ Blue",
         "price": 5000,
         "image": "newThings/36 ع-small.png",
-        "category": "newThings"
+        "category": "04"
     },
     {
         "id": 45,
         "name": "Damascape_ Pink",
         "price": 5000,
         "image": "newThings/37 ع-small.png",
-        "category": "newThings"
+        "category": "04"
     },
     {
         "id": 46,
         "name": "صورة عالسريع",
         "price": 5000,
         "image": "newThings/40 ع-small.png",
-        "category": "newThings"
+        "category": "04"
     },
     {
         "id": 47,
         "name": "Local Merch",
         "price": 5000,
         "image": "newThings/56 ع-small.png",
-        "category": "newThings"
+        "category": "04"
     },
     {
         "id": 48,
         "name": "D4m45cu5",
         "price": 5000,
         "image": "newThings/61 ع-small.png",
-        "category": "newThings"
+        "category": "04"
     },
     {
         "id": 49,
         "name": "Welcome 3 Damascus",
         "price": 5000,
         "image": "newThings/64 ع-small.png",
-        "category": "newThings"
+        "category": "04"
     },
     {
         "id": 50,
         "name": "أطيب شاورما",
         "price": 5000,
         "image": "newThings/66 ع (2)-small.png",
-        "category": "newThings"
+        "category": "04"
     },
     {
         "id": 51,
         "name": "بطيخة بالبحرة",
         "price": 5000,
         "image": "newThings/80 ع-small.png",
-        "category": "newThings"
+        "category": "04"
     },
     {
         "id": 52,
         "name": "مفاتيح البيت",
         "price": 5000,
         "image": "newThings/84 ع-small.png",
-        "category": "newThings"
+        "category": "04"
     },
     {
         "id": 53,
         "name": "علامة مسجلة، بالقلب",
         "price": 5000,
         "image": "newThings/87 ع-small.png",
-        "category": "newThings"
+        "category": "04"
     },
     {
         "id": 54,
         "name": "مدينة الياسمين",
         "price": 5000,
         "image": "newThings/91 ع-small.png",
-        "category": "newThings"
+        "category": "04"
     },
     {
         "id": 55,
         "name": "نجمة الشمال",
         "price": 5000,
         "image": "newThings/92 ع-small.png",
-        "category": "newThings"
+        "category": "04"
     },
     {
         "id": 56,
         "name": "الحرية مسؤولية",
         "price": 5000,
         "image": "newThings/98 ع-small.png",
-        "category": "newThings"
+        "category": "04"
     },
     {
         "id": 57,
         "name": "دبكة",
         "price": 5000,
         "image": "newThings/Matisse - Dance but Syrian-small.png",
-        "category": "newThings"
+        "category": "04"
     },
     {
         "id": 58,
         "name": "مكحلة",
         "price": 5000,
         "image": "nostalgia/02 ع-small.png",
-        "category": "nostalgia"
+        "category": "05"
     },
     {
         "id": 59,
         "name": "طوابع - 1",
         "price": 5000,
         "image": "nostalgia/05 ع-small.png",
-        "category": "nostalgia"
+        "category": "05"
     },
     {
         "id": 60,
         "name": "طوابع - 2",
         "price": 5000,
         "image": "nostalgia/06 ع-small.png",
-        "category": "nostalgia"
+        "category": "05"
     },
     {
         "id": 61,
         "name": "5 قروش",
         "price": 5000,
         "image": "nostalgia/09 ع-small.png",
-        "category": "nostalgia"
+        "category": "05"
     },
     {
         "id": 63,
         "name": "للعهد",
         "price": 5000,
         "image": "nostalgia/1011-small.png",
-        "category": "nostalgia"
+        "category": "05"
     },
     {
         "id": 64,
         "name": "5 ليرات",
         "price": 5000,
         "image": "nostalgia/11 ع-small.png",
-        "category": "nostalgia"
+        "category": "05"
     },
     {
         "id": 65,
         "name": "ليرة",
         "price": 5000,
         "image": "nostalgia/12 ع-small.png",
-        "category": "nostalgia"
+        "category": "05"
     },
     {
         "id": 66,
         "name": "شباك",
         "price": 5000,
         "image": "nostalgia/15 ع-small.png",
-        "category": "nostalgia"
+        "category": "05"
     },
     {
         "id": 67,
         "name": "فناجين",
         "price": 5000,
         "image": "nostalgia/20 ع-small.png",
-        "category": "nostalgia"
+        "category": "05"
     },
     {
         "id": 68,
         "name": "علبة موزاييك مربعة",
         "price": 5000,
         "image": "nostalgia/23 ع-small.png",
-        "category": "nostalgia"
+        "category": "05"
     },
     {
         "id": 69,
         "name": "علبة موزاييك متمنة",
         "price": 5000,
         "image": "nostalgia/25 ع-small.png",
-        "category": "nostalgia"
+        "category": "05"
     },
     {
         "id": 70,
         "name": "طاولة تلفزيون",
         "price": 5000,
         "image": "nostalgia/27 ع-small.png",
-        "category": "nostalgia"
+        "category": "05"
     },
     {
         "id": 71,
         "name": "شباك - Damascus",
         "price": 5000,
         "image": "nostalgia/75 ع-small.png",
-        "category": "nostalgia"
+        "category": "05"
     },
     {
         "id": 72,
         "name": "هديك البوظة ما غيرا",
         "price": 5000,
         "image": "nostalgia/90 ع-small.png",
-        "category": "nostalgia"
+        "category": "05"
     },
     {
         "id": 73,
         "name": "مراية ومجنونة ودمشق",
         "price": 5000,
         "image": "nostalgia/mirro3r ع-small.png",
-        "category": "nostalgia"
+        "category": "05"
     },
     {
         "id": 74,
         "name": "مراية مطعمة",
         "price": 5000,
         "image": "nostalgia/mirror ع-small.png",
-        "category": "nostalgia"
+        "category": "05"
     }
 ]
