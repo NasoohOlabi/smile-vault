@@ -220,7 +220,7 @@
         "id": 40,
         "name": "بحب سوريا، أغلب الأوقات",
         "price": 5000,
-        "image": "life/897-ع-small.png",
+        "image": "life/897 ش-small.png",
         "category": "03"
     },
     {
@@ -228,7 +228,7 @@
         "name": "بحب سوريا، أحيانا",
         "price": 5000,
         "image": "life/897-small.png",
-        "category": "04"
+        "category": "03"
     },
     {
         "id": 42,
