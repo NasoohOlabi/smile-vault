@@ -1,0 +1,110 @@
+/* Design 4 — Brutalist Zine
+   Photocopied-flyer energy: stark off-white ground, ink-black hairlines
+   pushed thick on cards/chips/buttons, hard offset shadows instead of
+   blur, and a hot safety-orange riot accent. Space Mono for the loud
+   Latin display type, Archivo Black-ish weight pairing with a bold
+   Cairo/IBM Plex Sans Arabic for body and RTL glyphs. Zero-radius
+   corners throughout — nothing here is allowed to look soft. */
+
+@import url("https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Archivo+Black&family=Cairo:wght@400;600;800&family=IBM+Plex+Sans+Arabic:wght@400;600;700&display=swap");
+
+:root {
+	--font-sans: "Space Mono", "Cairo", "IBM Plex Sans Arabic", sans-serif;
+	--font-display: "Archivo Black", "Cairo", "IBM Plex Sans Arabic", sans-serif;
+
+	--bg: #f2f1ea;
+	--bg-elevated: #fffdf7;
+	--fg: #0a0a0a;
+	--fg-muted: #4a4840;
+	--border: #0a0a0a;
+
+	--accent: #ff3d00;
+	--accent-fg: #ffffff;
+	--accent-light: #ffee00;
+
+	--radius-sm: .125rem;
+	--radius-md: 0rem;
+	--radius-lg: .25rem;
+
+	--shadow-lg: 6px 6px 0 #0a0a0a;
+	--overlay: rgba(10, 10, 10, .75);
+	--checker-a: #fffdf7;
+	--checker-b: rgba(10, 10, 10, .08);
+	--focus: #ff3d00;
+}
+
+body {
+	background-image:
+		repeating-linear-gradient(0deg, rgba(10, 10, 10, .03) 0px, rgba(10, 10, 10, .03) 1px, transparent 1px, transparent 3px);
+}
+
+.brand__main {
+	font-family: var(--font-display);
+	text-transform: uppercase;
+	letter-spacing: -.03em;
+}
+
+.brand__sub {
+	font-family: var(--font-sans);
+	font-weight: 700;
+	text-transform: uppercase;
+	background: var(--fg);
+	color: var(--bg);
+	padding: 0 .25rem;
+}
+
+.hero__title {
+	font-family: var(--font-display);
+	text-transform: uppercase;
+	letter-spacing: -.01em;
+	text-shadow: 3px 3px 0 var(--accent);
+}
+
+.card {
+	border-width: 2px;
+	border-color: var(--fg);
+	box-shadow: var(--shadow-lg);
+	transition: transform .12s, box-shadow .12s;
+}
+
+@media (min-width: 640px) {
+	.card:hover {
+		box-shadow: 9px 9px 0 var(--fg);
+		transform: translate(-3px, -3px);
+	}
+}
+
+.card__price { text-transform: uppercase; }
+
+.chip {
+	border-width: 2px;
+	border-color: var(--fg);
+	text-transform: uppercase;
+	font-weight: 700;
+}
+
+.chip.is-active {
+	background: var(--accent);
+	border-color: var(--fg);
+	color: var(--accent-fg);
+}
+
+.btn {
+	border-radius: var(--radius-sm);
+	text-transform: uppercase;
+	font-weight: 700;
+	letter-spacing: .02em;
+}
+
+.btn--ghost { border-width: 2px; border-color: var(--fg); }
+.btn--accent { box-shadow: 3px 3px 0 var(--fg); }
+.btn--accent:active { box-shadow: none; transform: translate(3px, 3px) scale(1); }
+
+.mobile-bar__btn { box-shadow: var(--shadow-lg); }
+
+.cart-drawer__title, .checkout-form__title {
+	font-family: var(--font-display);
+	text-transform: uppercase;
+}
+
+::selection { background: var(--accent-light); color: var(--fg); }

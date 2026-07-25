@@ -1,0 +1,66 @@
+/* Design 7 — Damascene Tile
+   Old-city Damascus: warm parchment ground, deep emerald surfaces,
+   brass-gold accents. Aref Ruqaa (calligraphic Arabic) + Cormorant
+   (Latin serif) for display; Markazi Text + EB Garamond for body.
+   A faint geometric star-lattice pattern sits behind the header. */
+
+@import url("https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Cormorant:ital,wght@0,500;0,700;1,500&family=Markazi+Text:wght@400;500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap");
+
+:root {
+	--font-sans: "EB Garamond", "Markazi Text", system-ui, serif;
+	--font-display: "Cormorant", "Aref Ruqaa", "Markazi Text", serif;
+
+	--bg: #f3e9d2;
+	--bg-elevated: #fbf3e2;
+	--fg: #23201a;
+	--fg-muted: #6b5f47;
+	--border: #cbb98a;
+
+	--accent: #0f4c4c;
+	--accent-fg: #f6ead0;
+	--accent-light: #e0b04a;
+
+	--radius-sm: .5rem;
+	--radius-md: .625rem;
+	--radius-lg: .75rem;
+
+	--shadow-lg: 0 12px 32px rgba(35, 24, 10, .22);
+	--overlay: rgba(20, 15, 8, .6);
+	--checker-a: #fbf3e2;
+	--checker-b: rgba(15, 76, 76, .08);
+	--focus: #c8962c;
+}
+
+::selection { background: color-mix(in srgb, var(--accent) 35%, transparent); color: var(--fg); }
+
+.site-header {
+	background-image:
+		repeating-linear-gradient(45deg, rgba(15, 76, 76, .07) 0 2px, transparent 2px 22px),
+		repeating-linear-gradient(-45deg, rgba(200, 150, 44, .08) 0 2px, transparent 2px 22px),
+		var(--bg-elevated);
+}
+
+.hero {
+	background-image:
+		conic-gradient(from 45deg at 50% 50%, rgba(15, 76, 76, .05) 0 25%, transparent 0 50%, rgba(200, 150, 44, .06) 0 75%, transparent 0);
+	background-size: 34px 34px;
+}
+
+.brand__main, .hero__title, .cart-drawer__title, .checkout-form__title, .site-footer__brand {
+	font-family: var(--font-display);
+	letter-spacing: 0;
+}
+
+.brand__sub { font-style: italic; }
+
+.card {
+	box-shadow: 0 1px 0 rgba(15, 76, 76, .12) inset;
+}
+
+.chip.is-active {
+	background: var(--accent);
+	border-color: var(--accent);
+	color: var(--accent-fg);
+}
+
+.card__price, .req { color: var(--accent); }

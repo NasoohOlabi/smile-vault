@@ -1,0 +1,102 @@
+/* Design 9 — Glassmorphism
+   Frosted glass panels floating over a soft pastel gradient (indigo into
+   pink into cyan), with a vivid violet-blue accent glow. Sora for Latin
+   display/body, IBM Plex Sans Arabic carries the Arabic glyphs. */
+
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Sora:wght@300..800&display=swap");
+
+:root {
+	--font-sans: "Sora", "IBM Plex Sans Arabic", system-ui, sans-serif;
+	--font-display: "Sora", "IBM Plex Sans Arabic", sans-serif;
+
+	--bg: #e9ecff;
+	--bg-elevated: rgba(255, 255, 255, .55);
+	--fg: #2a2350;
+	--fg-muted: #6b6490;
+	--border: rgba(255, 255, 255, .5);
+
+	--accent: #7c3aed;
+	--accent-fg: #ffffff;
+	--accent-light: #67e8f9;
+
+	--radius-sm: .75rem;
+	--radius-md: 1.25rem;
+	--radius-lg: 1.75rem;
+
+	--shadow-lg: 0 20px 45px rgba(124, 58, 237, .18), 0 4px 14px rgba(45, 30, 90, .1);
+	--overlay: rgba(30, 20, 60, .45);
+	--checker-a: rgba(255, 255, 255, .6);
+	--checker-b: rgba(124, 58, 237, .08);
+	--focus: #7c3aed;
+}
+
+body {
+	background: linear-gradient(135deg, #dbeafe 0%, #ede9fe 35%, #fce7f3 65%, #cffafe 100%);
+	background-attachment: fixed;
+}
+
+.site-header,
+.card,
+.cart-drawer,
+.checkout-form,
+.lightbox__frame,
+.mobile-bar__btn,
+.toast {
+	backdrop-filter: blur(16px);
+	-webkit-backdrop-filter: blur(16px);
+}
+
+.site-header {
+	background: rgba(255, 255, 255, .45);
+	border-bottom: 1px solid var(--border);
+}
+
+.card {
+	background: var(--bg-elevated);
+	border: 1px solid var(--border);
+	box-shadow: 0 8px 24px rgba(124, 58, 237, .1);
+}
+
+.card:hover {
+	box-shadow: var(--shadow-lg);
+}
+
+.chip {
+	background: rgba(255, 255, 255, .4);
+	backdrop-filter: blur(8px);
+	-webkit-backdrop-filter: blur(8px);
+}
+
+.chip.is-active {
+	background: var(--accent);
+	border-color: var(--accent);
+	color: var(--accent-fg);
+	box-shadow: 0 6px 18px rgba(124, 58, 237, .35);
+}
+
+.btn--solid,
+.qty__add:active {
+	background: var(--accent);
+	color: var(--accent-fg);
+}
+
+.cart-drawer,
+.lightbox__frame {
+	background: rgba(255, 255, 255, .65);
+	border: 1px solid var(--border);
+}
+
+.checkout-form {
+	background: rgba(255, 255, 255, .75);
+}
+
+.field {
+	background: rgba(255, 255, 255, .6);
+	backdrop-filter: blur(6px);
+	-webkit-backdrop-filter: blur(6px);
+}
+
+.mobile-bar__btn {
+	background: rgba(255, 255, 255, .55);
+	border: 1px solid var(--border);
+}

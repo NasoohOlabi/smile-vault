@@ -1,0 +1,48 @@
+/* Design 2 — Minimalist Mono
+   Near-white/near-black editorial palette, single neutral ink
+   accent, thin hairlines, restrained sharp-ish corners. Space
+   Grotesk display type paired with IBM Plex Sans Arabic body. */
+
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Archivo:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap");
+
+:root {
+	--font-sans: "Archivo", "IBM Plex Sans Arabic", system-ui, sans-serif;
+	--font-display: "Space Grotesk", "IBM Plex Sans Arabic", sans-serif;
+
+	--bg: #fafaf9;
+	--bg-elevated: #ffffff;
+	--fg: #111110;
+	--fg-muted: #6b6a66;
+	--border: #e2e1dc;
+
+	--accent: #161615;
+	--accent-fg: #ffffff;
+	--accent-light: #f4f3ef;
+
+	--radius-sm: .25rem;
+	--radius-md: .375rem;
+	--radius-lg: .5rem;
+
+	--shadow-lg: 0 8px 24px rgba(17, 17, 16, .08);
+	--overlay: rgba(17, 17, 16, .45);
+	--checker-a: #ffffff;
+	--checker-b: rgba(17, 17, 16, .05);
+	--focus: #111110;
+}
+
+::selection { background: color-mix(in srgb, var(--accent, #111110) 15%, transparent); }
+
+.brand__main { text-transform: uppercase; letter-spacing: .04em; }
+.brand__sub { text-transform: uppercase; letter-spacing: .08em; font-size: .875rem; color: var(--fg-muted); }
+
+.hero__title { text-transform: uppercase; letter-spacing: -.01em; }
+
+.card { box-shadow: none; }
+.card:hover { border-color: var(--fg, #111110); }
+
+.chip { text-transform: uppercase; letter-spacing: .03em; font-size: .75rem; }
+.chip.is-active { background: var(--accent, #161615); border-color: var(--accent, #161615); color: var(--accent-fg, #fff); }
+
+.card__price { color: var(--fg); font-weight: 700; }
+
+.site-footer__brand { text-transform: uppercase; letter-spacing: .06em; }
