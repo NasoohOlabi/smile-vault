@@ -1,0 +1,99 @@
+/* Design 8 — Retro Print Poster
+   Screen-printed poster energy: aged-paper cream ground, burnt-orange
+   ink accent, condensed vintage display type (Anton) paired with a
+   bold Arabic sans (Cairo) that carries all Arabic glyphs since the
+   Latin display face has none. Warm ink-brown text, not pure black. */
+
+@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Anton&family=Oswald:wght@400;500;600;700&display=swap");
+
+:root {
+	--font-sans: "Oswald", "Cairo", system-ui, sans-serif;
+	--font-display: "Anton", "Cairo", sans-serif;
+
+	--bg: #f3e9d8;
+	--bg-elevated: #faf3e6;
+	--fg: #3b2a1a;
+	--fg-muted: #8a6a4a;
+	--border: #d8c4a0;
+
+	--accent: #c2410c;
+	--accent-fg: #fff8ee;
+	--accent-light: #fb923c;
+
+	--radius-sm: .375rem;
+	--radius-md: .5rem;
+	--radius-lg: .875rem;
+
+	--shadow-lg: 0 10px 26px rgba(59, 42, 26, .22);
+	--overlay: rgba(38, 24, 12, .58);
+	--checker-a: #fdf8ee;
+	--checker-b: rgba(194, 65, 12, .08);
+	--focus: #c2410c;
+}
+
+/* subtle halftone screen-print texture on the header and hero */
+.site-header {
+	background-image: radial-gradient(var(--fg-muted) .55px, transparent .55px);
+	background-size: 8px 8px;
+	background-position: 0 0;
+	background-blend-mode: normal;
+	position: relative;
+}
+
+.site-header::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: var(--bg-elevated);
+	opacity: .93;
+	pointer-events: none;
+	z-index: -1;
+}
+
+.hero {
+	background-image: radial-gradient(var(--fg-muted) .6px, transparent .6px);
+	background-size: 10px 10px;
+	background-position: -2px -2px;
+	position: relative;
+}
+
+.brand__main {
+	letter-spacing: .01em;
+	text-transform: uppercase;
+}
+
+.brand__sub {
+	text-transform: uppercase;
+	letter-spacing: .04em;
+}
+
+.hero__title {
+	text-transform: uppercase;
+	letter-spacing: .01em;
+	text-shadow: 2px 2px 0 rgba(194, 65, 12, .18);
+}
+
+.chip.is-active {
+	background: var(--accent);
+	border-color: var(--accent);
+	color: var(--accent-fg);
+}
+
+.card {
+	box-shadow: 3px 3px 0 rgba(59, 42, 26, .08);
+}
+
+.card__cat {
+	text-transform: uppercase;
+	letter-spacing: .03em;
+}
+
+.site-footer__brand {
+	text-transform: uppercase;
+	letter-spacing: .04em;
+}
+
+::selection {
+	background: color-mix(in srgb, var(--accent) 35%, transparent);
+	color: var(--fg);
+}

@@ -1,0 +1,31 @@
+/* Design 1 — Warm Paper & Craft
+   Neutral warm paper tones with a teal accent; Space Grotesk display
+   type over IBM Plex Sans Arabic / Inter body text. The original
+   DAMA OBSRV look, ported onto the shared token system. */
+
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Inter:wght@300..800&family=Space+Grotesk:wght@500;700&display=swap");
+
+:root {
+	--font-sans: "IBM Plex Sans Arabic", "Inter", system-ui, sans-serif;
+	--font-display: "Space Grotesk", "IBM Plex Sans Arabic", sans-serif;
+
+	--bg: #f7f6f3;
+	--bg-elevated: #ffffff;
+	--fg: #1b1a17;
+	--fg-muted: #7f7666;
+	--border: #d9d5cb;
+
+	--accent: #0d9488;
+	--accent-fg: #ffffff;
+	--accent-light: #2dd4bf;
+
+	--radius-sm: 999px;
+	--radius-md: 1rem;
+	--radius-lg: 1.5rem;
+
+	--shadow-lg: 0 10px 30px rgba(27, 26, 23, .12);
+	--overlay: rgba(17, 17, 16, .5);
+	--checker-a: #ffffff;
+	--checker-b: rgba(27, 26, 23, .035);
+	--focus: #14b8a6;
+}

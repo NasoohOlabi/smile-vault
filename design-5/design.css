@@ -1,0 +1,108 @@
+/* Design 5 — Magazine Editorial
+   Cream newsprint page, near-black ink text, a tall Fraunces serif
+   display paired with Amiri for Arabic headlines, clean Inter body
+   copy. Deep ink-red accent for pull-quote energy; hairline rules
+   instead of boxy borders; modest, squarer corners throughout. */
+
+@import url("https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@300..700&family=Noto+Naskh+Arabic:wght@400..700&display=swap");
+
+:root {
+	--font-sans: "Inter", "Noto Naskh Arabic", system-ui, sans-serif;
+	--font-display: "Fraunces", "Amiri", "Noto Naskh Arabic", serif;
+
+	--bg: #f7f4ee;
+	--bg-elevated: #fffdf9;
+	--fg: #1a1613;
+	--fg-muted: #6b6255;
+	--border: #ddd6c8;
+
+	--accent: #8a1f2b;
+	--accent-fg: #fdf8f2;
+	--accent-light: #e8a0a6;
+
+	--radius-sm: .3rem;
+	--radius-md: .375rem;
+	--radius-lg: .75rem;
+
+	--shadow-lg: 0 14px 34px rgba(26, 22, 19, .16);
+	--overlay: rgba(20, 16, 13, .58);
+	--checker-a: #fffdf9;
+	--checker-b: rgba(26, 22, 19, .05);
+	--focus: #8a1f2b;
+}
+
+/* ---- editorial flourishes ---- */
+
+.brand__main {
+	font-style: italic;
+	letter-spacing: -.01em;
+}
+
+.brand__sub {
+	font-family: var(--font-sans);
+	font-style: normal;
+	text-transform: uppercase;
+	letter-spacing: .12em;
+	font-size: .75rem;
+}
+
+.hero {
+	border-bottom: 1px solid var(--border);
+}
+
+.hero__title {
+	font-style: italic;
+	font-weight: 600;
+	letter-spacing: -.01em;
+}
+
+.hero__sub {
+	font-family: var(--font-display);
+	font-style: italic;
+	font-size: 1rem;
+	color: var(--fg-muted);
+}
+
+.chip {
+	text-transform: uppercase;
+	letter-spacing: .04em;
+	font-size: .75rem;
+	border-radius: var(--radius-sm);
+}
+
+.chip.is-active {
+	background: var(--accent);
+	border-color: var(--accent);
+	color: var(--accent-fg);
+}
+
+.card {
+	box-shadow: none;
+	border-color: var(--border);
+}
+
+.card__title {
+	font-family: var(--font-display);
+	font-weight: 600;
+}
+
+.card__cat {
+	text-transform: uppercase;
+	letter-spacing: .06em;
+	font-size: .625rem;
+}
+
+.card__price {
+	font-family: var(--font-display);
+	font-style: italic;
+}
+
+.cart-drawer__title,
+.checkout-form__title,
+.site-footer__brand {
+	font-style: italic;
+}
+
+::selection {
+	background: color-mix(in srgb, var(--accent) 25%, transparent);
+}
