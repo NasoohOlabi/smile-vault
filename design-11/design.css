@@ -1,0 +1,141 @@
+/* Design 11 — Kiosk Screen
+   The in-store touchscreen look: flat charcoal ground, everything set in
+   mono, a thin olive rail under the category row, magenta pill for the
+   active state, cyan quantity steppers, and highlighter-yellow for the
+   one button that commits the order. Prices ride in small black chips
+   the way they do on the kiosk cards. Nothing glows, nothing gradients —
+   it should read as a screen bolted to a wall. */
+
+@import url("https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap");
+
+:root {
+	--font-sans: "Space Mono", "IBM Plex Sans Arabic", ui-monospace, monospace;
+	--font-display: "Space Mono", "IBM Plex Sans Arabic", ui-monospace, monospace;
+
+	--bg: #3a3a3a;
+	--bg-elevated: #4d4d4d;
+	--fg: #ffffff;
+	--fg-muted: #bdbdbd;
+	--border: rgba(255, 255, 255, .14);
+
+	--accent: #f21ce0;
+	--accent-fg: #14000f;
+	--accent-light: #f2e50c;
+
+	--radius-sm: 999px;
+	--radius-md: .75rem;
+	--radius-lg: 1rem;
+
+	--shadow-lg: 0 12px 32px rgba(0, 0, 0, .45);
+	--overlay: rgba(20, 20, 20, .72);
+	--checker-a: #565656;
+	--checker-b: rgba(255, 255, 255, .05);
+	--focus: #f2e50c;
+
+	--olive: #9ea01f;
+	--cyan: #2ee0e8;
+}
+
+/* ---- header: flat, no blur, olive rail under the category row ---- */
+.site-header {
+	background: var(--bg);
+	border-bottom: none;
+	backdrop-filter: none;
+}
+
+.brand__main { text-transform: uppercase; letter-spacing: -.04em; }
+
+.brand__sub {
+	color: var(--accent-light);
+	font-size: .625rem;
+	text-transform: uppercase;
+	letter-spacing: .06em;
+	align-self: flex-start;
+}
+
+.search__input {
+	background: rgba(0, 0, 0, .28);
+	border-color: var(--border);
+}
+
+.filter-nav { border-top: none; border-bottom: 2px solid var(--olive); }
+
+/* ---- category chips: bare labels, magenta pill when active ---- */
+.chip {
+	border-color: transparent;
+	background: transparent;
+	color: var(--fg);
+	font-weight: 400;
+	letter-spacing: .02em;
+}
+
+.chip.is-active {
+	background: var(--accent);
+	border-color: var(--accent);
+	color: #fff;
+	font-weight: 700;
+}
+
+.btn--solid { background: var(--accent); color: #fff; }
+.btn--solid .badge { background: rgba(0, 0, 0, .3); }
+.btn--accent { background: var(--accent-light); color: #14140a; font-weight: 700; }
+
+/* ---- cards: flat panels, price as a black chip over the shelf ---- */
+.hero__title { text-transform: uppercase; letter-spacing: -.02em; }
+
+.card {
+	border-color: transparent;
+	background: var(--bg-elevated);
+}
+
+@media (min-width: 640px) {
+	.card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+}
+
+.card__media { background-color: #5a5a5a; }
+
+.card__body { background: rgba(0, 0, 0, .12); gap: .5rem; }
+
+.card__price {
+	align-self: flex-start;
+	background: #111;
+	color: #fff;
+	border-radius: 999px;
+	padding: .25rem .75rem;
+	font-size: .8125rem;
+}
+
+/* ---- quantity steppers: cyan, borderless ---- */
+.qty__add {
+	border-color: var(--border);
+	background: rgba(0, 0, 0, .2);
+	color: var(--cyan);
+	border-radius: var(--radius-md);
+}
+
+.qty__add:active { background: var(--cyan); color: #111; }
+
+.qty__btn {
+	background: transparent;
+	color: var(--cyan);
+	font-size: 1.5rem;
+	font-weight: 700;
+}
+
+.qty--lightbox .qty__btn { background: var(--cyan); color: #111; }
+
+/* ---- panels ---- */
+.cart-drawer, .checkout-form { background: var(--bg); }
+.cart-drawer__title, .checkout-form__title { text-transform: uppercase; letter-spacing: .02em; }
+.field { background: rgba(0, 0, 0, .28); }
+
+.mobile-bar { background: linear-gradient(to top, var(--bg) 62%, transparent); }
+.mobile-bar__btn { background: var(--accent); color: #fff; }
+.bar-thumbs__img { box-shadow: 0 0 0 2px var(--accent); }
+
+.site-footer { border-top-color: var(--olive); color: var(--accent); }
+.site-footer__brand { color: var(--accent); text-transform: uppercase; }
+
+.toast { background: var(--accent-light); color: #14140a; }
+
+::selection { background: var(--accent); color: #fff; }

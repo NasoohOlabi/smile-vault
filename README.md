@@ -11,7 +11,7 @@ Smile Vault is the web front-end for the Dama store project. This repository hos
 
 ## Features
 - Static front-end, no build step, no framework — plain HTML/CSS/JS
-- **Ten interchangeable visual designs** (`/design-1` … `/design-10`) sharing one cart,
+- **Eleven interchangeable visual designs** (`/design-1` … `/design-11`) sharing one cart,
   one checkout flow, and one product catalog — see [Designs](#designs) below
 - Mobile-first: bottom sheet cart with drag-to-dismiss, swipeable lightbox, collapsing
   search bar, safe-area padding, haptic feedback, 44px touch targets throughout
@@ -22,7 +22,7 @@ Smile Vault is the web front-end for the Dama store project. This repository hos
 - Checkout form with validation, submitting to SheetDB
 
 ## Designs
-`index.html` at the repo root is a picker page linking to all ten. Each design is its own
+`index.html` at the repo root is a picker page linking to all eleven. Each design is its own
 folder with its own look, but all of them run the exact same cart/checkout/search/lightbox:
 
 | # | Folder | Direction |
@@ -37,6 +37,7 @@ folder with its own look, but all of them run the exact same cart/checkout/searc
 | 8 | `design-8` | Retro Print Poster — aged paper, halftone texture, vintage type |
 | 9 | `design-9` | Glassmorphism — frosted translucent panels over a soft gradient |
 | 10 | `design-10` | Terminal Mono-Tech — phosphor green on black, CRT scanlines |
+| 11 | `design-11` | Kiosk Screen — flat charcoal, mono type, magenta/cyan/yellow kiosk accents |
 
 ### How this works (theming architecture)
 Every design's `index.html` is byte-identical markup (same IDs/classes) except its `<title>`
@@ -50,8 +51,8 @@ depends on. What actually changes per design is styling, and it's built like CSS
   radii, shadows, etc. — the full list is documented at the top of `base.css`) plus, optionally,
   a handful of decorative flourishes. That's the entire surface area for a new look.
 
-To add an 11th design: copy `design-1/index.html` into `design-11/`, change its `<title>`, then
-write `design-11/design.css` defining the same token list with new values.
+To add a 12th design: copy `design-1/index.html` into `design-12/`, change its `<title>`, then
+write `design-12/design.css` defining the same token list with new values.
 
 ## File layout
 - `index.html` — the design picker/gallery (root URL)
