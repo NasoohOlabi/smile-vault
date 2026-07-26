@@ -1,204 +1,208 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-	<title>DAMA OBSRV — اختر التصميم</title>
-	<meta name="description" content="DAMA OBSRV — أحد عشر تصميماً مختلفاً لنفس المتجر. اختر التصميم اللي بيعجبك." />
-	<link rel="preconnect" href="https://fonts.googleapis.com" />
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-	<link
-		href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap"
-		rel="stylesheet" />
-	<style>
-		* { box-sizing: border-box; }
-
-		body {
-			margin: 0;
-			min-height: 100vh;
-			background: #111110;
-			color: #eceae4;
-			font-family: "IBM Plex Sans Arabic", system-ui, sans-serif;
-			-webkit-font-smoothing: antialiased;
-		}
-
-		a { color: inherit; text-decoration: none; }
-
-		.wrap {
-			max-width: 72rem;
-			margin-inline: auto;
-			padding: 3rem 1.25rem 4rem;
-		}
-
-		.eyebrow {
-			font-size: .8125rem;
-			letter-spacing: .08em;
-			color: #2dd4bf;
-			text-transform: uppercase;
-		}
-
-		h1 {
-			font-family: "Space Grotesk", "IBM Plex Sans Arabic", sans-serif;
-			font-size: 2rem;
-			font-weight: 700;
-			margin: .5rem 0 .5rem;
-		}
-
-		@media (min-width: 640px) { h1 { font-size: 2.75rem; } }
-
-		p.sub {
-			color: #9c9282;
-			max-width: 38rem;
-			margin: 0 0 2.5rem;
-			font-size: .9375rem;
-		}
-
-		.grid {
-			display: grid;
-			grid-template-columns: repeat(2, 1fr);
-			gap: 1rem;
-		}
-
-		@media (min-width: 640px) { .grid { grid-template-columns: repeat(3, 1fr); gap: 1.25rem; } }
-		@media (min-width: 900px) { .grid { grid-template-columns: repeat(5, 1fr); } }
-
-		.tile {
-			position: relative;
-			border-radius: 1rem;
-			padding: 1.25rem 1rem;
-			border: 1px solid #2c2a26;
-			background: #1b1a17;
-			overflow: hidden;
-			transition: transform .2s, border-color .2s;
-			min-height: 8rem;
-			display: flex;
-			flex-direction: column;
-			justify-content: flex-end;
-		}
-
-		.tile:hover { transform: translateY(-3px); border-color: var(--swatch, #2dd4bf); }
-
-		.tile__num {
-			position: absolute;
-			top: .875rem;
-			inset-inline-start: 1rem;
-			font-family: "Space Grotesk", sans-serif;
-			font-size: .75rem;
-			color: #7f7666;
-		}
-
-		.tile__swatch {
-			position: absolute;
-			inset: 0;
-			opacity: .18;
-			background: var(--swatch, #2dd4bf);
-			mask-image: radial-gradient(circle at 85% 15%, black, transparent 70%);
-		}
-
-		.tile__name {
-			position: relative;
-			font-weight: 600;
-			font-size: .9375rem;
-			line-height: 1.3;
-		}
-
-		.tile__name--en {
-			position: relative;
-			font-size: .75rem;
-			color: #9c9282;
-			margin-top: .125rem;
-		}
-
-		footer {
-			margin-top: 3rem;
-			font-size: .8125rem;
-			color: #655e51;
-		}
-	</style>
+	<title>DAMA OBSRV — Syrian Stickers & Prints</title>
+	<meta name="description"
+		content="DAMA OBSRV — Syrian stickers and prints, hand-drawn and printed in Damascus." />
+	<meta name="mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+	<meta name="format-detection" content="telephone=no" />
+	<link rel="stylesheet" href="./assets/base.css" />
+	<link rel="stylesheet" href="./design.css" />
 </head>
 
 <body>
-	<div class="wrap">
-		<p class="eyebrow">DAMA OBSRV</p>
-		<h1>أحد عشر تصميماً، متجر واحد</h1>
-		<p class="sub">
-			نفس الكتالوج والسلة وطريقة الطلب، بإحدى عشرة واجهة مختلفة. اضغط على أي تصميم لتجربته.
-			<br>
-			Same catalog, cart, and checkout — eleven different looks. Tap any design to try it.
-		</p>
+	<!-- ============ HEADER ============ -->
+	<header class="site-header">
+		<div class="header-bar">
+			<a href="#top" class="brand" aria-label="DAMA OBSRV home">
+				<img class="brand__logo" src="assets/images/dama-obsrv-logo-cropped.png" alt="DAMA OBSRV" />
+			</a>
 
-		<div class="grid">
-			<a class="tile" style="--swatch:#2dd4bf" href="./design-1/">
-				<span class="tile__num">01</span>
-				<span class="tile__swatch"></span>
-				<span class="tile__name">ورق دافئ وحِرفي</span>
-				<span class="tile__name--en">Warm Paper &amp; Craft</span>
-			</a>
-			<a class="tile" style="--swatch:#e5e5e5" href="./design-2/">
-				<span class="tile__num">02</span>
-				<span class="tile__swatch"></span>
-				<span class="tile__name">أحادي بسيط</span>
-				<span class="tile__name--en">Minimalist Mono</span>
-			</a>
-			<a class="tile" style="--swatch:#d4af37" href="./design-3/">
-				<span class="tile__num">03</span>
-				<span class="tile__swatch"></span>
-				<span class="tile__name">فخامة داكنة</span>
-				<span class="tile__name--en">Dark Luxury</span>
-			</a>
-			<a class="tile" style="--swatch:#ff3b30" href="./design-4/">
-				<span class="tile__num">04</span>
-				<span class="tile__swatch"></span>
-				<span class="tile__name">خشن وحاد</span>
-				<span class="tile__name--en">Brutalist Zine</span>
-			</a>
-			<a class="tile" style="--swatch:#b91c1c" href="./design-5/">
-				<span class="tile__num">05</span>
-				<span class="tile__swatch"></span>
-				<span class="tile__name">مجلة تحريرية</span>
-				<span class="tile__name--en">Magazine Editorial</span>
-			</a>
-			<a class="tile" style="--swatch:#f472b6" href="./design-6/">
-				<span class="tile__num">06</span>
-				<span class="tile__swatch"></span>
-				<span class="tile__name">مرح وملوّن</span>
-				<span class="tile__name--en">Playful Pop</span>
-			</a>
-			<a class="tile" style="--swatch:#0d9488" href="./design-7/">
-				<span class="tile__num">07</span>
-				<span class="tile__swatch"></span>
-				<span class="tile__name">زخرفة دمشقية</span>
-				<span class="tile__name--en">Damascene Tile</span>
-			</a>
-			<a class="tile" style="--swatch:#d97706" href="./design-8/">
-				<span class="tile__num">08</span>
-				<span class="tile__swatch"></span>
-				<span class="tile__name">ملصق قديم</span>
-				<span class="tile__name--en">Retro Print Poster</span>
-			</a>
-			<a class="tile" style="--swatch:#818cf8" href="./design-9/">
-				<span class="tile__num">09</span>
-				<span class="tile__swatch"></span>
-				<span class="tile__name">زجاجي شفاف</span>
-				<span class="tile__name--en">Glassmorphism</span>
-			</a>
-			<a class="tile" style="--swatch:#22c55e" href="./design-10/">
-				<span class="tile__num">10</span>
-				<span class="tile__swatch"></span>
-				<span class="tile__name">طرفية رقمية</span>
-				<span class="tile__name--en">Terminal Mono-Tech</span>
-			</a>
-			<a class="tile" style="--swatch:#f21ce0" href="./design-11/">
-				<span class="tile__num">11</span>
-				<span class="tile__swatch"></span>
-				<span class="tile__name">شاشة الكشك</span>
-				<span class="tile__name--en">Kiosk Screen</span>
-			</a>
+			<div class="header-actions">
+				<button id="cartBtn" class="btn btn--solid">
+					<span data-i18n="cart">Cart</span>
+					<span id="cartCount" class="badge">0</span>
+				</button>
+			</div>
 		</div>
 
-		<footer>صُنع في دمشق · Made in Damascus</footer>
+		<nav id="filterNav" class="filter-nav">
+			<div class="filter-nav__track"></div>
+		</nav>
+		<nav id="stickerSubnav" class="sticker-subnav" aria-label="Sticker collections">
+			<div class="sticker-subnav__track"></div>
+		</nav>
+	</header>
+
+	<!-- ============ HERO ============ -->
+	<section id="top" class="hero">
+		<h1 class="hero__title" data-i18n="heroTitle"></h1>
+		<p class="hero__sub" data-i18n="heroSub"></p>
+		<div class="hero__stats">
+			<span class="stat"><b id="statCount">0</b> <span data-i18n="statDesigns"></span></span>
+			<span class="stat"><b id="statPrice"></b> <span data-i18n="statEach"></span></span>
+		</div>
+	</section>
+
+	<!-- ============ GRID ============ -->
+	<main class="main">
+		<div id="grid" class="product-grid"></div>
+		<p id="emptyState" hidden class="empty-state" data-i18n="noResults"></p>
+		<div id="skeleton" class="product-grid"></div>
+	</main>
+
+	<!-- ============ FOOTER ============ -->
+	<footer class="site-footer">
+		<p class="site-footer__brand">DAMA OBSRV</p>
+		<p class="site-footer__note" data-i18n="footer"></p>
+	</footer>
+
+	<!-- ============ STICKY CART BAR (phones) ============ -->
+	<div id="mobileBar" class="mobile-bar">
+		<button id="mobileCartBtn" class="mobile-bar__btn">
+			<span id="barThumbs" class="bar-thumbs"></span>
+			<span class="mobile-bar__label">
+				<span id="barCount" class="mobile-bar__count"></span>
+				<span data-i18n="viewCart"></span>
+			</span>
+			<span id="mobileTotal" class="mobile-bar__total"></span>
+		</button>
 	</div>
+
+	<!-- ============ CART PANEL ============ -->
+	<div id="cartOverlay" hidden class="overlay"></div>
+	<aside id="cartDrawer" hidden class="cart-drawer" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
+		<div id="dragHandle" class="drag-handle">
+			<div class="drag-handle__grip"></div>
+		</div>
+
+		<div class="cart-drawer__head">
+			<h2 id="cartTitle" class="cart-drawer__title" data-i18n="yourOrder"></h2>
+			<button id="cartClose" class="icon-btn">
+				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+					<path stroke-linecap="round" d="M6 18L18 6M6 6l12 12" />
+				</svg>
+			</button>
+		</div>
+
+		<div id="cartBody" class="cart-body"></div>
+
+		<div class="cart-drawer__foot">
+			<div class="cart-drawer__total-row">
+				<span data-i18n="total"></span>
+				<span id="totalPrice"></span>
+			</div>
+			<button id="checkoutBtn" class="btn btn--accent btn--block" data-i18n="checkout"></button>
+		</div>
+
+		<form id="orderForm" hidden class="checkout-form">
+			<div class="checkout-form__head">
+				<button type="button" id="backToCart" class="icon-btn">
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+					</svg>
+				</button>
+				<h2 class="checkout-form__title" data-i18n="details"></h2>
+			</div>
+
+			<div class="checkout-form__body">
+				<div class="field-group">
+					<label class="field-label" for="customerName"><span data-i18n="fName"></span> <span class="req">*</span></label>
+					<input id="customerName" type="text" autocomplete="name" enterkeyhint="next" class="field" />
+				</div>
+				<div class="field-group">
+					<label class="field-label" for="phone"><span data-i18n="fPhone"></span> <span class="req">*</span></label>
+					<input id="phone" type="tel" inputmode="tel" pattern="[0-9]*" placeholder="09XXXXXXXX" autocomplete="tel"
+						enterkeyhint="next" class="field" />
+				</div>
+				<div class="field-group">
+					<label class="field-label" for="instaAccount"><span data-i18n="fInsta"></span></label>
+					<input id="instaAccount" type="text" placeholder="@yourhandle" autocapitalize="none" autocorrect="off"
+						spellcheck="false" enterkeyhint="next" class="field" />
+				</div>
+				<div class="field-group">
+					<label class="field-label" for="customerAddress"><span data-i18n="fAddress"></span> <span class="req">*</span></label>
+					<textarea id="customerAddress" rows="3" autocomplete="street-address" class="field"></textarea>
+				</div>
+				<div class="field-group">
+					<label class="field-label" for="orderNotes"><span data-i18n="fNotes"></span></label>
+					<textarea id="orderNotes" rows="2" class="field"></textarea>
+				</div>
+				<div id="orderResponse"></div>
+			</div>
+
+			<div class="checkout-form__foot">
+				<div class="checkout-form__total-row">
+					<span data-i18n="total"></span>
+					<b id="totalPrice2"></b>
+				</div>
+				<button type="submit" id="submitBtn" class="btn btn--accent btn--block" data-i18n="submit"></button>
+			</div>
+		</form>
+	</aside>
+
+	<!-- ============ LIGHTBOX ============ -->
+	<div id="lightbox" hidden class="lightbox" role="dialog" aria-modal="true">
+		<div class="lightbox__top">
+			<span id="lbCounter" class="lightbox__counter"></span>
+			<button id="lbClose" class="icon-btn icon-btn--ghost">
+				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+					<path stroke-linecap="round" d="M6 18L18 6M6 6l12 12" />
+				</svg>
+			</button>
+		</div>
+
+		<button id="lbPrev" class="lightbox__nav lightbox__nav--prev">
+			<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+				<path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+			</svg>
+		</button>
+		<button id="lbNext" class="lightbox__nav lightbox__nav--next">
+			<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+				<path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+			</svg>
+		</button>
+
+		<div id="lbStage" class="lightbox__stage">
+			<div class="lightbox__frame">
+				<img id="lbImg" class="lightbox__img" draggable="false" alt="" />
+			</div>
+			<div class="lightbox__info">
+				<h3 id="lbName" class="lightbox__name"></h3>
+				<p id="lbCat" class="lightbox__cat"></p>
+				<p id="lbPrice" class="lightbox__price"></p>
+			</div>
+			<div id="lbQty" class="qty qty--lightbox"></div>
+			<p class="lightbox__hint" data-i18n="swipeHint"></p>
+		</div>
+	</div>
+
+	<!-- ============ TOASTS ============ -->
+	<div id="toasts" class="toast-host"></div>
+
+	<script type="module">
+		import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+		import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-analytics.js";
+
+		const firebaseConfig = {
+			apiKey: "AIzaSyBDZSOlGnDZuv9LpDWCBE3MjhO9qUjfTwA",
+			authDomain: "dama-store.firebaseapp.com",
+			projectId: "dama-store",
+			storageBucket: "dama-store.firebasestorage.app",
+			messagingSenderId: "80005345755",
+			appId: "1:80005345755:web:8048d8aa1d27f6187ff7fe",
+			measurementId: "G-J557MTRP00"
+		};
+
+		getAnalytics(initializeApp(firebaseConfig));
+	</script>
+	<script src="./assets/i18n.js"></script>
+	<script src="./assets/app.js"></script>
 </body>
 
 </html>

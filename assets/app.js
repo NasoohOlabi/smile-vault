@@ -1,31 +1,30 @@
 /* ============================================================
  * DAMA OBSRV — storefront
  * Copy lives in assets/i18n.js. Structure/behavior in assets/base.css;
- * each design's own design.css supplies the look via CSS custom
- * properties (see the top of base.css for the token list).
+ * design.css supplies the look via CSS custom properties (see the top
+ * of base.css for the token list).
  *
- * Runs from /index.html (repo root) or /design-N/index.html — pages
- * one level deep set `window.DAMA_BASE = "../"` before this script
- * loads so products.json and image paths resolve correctly.
+ * Runs from /index.html at the repo root. A page nested one level deep
+ * can set `window.DAMA_BASE = "../"` before this script loads so
+ * products.json and image paths still resolve.
  * ============================================================ */
 
 const SHEETDB_URL = "https://sheetdb.io/api/v1/jog7er8l976bz";
 const CART_KEY = "dama_cart_v2";
-const LANG_KEY = "dama_lang";
 
 const assetUrl = (path) => (window.DAMA_BASE || "") + path;
 
-let lang = localStorage.getItem(LANG_KEY) || "ar";
-const t = (k) => I18N[lang][k];
-const money = (n) => I18N[lang].currency(n);
-const catName = (c) => I18N[lang].cats[c] || c;
+const t = (k) => I18N[k];
+const money = (n) => I18N.currency(n);
+const catName = (c) => I18N.cats[c] || c;
 
 /* ---------- state ---------- */
+const PRODUCT_TYPES = ["Stickers", "Posters", "Tshirts", "Hoodies"];
+
 let products = [];
-let categories = [];
 let cart = loadCart();
-let activeCat = "all";
-let query = "";
+let activeCat = "Stickers";
+let activeStickerCategory = "01";
 let visible = [];   // currently rendered products (drives lightbox nav)
 let lbIndex = -1;
 
@@ -83,7 +82,6 @@ async function fetchProducts() {
 	const data = await res.json();
 
 	products = data.map((p) => ({ ...p, id: String(p.id) }));
-	categories = [...new Set(products.map((p) => p.category))].sort();
 
 	// Drop cart entries for products that no longer exist
 	let pruned = false;
@@ -100,11 +98,14 @@ function renderFilters() {
 	const make = (key, label) => {
 		const b = document.createElement("button");
 		b.dataset.cat = key;
+		b.type = "button";
+		b.setAttribute("aria-pressed", String(activeCat === key));
 		b.textContent = label;
 		b.className = "chip" + (activeCat === key ? " is-active" : "");
 		b.onclick = () => {
 			activeCat = key;
 			renderFilters();
+			renderStickerSubnav();
 			renderGrid();
 			document
 				.querySelector(`#filterNav [data-cat="${CSS.escape(key)}"]`)
@@ -112,20 +113,44 @@ function renderFilters() {
 		};
 		return b;
 	};
-	wrap.appendChild(make("all", t("all")));
-	categories.forEach((c) => wrap.appendChild(make(c, catName(c))));
+	PRODUCT_TYPES.forEach((type) => wrap.appendChild(make(type, type)));
+}
+
+function stickerCategories() {
+	return [...new Set(products.map((p) => p.category))].sort();
+}
+
+function renderStickerSubnav() {
+	const nav = document.getElementById("stickerSubnav");
+	const wrap = nav.querySelector(".sticker-subnav__track");
+	const isVisible = activeCat === "Stickers";
+	nav.hidden = !isVisible;
+	if (!isVisible) return;
+
+	wrap.innerHTML = `<span class="sticker-subnav__label">${escapeHtml(t("packs"))}</span>`;
+	stickerCategories().forEach((category) => {
+		const button = document.createElement("button");
+		button.type = "button";
+		button.className = "subchip" + (activeStickerCategory === category ? " is-active" : "");
+		button.dataset.stickerCategory = category;
+		button.textContent = category;
+		button.setAttribute("aria-pressed", String(activeStickerCategory === category));
+		button.onclick = () => {
+			activeStickerCategory = category;
+			renderStickerSubnav();
+			renderGrid();
+			document
+				.querySelector(`#stickerSubnav [data-sticker-category="${CSS.escape(category)}"]`)
+				?.scrollIntoView({ inline: "center", block: "nearest", behavior: "smooth" });
+		};
+		wrap.appendChild(button);
+	});
 }
 
 function filtered() {
-	const q = query.trim().toLowerCase();
-	return products.filter((p) => {
-		if (activeCat !== "all" && p.category !== activeCat) return false;
-		if (!q) return true;
-		return (
-			p.name.toLowerCase().includes(q) ||
-			catName(p.category).toLowerCase().includes(q)
-		);
-	});
+	return activeCat === "Stickers"
+		? products.filter((p) => p.category === activeStickerCategory)
+		: [];
 }
 
 function renderGrid() {
@@ -209,7 +234,7 @@ function updateTotals() {
 	document.getElementById("totalPrice").textContent = money(total);
 	document.getElementById("totalPrice2").textContent = money(total);
 	document.getElementById("mobileTotal").textContent = money(total);
-	document.getElementById("barCount").textContent = I18N[lang].itemsCount(count);
+	document.getElementById("barCount").textContent = I18N.itemsCount(count);
 	document.getElementById("checkoutBtn").disabled = count === 0;
 	renderBarThumbs();
 	document.getElementById("mobileBar").classList.toggle("is-visible", count > 0);
@@ -445,10 +470,8 @@ function initLightboxSwipe() {
 		if (!active) return;
 		active = false;
 		stage.classList.remove("is-dragging");
-		const rtl = document.documentElement.dir === "rtl";
 		if (axis === "x" && Math.abs(dx) > 60) {
-			// Dragging the artwork left reveals the next item in LTR, the previous one in RTL
-			stepLightbox(dx < 0 ? (rtl ? -1 : 1) : (rtl ? 1 : -1));
+			stepLightbox(dx < 0 ? 1 : -1);
 			buzz(5);
 		} else if (axis === "y" && dy > 120) {
 			closeLightbox();
@@ -579,15 +602,8 @@ function notice(host, msg, kind) {
 	host.innerHTML = `<div class="notice notice--${kind}">${escapeHtml(msg)}</div>`;
 }
 
-/* ---------- language ---------- */
-function applyLang(next) {
-	lang = next;
-	localStorage.setItem(LANG_KEY, lang);
-	const html = document.documentElement;
-	html.lang = lang;
-	html.dir = I18N[lang].dir;
-	document.getElementById("langLabel").textContent = lang === "ar" ? "EN" : "عربي";
-
+/* ---------- copy ---------- */
+function applyI18n() {
 	document.querySelectorAll("[data-i18n]").forEach((el) => { el.textContent = t(el.dataset.i18n); });
 	document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => { el.placeholder = t(el.dataset.i18nPlaceholder); });
 	document.querySelectorAll("[data-i18n-title]").forEach((el) => { el.title = t(el.dataset.i18nTitle); });
@@ -597,6 +613,7 @@ function applyLang(next) {
 
 	if (products.length) {
 		renderFilters();
+		renderStickerSubnav();
 		renderGrid();
 		renderCartBody();
 		updateTotals();
@@ -623,27 +640,13 @@ function renderSkeleton() {
 		.join("");
 }
 
-/* Collapse the phone search row once the visitor starts scrolling down. */
-function initHeaderCompaction() {
-	let lastY = 0;
-	addEventListener("scroll", () => {
-		if (document.body.classList.contains("is-locked")) return;
-		const y = window.scrollY;
-		if (y > 90 && y > lastY + 4) document.body.classList.add("compact");
-		else if (y < lastY - 12 || y < 60) document.body.classList.remove("compact");
-		lastY = y;
-	}, { passive: true });
-}
-
 /* ---------- boot ---------- */
 document.addEventListener("DOMContentLoaded", async () => {
 	renderSkeleton();
-	applyLang(lang);
-	initHeaderCompaction();
+	applyI18n();
 	initSheetDrag();
 	initLightboxSwipe();
 
-	document.getElementById("langToggle").onclick = () => applyLang(lang === "ar" ? "en" : "ar");
 	document.getElementById("cartBtn").onclick = openCart;
 	document.getElementById("mobileCartBtn").onclick = openCart;
 	document.getElementById("cartClose").onclick = closeCart;
@@ -651,23 +654,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 	document.getElementById("checkoutBtn").onclick = showCheckoutStep;
 	document.getElementById("backToCart").onclick = showCartStep;
 	document.getElementById("orderForm").onsubmit = submitOrder;
-
-	// Search — both inputs stay in sync; searching looks across the whole catalog
-	const onSearch = (e) => {
-		query = e.target.value;
-		if (query.trim() && activeCat !== "all") { activeCat = "all"; renderFilters(); }
-		["searchInput", "searchInputMobile"].forEach((id) => {
-			const el = document.getElementById(id);
-			if (el !== e.target) el.value = query;
-		});
-		renderGrid();
-	};
-	["searchInput", "searchInputMobile"].forEach((id) => {
-		const el = document.getElementById(id);
-		el.addEventListener("input", onSearch);
-		// Dismiss the on-screen keyboard on "search"
-		el.addEventListener("keydown", (e) => { if (e.key === "Enter") el.blur(); });
-	});
 
 	document.getElementById("lbClose").onclick = closeLightbox;
 	document.getElementById("lbPrev").onclick = () => stepLightbox(-1);
@@ -683,9 +669,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 			else if (!document.getElementById("cartDrawer").hidden) closeCart();
 		}
 		if (!lbOpen) return;
-		const forward = document.documentElement.dir === "rtl" ? "ArrowLeft" : "ArrowRight";
-		if (e.key === forward) stepLightbox(1);
-		else if (e.key === "ArrowLeft" || e.key === "ArrowRight") stepLightbox(-1);
+		if (e.key === "ArrowRight") stepLightbox(1);
+		else if (e.key === "ArrowLeft") stepLightbox(-1);
 	});
 
 	// Android back / browser back closes an open overlay instead of leaving the page
@@ -698,6 +683,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 		await fetchProducts();
 		document.getElementById("statCount").textContent = products.length;
 		renderFilters();
+		renderStickerSubnav();
 		renderGrid();
 		renderCartBody();
 		updateTotals();
