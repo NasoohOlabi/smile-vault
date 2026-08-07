@@ -8,11 +8,11 @@ Smile Vault is the web storefront for Dama. Local development uses **Vite** (HMR
 
 ## Commands
 ```bash
-npm install
-npm run catalog   # rebuild products.json + catalog-nav.json from catalog/shop/
-npm run dev       # http://localhost:5173 — Vite + Tailwind HMR
-npm run build     # write dist/
-npm run preview   # serve dist locally
+bun install
+bun run catalog   # rebuild products.json + catalog-nav.json from catalog/shop/
+bun run dev       # http://localhost:5173 — Vite + Tailwind HMR
+bun run build     # write dist/
+bun run preview   # serve dist locally
 ```
 
 ## Features
@@ -21,25 +21,27 @@ npm run preview   # serve dist locally
 - Mobile-first cart sheet, swipeable lightbox, safe areas
 - Catalog from `catalog/shop/` YAML → `products.json` + `catalog-nav.json`
 - Checkout → SheetDB
-- Firebase Analytics
+- Firebase Analytics (GA4 ecommerce funnel, SYP). Mark `purchase` as a key event in GA4; use `?debug_mode=1` for DebugView.
 
 ## File layout
 - `index.html` — page shell
 - `src/main.js` — entry
 - `src/input.css` — Tailwind theme + components
 - `src/app.js` — app logic
+- `src/firebase.js` — Firebase app + Analytics
+- `src/analytics.js` — GA4 event helpers
 - `vite.config.js` — Vite + catalog static plugin (product images / generated JSON)
 - `catalog/shop/` — shop tabs + leaf `items.yaml` product lists
 - `products.json` + `catalog-nav.json` — generated; image folders at repo root
 
 ## Customizing
-- **Products / tabs**: edit `catalog/shop/` then `npm run catalog`
+- **Products / tabs**: edit `catalog/shop/` then `bun run catalog`
 - **Copy**: `index.html` (+ `_meta.yaml` for section labels / feature blocks)
 - **Orders**: `SHEETDB_URL` in `src/app.js`
-- **Look**: `src/input.css` (live via HMR in `npm run dev`)
+- **Look**: `src/input.css` (live via HMR in `bun run dev`)
 
 ## Deploy
-1. `npm run build`
+1. `bun run build`
 2. Deploy `dist/` (Firebase Hosting `public` is set to `dist`, or upload to Wuaze / GitHub Pages)
 
 ## License

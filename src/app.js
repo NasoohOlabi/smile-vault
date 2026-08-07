@@ -3,6 +3,16 @@
  * Styles: ./input.css (Tailwind via Vite HMR)
  * ============================================================ */
 
+import {
+	CURRENCY,
+	capItems,
+	itemFromLine,
+	itemsFromCart,
+	listId,
+	track,
+	trackPageView,
+} from "./analytics.js";
+
 const SHEETDB_URL = "https://sheetdb.io/api/v1/jog7er8l976bz";
 const CART_KEY = "dama_cart_v2";
 
@@ -50,6 +60,8 @@ let activeSection = null;
 let visible = [];   // currently rendered products (drives lightbox nav)
 let lbIndex = -1;
 let obsBuilt = false;
+let lastViewedItemId = null;
+let lastPageKey = "";
 
 /* ---------- cart persistence (+ migration from legacy p_<id> keys) ---------- */
 function loadCart() {
@@ -92,8 +104,62 @@ function setQty(id, qty) {
 	renderCartBody();
 	updateTotals();
 	if (qty !== prev) buzz();
-	if (qty > prev) toast("Added to cart");
-	else if (qty === 0 && prev > 0) toast("Removed from cart");
+	if (qty > prev) {
+		toast("Added to cart");
+		const line = resolveLine(id);
+		const delta = qty - prev;
+		const item = itemFromLine(line, delta);
+		if (item) {
+			track("add_to_cart", {
+				currency: CURRENCY,
+				value: (line?.price || 0) * delta,
+				items: [item],
+			});
+		}
+	} else if (qty < prev) {
+		if (qty === 0) toast("Removed from cart");
+		const line = resolveLine(id);
+		const delta = prev - qty;
+		const item = itemFromLine(line, delta);
+		if (item) {
+			track("remove_from_cart", {
+				currency: CURRENCY,
+				value: (line?.price || 0) * delta,
+				items: [item],
+			});
+		}
+	}
+}
+
+function trackCurrentPage() {
+	const path = `${location.pathname}${location.search}${location.hash || ""}`;
+	const title = document.title;
+	const key = `${path}|${title}`;
+	if (key === lastPageKey) return;
+	lastPageKey = key;
+	trackPageView({ path, title });
+}
+
+function shopListMeta() {
+	const id = listId(activeCat, activeSection);
+	const sec = activeSectionMeta()?.label;
+	const name = sec ? `${activeCat} · ${sec}` : String(activeCat || "shop");
+	return { item_list_id: id, item_list_name: name };
+}
+
+function trackViewItem(line) {
+	if (!line) return;
+	const id = String(line.id);
+	if (id === lastViewedItemId) return;
+	lastViewedItemId = id;
+	const item = itemFromLine(line);
+	if (!item) return;
+	track("view_item", {
+		currency: CURRENCY,
+		value: line.price || 0,
+		...shopListMeta(),
+		items: [item],
+	});
 }
 
 const changeQty = (id, delta) => setQty(id, qtyOf(id) + delta);
@@ -551,24 +617,19 @@ function syncHash({ push = false } = {}) {
 function setDocumentTitle() {
 	if (lbIndex >= 0 && visible[lbIndex]) {
 		document.title = `${visible[lbIndex].name} — DAMA OBSRV`;
-		return;
-	}
-	if (activeView === "observatory") {
+	} else if (activeView === "observatory") {
 		document.title = "The Observatory — DAMA OBSRV";
-		return;
-	}
-	if (activeView === "about") {
+	} else if (activeView === "about") {
 		document.title = "About Us — DAMA OBSRV";
-		return;
-	}
-	if (activeCat) {
+	} else if (activeCat) {
 		const sec = activeSectionMeta()?.label;
 		document.title = sec
 			? `${sec} · ${activeCat} — DAMA OBSRV`
 			: `${activeCat} — DAMA OBSRV`;
-		return;
+	} else {
+		document.title = SITE_TITLE;
 	}
-	document.title = SITE_TITLE;
+	trackCurrentPage();
 }
 
 function applyShopSelection(cat, section, { render = true } = {}) {
@@ -678,10 +739,16 @@ async function shareCurrent() {
 	const text = product
 		? `${product.name} from DAMA OBSRV`
 		: "DAMA OBSRV — Syrian stickers and prints";
+	const shareItemId = product ? String(activeSkuId(product)) : undefined;
 
 	try {
 		if (navigator.share) {
 			await navigator.share({ title, text, url });
+			track("share", {
+				method: "navigator",
+				content_type: product ? "product" : "page",
+				item_id: shareItemId,
+			});
 			return;
 		}
 	} catch (err) {
@@ -691,6 +758,11 @@ async function shareCurrent() {
 	try {
 		await navigator.clipboard.writeText(url);
 		toast("Link copied");
+		track("share", {
+			method: "clipboard",
+			content_type: product ? "product" : "page",
+			item_id: shareItemId,
+		});
 	} catch {
 		toast("Couldn't copy link", "err");
 	}
@@ -759,6 +831,10 @@ function renderFilters() {
 			e.preventDefault();
 			activeCat = key;
 			activeSection = sectionsFor(key)[0]?.id || null;
+			track("select_content", {
+				content_type: "shop_category",
+				content_id: key,
+			});
 			if (lbIndex >= 0) closeLightbox({ sync: false });
 			syncHash();
 			renderFilters();
@@ -827,6 +903,10 @@ function renderSectionSubnav() {
 		button.onclick = (e) => {
 			e.preventDefault();
 			activeSection = section.id;
+			track("select_content", {
+				content_type: "shop_section",
+				content_id: `${activeCat}/${section.id}`,
+			});
 			if (lbIndex >= 0) closeLightbox({ sync: false });
 			syncHash();
 			renderSectionSubnav();
@@ -906,6 +986,25 @@ function renderGrid() {
 	updateStatCount(visible.length);
 	grid.innerHTML = "";
 	const viewOnly = !!activeSectionMeta()?.viewOnly;
+	const listMeta = shopListMeta();
+	const listItems = capItems(
+		visible.map((p) => {
+			const line = resolveLine(activeSkuId(p)) || {
+				id: p.id,
+				name: p.name,
+				price: p.price,
+				type: productType(p),
+				section: productSection(p),
+			};
+			return itemFromLine(line);
+		}).filter(Boolean),
+	);
+	if (listItems.length) {
+		track("view_item_list", {
+			...listMeta,
+			items: listItems,
+		});
+	}
 
 	visible.forEach((p, i) => {
 		const card = document.createElement("article");
@@ -1098,6 +1197,12 @@ function openCart() {
 		overlay.classList.add("is-visible");
 		drawer.classList.add("is-open");
 	});
+	const items = itemsFromCart(resolveLine, cart);
+	track("view_cart", {
+		currency: CURRENCY,
+		value: cartTotal(),
+		items,
+	});
 }
 
 function closeCart() {
@@ -1115,7 +1220,15 @@ function closeCart() {
 	}, 320);
 }
 
-const showCheckoutStep = () => { document.getElementById("orderForm").hidden = false; };
+const showCheckoutStep = () => {
+	document.getElementById("orderForm").hidden = false;
+	const items = itemsFromCart(resolveLine, cart);
+	track("begin_checkout", {
+		currency: CURRENCY,
+		value: cartTotal(),
+		items,
+	});
+};
 const showCartStep = () => {
 	document.getElementById("orderForm").hidden = true;
 	document.getElementById("orderResponse").innerHTML = "";
@@ -1170,6 +1283,22 @@ function openLightbox(index, { pushHash = true, fromRoute = false } = {}) {
 	lb.hidden = false;
 	if (!wasOpen) lockScroll();
 	requestAnimationFrame(() => lb.classList.add("is-visible"));
+
+	const line = resolveLine(activeSkuId(p));
+	const item = itemFromLine(line || {
+		id: p.id,
+		name: p.name,
+		price: p.price,
+		type: productType(p),
+		section: productSection(p),
+	});
+	if (item && !wasOpen) {
+		track("select_item", {
+			...shopListMeta(),
+			items: [item],
+		});
+	}
+
 	paintLightbox({ pushHash: pushHash && !fromRoute, replace: wasOpen || fromRoute });
 }
 
@@ -1219,6 +1348,14 @@ function paintLightbox({ pushHash = true, replace = true } = {}) {
 	if (pushHash) setHash(productHash(skuId), { push: !replace });
 	setDocumentTitle();
 
+	trackViewItem(resolveLine(skuId) || {
+		id: skuId,
+		name: p.name,
+		price: sku?.price ?? p.price,
+		type: productType(p),
+		section: productSection(p),
+	});
+
 	// Warm the neighbours so swiping feels instant
 	[-1, 1].forEach((d) => {
 		const n = visible[(lbIndex + d + visible.length) % visible.length];
@@ -1236,6 +1373,7 @@ function closeLightbox({ sync = true } = {}) {
 	if (lbIndex < 0) return;
 	const lb = document.getElementById("lightbox");
 	lbIndex = -1;
+	lastViewedItemId = null;
 	lb.classList.remove("is-visible");
 	unlockScroll();
 	setTimeout(() => {
@@ -1395,6 +1533,15 @@ async function submitOrder(event) {
 			}),
 		});
 		if (!res.ok) throw new Error(`HTTP ${res.status} ${res.statusText}`);
+
+		const value = cartTotal();
+		const purchaseItems = itemsFromCart(resolveLine, cart);
+		track("purchase", {
+			transaction_id: (crypto.randomUUID && crypto.randomUUID()) || `order_${Date.now()}`,
+			currency: CURRENCY,
+			value,
+			items: purchaseItems,
+		});
 
 		notice(responseDiv, "Order sent! We'll be in touch shortly.", "ok");
 		toast("Order sent! We'll be in touch shortly.");

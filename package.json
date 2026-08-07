@@ -2,13 +2,14 @@
   "name": "smile-vault",
   "private": true,
   "type": "module",
+  "packageManager": "bun@1.3.14",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "catalog": "node s.js",
-    "firebase:login": "npx -y firebase-tools@latest login",
-    "deploy": "npm run build && npx -y firebase-tools@latest deploy --only hosting"
+    "catalog": "bun s.js",
+    "firebase:login": "bunx firebase-tools@latest login",
+    "deploy": "bun run build && bunx firebase-tools@latest deploy --only hosting"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.11",
