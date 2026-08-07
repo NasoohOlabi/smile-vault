@@ -1,0 +1,125 @@
+# Optional price overwrite (most-specific wins):
+#   price: 350                 ← file default (below)
+#   - title: … / price: 400    ← per item
+#   - color: W / price: 425    ← per variant (tees)
+price: 350
+items:
+  - title: Crosswords
+    variants:
+      - color: B
+        back: Tshirts/Crosswords_B.jpg
+      - color: W
+        back: Tshirts/Crosswords_W.jpg
+
+  - title: D4m45cu5
+    variants:
+      - color: B
+        back: Tshirts/D4m45cu5_B.jpg
+
+  - title: Damascape
+    image: Tshirts/Damascape.jpg
+
+  - title: Godzilla
+    image: Tshirts/Godzilla.jpg
+
+  - title: Goodbye Columbus
+    variants:
+      - color: B
+        back: Tshirts/GoodbyeColumbus_B.jpg
+      - back: Tshirts/GoodbyeColumbus.jpg
+
+  - title: Hafez V Cat
+    variants:
+      - color: B
+        back: Tshirts/HafezVCat_B.jpg
+      - color: W
+        back: Tshirts/HafezVCat_W.jpg
+
+  - title: Jahez
+    image: Tshirts/Jahez.jpg
+
+  - title: Jenin Jenin
+    image: Tshirts/JeninJenin.jpg
+
+  - title: Kiddo
+    variants:
+      - color: B
+        back: Tshirts/Kiddo_B.jpg
+      - back: Tshirts/Kiddo.jpg
+
+  - title: Local Product
+    image: Tshirts/LocalProduct.jpg
+
+  - title: Map
+    variants:
+      - color: B
+        front: Tshirts/Map_B_F.jpg
+        back: Tshirts/Map_B.jpg
+      - color: W
+        default: true
+        defaultSide: front
+        front: Tshirts/Map_W_F.jpg
+        back: Tshirts/Map_W.jpg
+
+  - title: Mosaic
+    variants:
+      - color: B
+        back: Tshirts/Mosaic_B.jpg
+      - color: W
+        back: Tshirts/Mosaic_W.jpg
+
+  - title: National Team
+    variants:
+      - color: B
+        back: Tshirts/NationalTeam_B.jpg
+      - color: W
+        back: Tshirts/NationalTeam_W.jpg
+
+  - title: P@R
+    image: Tshirts/P@R.jpg
+
+  - title: P vs P
+    variants:
+      - color: B
+        front: Tshirts/PvsP_B_F.jpg
+        back: Tshirts/PvsP_B_B.jpg
+      - front: Tshirts/PvsP_F.jpg
+
+  - title: Qlb Dmshq
+    variants:
+      - color: B
+        back: Tshirts/QlbDmshq_B.jpg
+      - color: W
+        back: Tshirts/QlbDmshq_W.jpg
+
+  - title: Royal
+    variants:
+      - color: B
+        back: Tshirts/Royal_B.jpg
+
+  - title: SL
+    variants:
+      - color: B
+        back: Tshirts/SL_B.jpg
+      - color: BL
+        front: Tshirts/SL_BL.jpg
+        back: Tshirts/SL_BL_B.jpg
+      - color: W
+        back: Tshirts/SL_W.jpg
+
+  - title: Supreme
+    variants:
+      - color: B
+        back: Tshirts/Supreme_B.jpg
+      - color: W
+        back: Tshirts/Supreme_W.jpg
+
+  - title: Varsity
+    variants:
+      - color: B
+        back: Tshirts/Varsity_B.jpg
+      - color: W
+        back: Tshirts/Varsity_W.jpg
+
+  - title: Watermelon
+    image: Tshirts/Watermelon.jpg

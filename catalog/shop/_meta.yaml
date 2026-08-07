@@ -1,0 +1,7 @@
+# Top-level shop tab order (folder names under catalog/shop/)
+order:
+  - posters
+  - stickers
+  - tshirts
+  - hoodies
+  - collabs

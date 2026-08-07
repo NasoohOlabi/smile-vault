@@ -1,0 +1,57 @@
+{
+    "types": [
+        {
+            "id": "Posters",
+            "slug": "posters",
+            "label": "Posters",
+            "sections": []
+        },
+        {
+            "id": "Stickers",
+            "slug": "stickers",
+            "label": "Stickers",
+            "sections": [
+                {
+                    "id": "curated",
+                    "label": "Curated Collections"
+                },
+                {
+                    "id": "nuggets",
+                    "label": "Nuggets"
+                }
+            ]
+        },
+        {
+            "id": "Tshirts",
+            "slug": "tshirts",
+            "label": "Tshirts",
+            "sections": []
+        },
+        {
+            "id": "Hoodies",
+            "slug": "hoodies",
+            "label": "Hoodies",
+            "sections": []
+        },
+        {
+            "id": "Collabs",
+            "slug": "collabs",
+            "label": "Collabs",
+            "sections": [
+                {
+                    "id": "dama-x-elat",
+                    "label": "Dama x Elat"
+                },
+                {
+                    "id": "stunning-studio",
+                    "label": "Stunning Studio",
+                    "feature": {
+                        "image": "assets/stunning-studio.png",
+                        "alt": "Stunning Studio × Dama.Obsrv collab",
+                        "copy": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+                    }
+                }
+            ]
+        }
+    ]
+}

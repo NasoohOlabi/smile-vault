@@ -3,165 +3,381 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = path.dirname(fileURLToPath(import.meta.url));
-const PRICE = 350;
-const IMAGE_EXT = /\.(jpe?g|png|webp|gif)$/i;
+const SHOP_DIR = path.join(root, "catalog", "shop");
+const DEFAULT_PRICE = 350;
 
-const CURATED_TITLES = {
-	"bg designs.jpg": "Dead Love Pack",
-	"bg designs 02.jpg": "Homeland Pack",
-	"bg designs 03.jpg": "From Damascus Pack",
-	"bg designs 06.jpg": "Between Us Pack",
-	"bg designs 9.jpg": "Internal Tourism Pack",
-};
+/** Minimal YAML loader for catalog files (maps, lists, quotes, folded `>`). */
+function loadYaml(text) {
+	const lines = String(text || "").replace(/\t/g, "  ").split(/\r?\n/);
+	let i = 0;
 
-const NUGGET_TITLES = {
-	"02 ع-small.png": "Kohl Pot",
-	"03 ع-small.png": "Best Shawarma",
-	"04 ع-small.png": "Loose Weapon",
-	"05 ع-small.png": "Stamp Sheet One",
-	"06 ع-small.png": "Stamp Sheet Two",
-	"07 ع-small.png": "War Is Bad For You",
-	"08 ع-small.png": "Official Speaker",
-	"09 ع-small.png": "Five Piastres",
-	"10 ع-small.png": "All Eyes",
-	"11 ع-small.png": "Five Lira",
-	"12 ع-small.png": "One Lira",
-	"15 ع-small.png": "Damascus Window",
-	"19 ع-small.png": "Ease Our Minds",
-	"20 ع-small.png": "Coffee Cups",
-	"21 ع-small.png": "Black Ink One",
-	"22 ع-small.png": "Black Ink Two",
-	"23 ع-small.png": "Square Mosaic Box",
-	"24 ع-small.png": "No Going Back",
-	"25 ع-small.png": "Octagon Mosaic Box",
-	"26 ع-small.png": "Fresh Cut",
-	"27 ع-small.png": "TV Table",
-	"29 ع-small.png": "City Life",
-	"32 ع-small.png": "Black Ink Three",
-	"34 ع-small.png": "New Signal",
-	"36 ع-small.png": "Bright Edge",
-	"37 ع-small.png": "Local Merch",
-	"39 ع (2)-small.png": "Black Ink Four",
-	"40 ع-small.png": "Yellow Horizon",
-	"47 ع-small.png": "Take a Stand",
-	"49 ع-small.png": "Black Ink Five",
-	"51 ع-small.png": "Nothing Happened Sketch",
-	"52 ع-small.png": "Daily Route",
-	"55 ع-small.png": "Street Pulse",
-	"56 ع-small.png": "Welcome to Damascus",
-	"61 ع-small.png": "Soft Landing",
-	"62 ع-small.png": "Black Ink Six",
-	"63 ع-small.png": "Black Ink Seven",
-	"64 ع-small.png": "Welcome 3 Damascus",
-	"65 ع-small.png": "Black Ink Eight",
-	"66 ع (2)-small.png": "Shawarma Star",
-	"67 ع (2)-small.png": "Black Ink Nine",
-	"75 ع-small.png": "Damascus Shabak",
-	"76 ع-small.png": "Jenin Jenin",
-	"78 ع-small.png": "Crossword",
-	"80 ع-small.png": "Watermelon Fountain",
-	"83 L-small.png": "On-the-Go Portrait",
-	"84 ع-small.png": "House Keys",
-	"85 ع-small.png": "Fall Forever",
-	"87 ع-small.png": "Heart Trademark",
-	"90 ع-small.png": "That Ice Cream",
-	"91 ع-small.png": "Jasmine City",
-	"92 ع-small.png": "North Star",
-	"96 ع-small.png": "Protect Her",
-	"98 ع-small.png": "Freedom Is Duty",
-	"100 ع-small.png": "This Frog Wont Boil",
-	"201 ع-small.png": "Nothing Happened",
-	"1011-small.png": "For the Era",
-	"1012 2-small.png": "Resistance Is Not Cool",
-	"1014 ع-small.png": "Wake Up Girl",
-	"1014-small.png": "Wake Up Boy",
-	"10189-small.png": "Life Frame",
-	"897 ش-small.png": "Thirty on Me",
-	"897-small.png": "Got Thirty?",
-	"Matisse - Dance but Syrian-small.png": "Syrian Dance",
-	"mirro3r ع-small.png": "Mirror Mad Damascus",
-	"mirror ع-small.png": "Inlaid Mirror",
-};
+	const peek = () => (i < lines.length ? lines[i] : null);
+	const indentOf = (line) => (/^ */.exec(line) || [""])[0].length;
 
-function listImages(dir) {
-	if (!fs.existsSync(dir)) return [];
-	return fs
-		.readdirSync(dir, { withFileTypes: true })
-		.filter((f) => f.isFile() && IMAGE_EXT.test(f.name))
-		.map((f) => f.name)
-		.sort((a, b) => a.localeCompare(b, undefined, { sensitivity: "base" }));
-}
-
-function fallbackTitle(fileName) {
-	let stem = path.parse(fileName).name;
-	stem = stem
-		.replace(/-small$/i, "")
-		.replace(/\s*ع$/u, "")
-		.replace(/\s*ش$/u, "")
-		.replace(/\s*L$/i, "")
-		.replace(/\s*\(2\)$/, "")
-		.trim();
-	return `Nugget ${stem}`;
-}
-
-function shirtTitle(fileName) {
-	return path.parse(fileName).name.replace(/_/g, " ").trim();
-}
-
-function buildCatalog() {
-	const products = [];
-	let id = 1;
-
-	const stickerSections = [
-		{ folder: "Curated Collections", section: "curated", titles: CURATED_TITLES },
-		{ folder: "Nuggets", section: "nuggets", titles: NUGGET_TITLES },
-	];
-
-	for (const { folder, section, titles } of stickerSections) {
-		const dir = path.join(root, "Stickers", folder);
-		for (const fileName of listImages(dir)) {
-			products.push({
-				id: id++,
-				name: titles[fileName] || fallbackTitle(fileName),
-				price: PRICE,
-				image: `Stickers/${folder}/${fileName}`,
-				type: "Stickers",
-				section,
-				category: section,
-			});
+	function skipBlankAndComments() {
+		while (i < lines.length) {
+			const line = lines[i];
+			if (!line.trim() || line.trimStart().startsWith("#")) {
+				i++;
+				continue;
+			}
+			break;
 		}
 	}
 
-	const shirtsDir = path.join(root, "Tshirts");
-	for (const fileName of listImages(shirtsDir)) {
-		products.push({
-			id: id++,
-			name: shirtTitle(fileName),
-			price: PRICE,
-			image: `Tshirts/${fileName}`,
-			type: "Tshirts",
-			category: "tshirts",
-		});
+	function parseScalar(raw) {
+		const s = String(raw ?? "").trim();
+		if (s === "[]") return [];
+		if (s === "{}" ) return {};
+		if (s === "null" || s === "~" || s === "") return null;
+		if (s === "true") return true;
+		if (s === "false") return false;
+		if (/^-?\d+(\.\d+)?$/.test(s)) return Number(s);
+		if ((s.startsWith('"') && s.endsWith('"')) || (s.startsWith("'") && s.endsWith("'"))) {
+			const q = s[0];
+			return s.slice(1, -1).replace(new RegExp(`\\\\${q}`, "g"), q).replace(/\\n/g, "\n");
+		}
+		return s;
 	}
 
-	return products;
+	function parseFolded(baseIndent) {
+		i++;
+		const parts = [];
+		while (i < lines.length) {
+			const line = lines[i];
+			if (!line.trim()) {
+				parts.push("");
+				i++;
+				continue;
+			}
+			if (indentOf(line) <= baseIndent) break;
+			parts.push(line.slice(baseIndent).replace(/^  /, ""));
+			i++;
+		}
+		return parts.join(" ").replace(/ +/g, " ").trim();
+	}
+
+	function parseBlock(minIndent) {
+		skipBlankAndComments();
+		const first = peek();
+		if (first == null) return null;
+		const ind = indentOf(first);
+		if (ind < minIndent) return null;
+
+		if (first.trimStart().startsWith("- ")) {
+			const list = [];
+			while (i < lines.length) {
+				skipBlankAndComments();
+				const line = peek();
+				if (line == null) break;
+				if (indentOf(line) < ind) break;
+				if (!line.trimStart().startsWith("- ")) break;
+				const itemIndent = indentOf(line);
+				const rest = line.trimStart().slice(2);
+				i++;
+				if (!rest) {
+					list.push(parseBlock(itemIndent + 2));
+				} else if (rest.includes(": ") || /:$/.test(rest)) {
+					// Inline first key on the dash line, then more keys at itemIndent+2
+					const obj = {};
+					const ci = rest.indexOf(":");
+					const k = rest.slice(0, ci).trim();
+					const v = rest.slice(ci + 1).trim();
+					if (!v) obj[k] = parseBlock(itemIndent + 2);
+					else if (v === ">" || v === "|") obj[k] = parseFolded(itemIndent);
+					else obj[k] = parseScalar(v);
+					Object.assign(obj, parseMapContinuation(itemIndent + 2) || {});
+					list.push(obj);
+				} else {
+					list.push(parseScalar(rest));
+				}
+			}
+			return list;
+		}
+
+		return parseMapContinuation(ind);
+	}
+
+	function parseMapContinuation(ind) {
+		const obj = {};
+		let any = false;
+		while (i < lines.length) {
+			skipBlankAndComments();
+			const line = peek();
+			if (line == null) break;
+			const cur = indentOf(line);
+			if (cur < ind) break;
+			if (cur > ind) break;
+			if (line.trimStart().startsWith("- ")) break;
+			const trimmed = line.trim();
+			const ci = trimmed.indexOf(":");
+			if (ci < 0) break;
+			const key = trimmed.slice(0, ci).trim();
+			const val = trimmed.slice(ci + 1).trim();
+			i++;
+			any = true;
+			if (!val) obj[key] = parseBlock(ind + 2);
+			else if (val === ">" || val === "|") obj[key] = parseFolded(ind);
+			else obj[key] = parseScalar(val);
+		}
+		return any ? obj : null;
+	}
+
+	const doc = parseBlock(0);
+	return doc == null ? {} : doc;
 }
 
-const products = buildCatalog();
-const outPath = path.join(root, "products.json");
-fs.writeFileSync(outPath, `${JSON.stringify(products, null, 4)}\n`, "utf8");
-
-const curated = products.filter((p) => p.section === "curated").length;
-const nuggets = products.filter((p) => p.section === "nuggets").length;
-const shirts = products.filter((p) => p.type === "Tshirts").length;
-const fallbacks = products.filter((p) => String(p.name).startsWith("Nugget "));
-
-console.log(`Wrote ${products.length} products → ${outPath}`);
-console.log(`  Stickers curated: ${curated}`);
-console.log(`  Stickers nuggets: ${nuggets}`);
-console.log(`  Tshirts: ${shirts}`);
-console.log(`  Price: ${PRICE}`);
-if (fallbacks.length) {
-	console.log("  Fallback titles:");
-	for (const p of fallbacks) console.log(`    ${p.image} → ${p.name}`);
+function readYaml(filePath) {
+	if (!fs.existsSync(filePath)) return null;
+	const raw = fs.readFileSync(filePath, "utf8");
+	if (!raw.trim()) return null;
+	return loadYaml(raw);
 }
+
+function loadMeta(dir) {
+	return readYaml(path.join(dir, "_meta.yaml")) || {};
+}
+
+function humanize(slug) {
+	return String(slug || "")
+		.split("-")
+		.filter(Boolean)
+		.map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+		.join(" ");
+}
+
+function typeLabel(slug, meta) {
+	if (meta.label) return meta.label;
+	const known = {
+		posters: "Posters",
+		stickers: "Stickers",
+		tshirts: "Tshirts",
+		hoodies: "Hoodies",
+		collabs: "Collabs",
+	};
+	return known[slug] || humanize(slug);
+}
+
+function listChildDirs(dir) {
+	if (!fs.existsSync(dir)) return [];
+	return fs
+		.readdirSync(dir, { withFileTypes: true })
+		.filter((d) => d.isDirectory())
+		.map((d) => d.name)
+		.sort((a, b) => a.localeCompare(b, undefined, { sensitivity: "base" }));
+}
+
+function orderedChildDirs(dir, meta) {
+	const kids = listChildDirs(dir);
+	const order = Array.isArray(meta.order) ? meta.order : [];
+	const seen = new Set();
+	const out = [];
+	for (const id of order) {
+		if (kids.includes(id) && !seen.has(id)) {
+			out.push(id);
+			seen.add(id);
+		}
+	}
+	for (const id of kids) {
+		if (!seen.has(id)) out.push(id);
+	}
+	return out;
+}
+
+function resolvePrice(value, fallback) {
+	const n = typeof value === "number" ? value : Number(String(value ?? "").trim());
+	return Number.isFinite(n) ? n : fallback;
+}
+
+function normalizeItems(doc) {
+	if (!doc) return { price: DEFAULT_PRICE, items: [] };
+	const price = resolvePrice(doc.price, DEFAULT_PRICE);
+	let items = doc.items;
+	if (!items && Array.isArray(doc)) items = doc;
+	if (!Array.isArray(items)) items = [];
+	return { price, items };
+}
+
+function pushProduct(products, {
+	title,
+	price,
+	image,
+	type,
+	section,
+	variantColor,
+	variantSide,
+	variantDefault,
+	defaultSide,
+}) {
+	const product = {
+		id: products.length + 1,
+		name: title,
+		title,
+		price,
+		image,
+		type,
+	};
+	if (variantColor != null && variantColor !== "") product.variantColor = String(variantColor);
+	if (variantSide) product.variantSide = variantSide;
+	if (variantDefault) product.variantDefault = true;
+	if (defaultSide) product.defaultSide = defaultSide;
+	if (section) {
+		product.section = section;
+		product.category = section;
+	} else {
+		product.category = type.toLowerCase();
+	}
+	products.push(product);
+}
+
+function isTruthyDefault(v) {
+	return v === true || v === "true" || v === "yes" || v === 1 || v === "1";
+}
+
+function expandItemImages(raw, defaultPrice) {
+	const title = String(raw.title || raw.name || "").trim();
+	if (!title) return [];
+	const price = resolvePrice(raw.price, defaultPrice);
+	const itemDefaultColor =
+		raw.defaultColor == null || raw.defaultColor === ""
+			? null
+			: String(raw.defaultColor).trim();
+	const itemDefaultSide = ["front", "back"].includes(String(raw.defaultSide || "").trim())
+		? String(raw.defaultSide).trim()
+		: null;
+	const rows = [];
+
+	if (Array.isArray(raw.variants) && raw.variants.length) {
+		for (const v of raw.variants) {
+			if (!v || typeof v !== "object") continue;
+			const color = v.color == null || v.color === "" ? "" : String(v.color).trim();
+			const vPrice = resolvePrice(v.price, price);
+			const isDefault =
+				isTruthyDefault(v.default) ||
+				(itemDefaultColor != null && color === itemDefaultColor);
+			const variantDefaultSide = ["front", "back"].includes(String(v.defaultSide || "").trim())
+				? String(v.defaultSide).trim()
+				: itemDefaultSide;
+			const sides = [
+				["front", v.front],
+				["back", v.back],
+			];
+			let any = false;
+			for (const [side, img] of sides) {
+				const image = String(img || "").trim();
+				if (!image) continue;
+				any = true;
+				rows.push({
+					title,
+					price: vPrice,
+					image,
+					variantColor: color,
+					variantSide: side,
+					variantDefault: isDefault,
+					defaultSide: isDefault ? variantDefaultSide : null,
+				});
+			}
+			const lone = String(v.image || "").trim();
+			if (!any && lone) {
+				rows.push({
+					title,
+					price: vPrice,
+					image: lone,
+					variantColor: color,
+					variantSide: color ? "back" : "",
+					variantDefault: isDefault,
+					defaultSide: isDefault ? variantDefaultSide : null,
+				});
+			}
+		}
+		return rows;
+	}
+
+	const image = String(raw.image || "").trim();
+	if (image) rows.push({ title, price, image });
+	return rows;
+}
+
+function pushProducts(products, { type, section, itemsDoc }) {
+	const { price: defaultPrice, items } = normalizeItems(itemsDoc);
+	for (const raw of items) {
+		if (!raw || typeof raw !== "object") continue;
+		for (const row of expandItemImages(raw, defaultPrice)) {
+			pushProduct(products, { ...row, type, section });
+		}
+	}
+}
+
+function build() {
+	const products = [];
+	const types = [];
+	const shopMeta = loadMeta(SHOP_DIR);
+	const typeSlugs = orderedChildDirs(SHOP_DIR, shopMeta);
+
+	for (const typeSlug of typeSlugs) {
+		const typeDir = path.join(SHOP_DIR, typeSlug);
+		const typeMeta = loadMeta(typeDir);
+		const type = typeLabel(typeSlug, typeMeta);
+		const leafItemsPath = path.join(typeDir, "items.yaml");
+		const sectionSlugs = orderedChildDirs(typeDir, typeMeta);
+
+		if (fs.existsSync(leafItemsPath)) {
+			pushProducts(products, {
+				type,
+				section: null,
+				itemsDoc: readYaml(leafItemsPath),
+			});
+			types.push({ id: type, slug: typeSlug, label: type, sections: [] });
+			continue;
+		}
+
+		const sections = [];
+		for (const sectionSlug of sectionSlugs) {
+			const sectionDir = path.join(typeDir, sectionSlug);
+			const sectionMeta = loadMeta(sectionDir);
+			const itemsPath = path.join(sectionDir, "items.yaml");
+			if (!fs.existsSync(itemsPath)) continue;
+
+			const section = {
+				id: sectionSlug,
+				label: sectionMeta.label || humanize(sectionSlug),
+			};
+			if (sectionMeta.feature && typeof sectionMeta.feature === "object") {
+				const feature = { ...sectionMeta.feature };
+				if (typeof feature.copy === "string") feature.copy = feature.copy.trim();
+				section.feature = feature;
+			}
+			sections.push(section);
+
+			pushProducts(products, {
+				type,
+				section: sectionSlug,
+				itemsDoc: readYaml(itemsPath),
+			});
+		}
+
+		types.push({ id: type, slug: typeSlug, label: type, sections });
+	}
+
+	return {
+		products,
+		nav: { types },
+	};
+}
+
+const { products, nav } = build();
+const productsPath = path.join(root, "products.json");
+const navPath = path.join(root, "catalog-nav.json");
+
+fs.writeFileSync(productsPath, `${JSON.stringify(products, null, 4)}\n`, "utf8");
+fs.writeFileSync(navPath, `${JSON.stringify(nav, null, 4)}\n`, "utf8");
+
+const byType = Object.create(null);
+for (const p of products) {
+	const key = p.section ? `${p.type}/${p.section}` : p.type;
+	byType[key] = (byType[key] || 0) + 1;
+}
+
+console.log(`Wrote ${products.length} products → ${productsPath}`);
+console.log(`Wrote nav (${nav.types.length} types) → ${navPath}`);
+for (const [k, n] of Object.entries(byType)) console.log(`  ${k}: ${n}`);

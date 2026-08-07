@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 
 const root = path.dirname(fileURLToPath(import.meta.url));
 
-/** Catalog image folders + products.json stay at repo root; serve/copy them for Vite. */
+/** Catalog image folders + generated JSON stay at repo root; serve/copy them for Vite. */
 const CATALOG = [
 	"Stickers",
 	"backboneAndStories",
@@ -16,6 +16,7 @@ const CATALOG = [
 	"nostalgia",
 	"Tshirts",
 	"products.json",
+	"catalog-nav.json",
 ];
 
 const MIME = {

@@ -5,7 +5,10 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "catalog": "node s.js",
+    "firebase:login": "npx -y firebase-tools@latest login",
+    "deploy": "npm run build && npx -y firebase-tools@latest deploy --only hosting"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.11",

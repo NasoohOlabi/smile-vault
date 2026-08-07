@@ -2,6 +2,7 @@
     {
         "id": 1,
         "name": "Homeland Pack",
+        "title": "Homeland Pack",
         "price": 350,
         "image": "Stickers/Curated Collections/bg designs 02.jpg",
         "type": "Stickers",
@@ -11,6 +12,7 @@
     {
         "id": 2,
         "name": "From Damascus Pack",
+        "title": "From Damascus Pack",
         "price": 350,
         "image": "Stickers/Curated Collections/bg designs 03.jpg",
         "type": "Stickers",
@@ -20,6 +22,7 @@
     {
         "id": 3,
         "name": "Between Us Pack",
+        "title": "Between Us Pack",
         "price": 350,
         "image": "Stickers/Curated Collections/bg designs 06.jpg",
         "type": "Stickers",
@@ -29,6 +32,7 @@
     {
         "id": 4,
         "name": "Internal Tourism Pack",
+        "title": "Internal Tourism Pack",
         "price": 350,
         "image": "Stickers/Curated Collections/bg designs 9.jpg",
         "type": "Stickers",
@@ -38,6 +42,7 @@
     {
         "id": 5,
         "name": "Dead Love Pack",
+        "title": "Dead Love Pack",
         "price": 350,
         "image": "Stickers/Curated Collections/bg designs.jpg",
         "type": "Stickers",
@@ -47,6 +52,7 @@
     {
         "id": 6,
         "name": "Kohl Pot",
+        "title": "Kohl Pot",
         "price": 350,
         "image": "Stickers/Nuggets/02 ع-small.png",
         "type": "Stickers",
@@ -56,6 +62,7 @@
     {
         "id": 7,
         "name": "Best Shawarma",
+        "title": "Best Shawarma",
         "price": 350,
         "image": "Stickers/Nuggets/03 ع-small.png",
         "type": "Stickers",
@@ -65,6 +72,7 @@
     {
         "id": 8,
         "name": "Loose Weapon",
+        "title": "Loose Weapon",
         "price": 350,
         "image": "Stickers/Nuggets/04 ع-small.png",
         "type": "Stickers",
@@ -74,6 +82,7 @@
     {
         "id": 9,
         "name": "Stamp Sheet One",
+        "title": "Stamp Sheet One",
         "price": 350,
         "image": "Stickers/Nuggets/05 ع-small.png",
         "type": "Stickers",
@@ -83,6 +92,7 @@
     {
         "id": 10,
         "name": "Stamp Sheet Two",
+        "title": "Stamp Sheet Two",
         "price": 350,
         "image": "Stickers/Nuggets/06 ع-small.png",
         "type": "Stickers",
@@ -92,6 +102,7 @@
     {
         "id": 11,
         "name": "War Is Bad For You",
+        "title": "War Is Bad For You",
         "price": 350,
         "image": "Stickers/Nuggets/07 ع-small.png",
         "type": "Stickers",
@@ -101,6 +112,7 @@
     {
         "id": 12,
         "name": "Official Speaker",
+        "title": "Official Speaker",
         "price": 350,
         "image": "Stickers/Nuggets/08 ع-small.png",
         "type": "Stickers",
@@ -110,6 +122,7 @@
     {
         "id": 13,
         "name": "Five Piastres",
+        "title": "Five Piastres",
         "price": 350,
         "image": "Stickers/Nuggets/09 ع-small.png",
         "type": "Stickers",
@@ -119,6 +132,7 @@
     {
         "id": 14,
         "name": "All Eyes",
+        "title": "All Eyes",
         "price": 350,
         "image": "Stickers/Nuggets/10 ع-small.png",
         "type": "Stickers",
@@ -128,6 +142,7 @@
     {
         "id": 15,
         "name": "This Frog Wont Boil",
+        "title": "This Frog Wont Boil",
         "price": 350,
         "image": "Stickers/Nuggets/100 ع-small.png",
         "type": "Stickers",
@@ -137,6 +152,7 @@
     {
         "id": 16,
         "name": "For the Era",
+        "title": "For the Era",
         "price": 350,
         "image": "Stickers/Nuggets/1011-small.png",
         "type": "Stickers",
@@ -146,6 +162,7 @@
     {
         "id": 17,
         "name": "Resistance Is Not Cool",
+        "title": "Resistance Is Not Cool",
         "price": 350,
         "image": "Stickers/Nuggets/1012 2-small.png",
         "type": "Stickers",
@@ -155,6 +172,7 @@
     {
         "id": 18,
         "name": "Wake Up Girl",
+        "title": "Wake Up Girl",
         "price": 350,
         "image": "Stickers/Nuggets/1014 ع-small.png",
         "type": "Stickers",
@@ -164,6 +182,7 @@
     {
         "id": 19,
         "name": "Wake Up Boy",
+        "title": "Wake Up Boy",
         "price": 350,
         "image": "Stickers/Nuggets/1014-small.png",
         "type": "Stickers",
@@ -173,6 +192,7 @@
     {
         "id": 20,
         "name": "Life Frame",
+        "title": "Life Frame",
         "price": 350,
         "image": "Stickers/Nuggets/10189-small.png",
         "type": "Stickers",
@@ -182,6 +202,7 @@
     {
         "id": 21,
         "name": "Five Lira",
+        "title": "Five Lira",
         "price": 350,
         "image": "Stickers/Nuggets/11 ع-small.png",
         "type": "Stickers",
@@ -191,6 +212,7 @@
     {
         "id": 22,
         "name": "One Lira",
+        "title": "One Lira",
         "price": 350,
         "image": "Stickers/Nuggets/12 ع-small.png",
         "type": "Stickers",
@@ -200,6 +222,7 @@
     {
         "id": 23,
         "name": "Damascus Window",
+        "title": "Damascus Window",
         "price": 350,
         "image": "Stickers/Nuggets/15 ع-small.png",
         "type": "Stickers",
@@ -209,6 +232,7 @@
     {
         "id": 24,
         "name": "Ease Our Minds",
+        "title": "Ease Our Minds",
         "price": 350,
         "image": "Stickers/Nuggets/19 ع-small.png",
         "type": "Stickers",
@@ -218,6 +242,7 @@
     {
         "id": 25,
         "name": "Coffee Cups",
+        "title": "Coffee Cups",
         "price": 350,
         "image": "Stickers/Nuggets/20 ع-small.png",
         "type": "Stickers",
@@ -227,6 +252,7 @@
     {
         "id": 26,
         "name": "Nothing Happened",
+        "title": "Nothing Happened",
         "price": 350,
         "image": "Stickers/Nuggets/201 ع-small.png",
         "type": "Stickers",
@@ -236,6 +262,7 @@
     {
         "id": 27,
         "name": "Black Ink One",
+        "title": "Black Ink One",
         "price": 350,
         "image": "Stickers/Nuggets/21 ع-small.png",
         "type": "Stickers",
@@ -245,6 +272,7 @@
     {
         "id": 28,
         "name": "Black Ink Two",
+        "title": "Black Ink Two",
         "price": 350,
         "image": "Stickers/Nuggets/22 ع-small.png",
         "type": "Stickers",
@@ -254,6 +282,7 @@
     {
         "id": 29,
         "name": "Square Mosaic Box",
+        "title": "Square Mosaic Box",
         "price": 350,
         "image": "Stickers/Nuggets/23 ع-small.png",
         "type": "Stickers",
@@ -263,6 +292,7 @@
     {
         "id": 30,
         "name": "No Going Back",
+        "title": "No Going Back",
         "price": 350,
         "image": "Stickers/Nuggets/24 ع-small.png",
         "type": "Stickers",
@@ -272,6 +302,7 @@
     {
         "id": 31,
         "name": "Octagon Mosaic Box",
+        "title": "Octagon Mosaic Box",
         "price": 350,
         "image": "Stickers/Nuggets/25 ع-small.png",
         "type": "Stickers",
@@ -281,6 +312,7 @@
     {
         "id": 32,
         "name": "Fresh Cut",
+        "title": "Fresh Cut",
         "price": 350,
         "image": "Stickers/Nuggets/26 ع-small.png",
         "type": "Stickers",
@@ -290,6 +322,7 @@
     {
         "id": 33,
         "name": "TV Table",
+        "title": "TV Table",
         "price": 350,
         "image": "Stickers/Nuggets/27 ع-small.png",
         "type": "Stickers",
@@ -299,6 +332,7 @@
     {
         "id": 34,
         "name": "City Life",
+        "title": "City Life",
         "price": 350,
         "image": "Stickers/Nuggets/29 ع-small.png",
         "type": "Stickers",
@@ -308,6 +342,7 @@
     {
         "id": 35,
         "name": "Black Ink Three",
+        "title": "Black Ink Three",
         "price": 350,
         "image": "Stickers/Nuggets/32 ع-small.png",
         "type": "Stickers",
@@ -317,6 +352,7 @@
     {
         "id": 36,
         "name": "New Signal",
+        "title": "New Signal",
         "price": 350,
         "image": "Stickers/Nuggets/34 ع-small.png",
         "type": "Stickers",
@@ -326,6 +362,7 @@
     {
         "id": 37,
         "name": "Bright Edge",
+        "title": "Bright Edge",
         "price": 350,
         "image": "Stickers/Nuggets/36 ع-small.png",
         "type": "Stickers",
@@ -335,6 +372,7 @@
     {
         "id": 38,
         "name": "Local Merch",
+        "title": "Local Merch",
         "price": 350,
         "image": "Stickers/Nuggets/37 ع-small.png",
         "type": "Stickers",
@@ -344,6 +382,7 @@
     {
         "id": 39,
         "name": "Black Ink Four",
+        "title": "Black Ink Four",
         "price": 350,
         "image": "Stickers/Nuggets/39 ع (2)-small.png",
         "type": "Stickers",
@@ -353,6 +392,7 @@
     {
         "id": 40,
         "name": "Yellow Horizon",
+        "title": "Yellow Horizon",
         "price": 350,
         "image": "Stickers/Nuggets/40 ع-small.png",
         "type": "Stickers",
@@ -362,6 +402,7 @@
     {
         "id": 41,
         "name": "Take a Stand",
+        "title": "Take a Stand",
         "price": 350,
         "image": "Stickers/Nuggets/47 ع-small.png",
         "type": "Stickers",
@@ -371,6 +412,7 @@
     {
         "id": 42,
         "name": "Black Ink Five",
+        "title": "Black Ink Five",
         "price": 350,
         "image": "Stickers/Nuggets/49 ع-small.png",
         "type": "Stickers",
@@ -380,6 +422,7 @@
     {
         "id": 43,
         "name": "Nothing Happened Sketch",
+        "title": "Nothing Happened Sketch",
         "price": 350,
         "image": "Stickers/Nuggets/51 ع-small.png",
         "type": "Stickers",
@@ -389,6 +432,7 @@
     {
         "id": 44,
         "name": "Daily Route",
+        "title": "Daily Route",
         "price": 350,
         "image": "Stickers/Nuggets/52 ع-small.png",
         "type": "Stickers",
@@ -398,6 +442,7 @@
     {
         "id": 45,
         "name": "Street Pulse",
+        "title": "Street Pulse",
         "price": 350,
         "image": "Stickers/Nuggets/55 ع-small.png",
         "type": "Stickers",
@@ -407,6 +452,7 @@
     {
         "id": 46,
         "name": "Welcome to Damascus",
+        "title": "Welcome to Damascus",
         "price": 350,
         "image": "Stickers/Nuggets/56 ع-small.png",
         "type": "Stickers",
@@ -416,6 +462,7 @@
     {
         "id": 47,
         "name": "Soft Landing",
+        "title": "Soft Landing",
         "price": 350,
         "image": "Stickers/Nuggets/61 ع-small.png",
         "type": "Stickers",
@@ -425,6 +472,7 @@
     {
         "id": 48,
         "name": "Black Ink Six",
+        "title": "Black Ink Six",
         "price": 350,
         "image": "Stickers/Nuggets/62 ع-small.png",
         "type": "Stickers",
@@ -434,6 +482,7 @@
     {
         "id": 49,
         "name": "Black Ink Seven",
+        "title": "Black Ink Seven",
         "price": 350,
         "image": "Stickers/Nuggets/63 ع-small.png",
         "type": "Stickers",
@@ -443,6 +492,7 @@
     {
         "id": 50,
         "name": "Welcome 3 Damascus",
+        "title": "Welcome 3 Damascus",
         "price": 350,
         "image": "Stickers/Nuggets/64 ع-small.png",
         "type": "Stickers",
@@ -452,6 +502,7 @@
     {
         "id": 51,
         "name": "Black Ink Eight",
+        "title": "Black Ink Eight",
         "price": 350,
         "image": "Stickers/Nuggets/65 ع-small.png",
         "type": "Stickers",
@@ -461,6 +512,7 @@
     {
         "id": 52,
         "name": "Shawarma Star",
+        "title": "Shawarma Star",
         "price": 350,
         "image": "Stickers/Nuggets/66 ع (2)-small.png",
         "type": "Stickers",
@@ -470,6 +522,7 @@
     {
         "id": 53,
         "name": "Black Ink Nine",
+        "title": "Black Ink Nine",
         "price": 350,
         "image": "Stickers/Nuggets/67 ع (2)-small.png",
         "type": "Stickers",
@@ -479,6 +532,7 @@
     {
         "id": 54,
         "name": "Damascus Shabak",
+        "title": "Damascus Shabak",
         "price": 350,
         "image": "Stickers/Nuggets/75 ع-small.png",
         "type": "Stickers",
@@ -488,6 +542,7 @@
     {
         "id": 55,
         "name": "Jenin Jenin",
+        "title": "Jenin Jenin",
         "price": 350,
         "image": "Stickers/Nuggets/76 ع-small.png",
         "type": "Stickers",
@@ -497,6 +552,7 @@
     {
         "id": 56,
         "name": "Crossword",
+        "title": "Crossword",
         "price": 350,
         "image": "Stickers/Nuggets/78 ع-small.png",
         "type": "Stickers",
@@ -506,6 +562,7 @@
     {
         "id": 57,
         "name": "Watermelon Fountain",
+        "title": "Watermelon Fountain",
         "price": 350,
         "image": "Stickers/Nuggets/80 ع-small.png",
         "type": "Stickers",
@@ -515,6 +572,7 @@
     {
         "id": 58,
         "name": "On-the-Go Portrait",
+        "title": "On-the-Go Portrait",
         "price": 350,
         "image": "Stickers/Nuggets/83 L-small.png",
         "type": "Stickers",
@@ -524,6 +582,7 @@
     {
         "id": 59,
         "name": "House Keys",
+        "title": "House Keys",
         "price": 350,
         "image": "Stickers/Nuggets/84 ع-small.png",
         "type": "Stickers",
@@ -533,6 +592,7 @@
     {
         "id": 60,
         "name": "Fall Forever",
+        "title": "Fall Forever",
         "price": 350,
         "image": "Stickers/Nuggets/85 ع-small.png",
         "type": "Stickers",
@@ -542,6 +602,7 @@
     {
         "id": 61,
         "name": "Heart Trademark",
+        "title": "Heart Trademark",
         "price": 350,
         "image": "Stickers/Nuggets/87 ع-small.png",
         "type": "Stickers",
@@ -551,6 +612,7 @@
     {
         "id": 62,
         "name": "Thirty on Me",
+        "title": "Thirty on Me",
         "price": 350,
         "image": "Stickers/Nuggets/897 ش-small.png",
         "type": "Stickers",
@@ -560,6 +622,7 @@
     {
         "id": 63,
         "name": "Got Thirty?",
+        "title": "Got Thirty?",
         "price": 350,
         "image": "Stickers/Nuggets/897-small.png",
         "type": "Stickers",
@@ -569,6 +632,7 @@
     {
         "id": 64,
         "name": "That Ice Cream",
+        "title": "That Ice Cream",
         "price": 350,
         "image": "Stickers/Nuggets/90 ع-small.png",
         "type": "Stickers",
@@ -578,6 +642,7 @@
     {
         "id": 65,
         "name": "Jasmine City",
+        "title": "Jasmine City",
         "price": 350,
         "image": "Stickers/Nuggets/91 ع-small.png",
         "type": "Stickers",
@@ -587,6 +652,7 @@
     {
         "id": 66,
         "name": "North Star",
+        "title": "North Star",
         "price": 350,
         "image": "Stickers/Nuggets/92 ع-small.png",
         "type": "Stickers",
@@ -596,6 +662,7 @@
     {
         "id": 67,
         "name": "Protect Her",
+        "title": "Protect Her",
         "price": 350,
         "image": "Stickers/Nuggets/96 ع-small.png",
         "type": "Stickers",
@@ -605,6 +672,7 @@
     {
         "id": 68,
         "name": "Freedom Is Duty",
+        "title": "Freedom Is Duty",
         "price": 350,
         "image": "Stickers/Nuggets/98 ع-small.png",
         "type": "Stickers",
@@ -614,6 +682,7 @@
     {
         "id": 69,
         "name": "Syrian Dance",
+        "title": "Syrian Dance",
         "price": 350,
         "image": "Stickers/Nuggets/Matisse - Dance but Syrian-small.png",
         "type": "Stickers",
@@ -623,6 +692,7 @@
     {
         "id": 70,
         "name": "Mirror Mad Damascus",
+        "title": "Mirror Mad Damascus",
         "price": 350,
         "image": "Stickers/Nuggets/mirro3r ع-small.png",
         "type": "Stickers",
@@ -632,6 +702,7 @@
     {
         "id": 71,
         "name": "Inlaid Mirror",
+        "title": "Inlaid Mirror",
         "price": 350,
         "image": "Stickers/Nuggets/mirror ع-small.png",
         "type": "Stickers",
@@ -640,31 +711,41 @@
     },
     {
         "id": 72,
-        "name": "Crosswords B",
+        "name": "Crosswords",
+        "title": "Crosswords",
         "price": 350,
         "image": "Tshirts/Crosswords_B.jpg",
         "type": "Tshirts",
+        "variantColor": "B",
+        "variantSide": "back",
         "category": "tshirts"
     },
     {
         "id": 73,
-        "name": "Crosswords W",
+        "name": "Crosswords",
+        "title": "Crosswords",
         "price": 350,
         "image": "Tshirts/Crosswords_W.jpg",
         "type": "Tshirts",
+        "variantColor": "W",
+        "variantSide": "back",
         "category": "tshirts"
     },
     {
         "id": 74,
-        "name": "D4m45cu5 B",
+        "name": "D4m45cu5",
+        "title": "D4m45cu5",
         "price": 350,
         "image": "Tshirts/D4m45cu5_B.jpg",
         "type": "Tshirts",
+        "variantColor": "B",
+        "variantSide": "back",
         "category": "tshirts"
     },
     {
         "id": 75,
         "name": "Damascape",
+        "title": "Damascape",
         "price": 350,
         "image": "Tshirts/Damascape.jpg",
         "type": "Tshirts",
@@ -673,6 +754,7 @@
     {
         "id": 76,
         "name": "Godzilla",
+        "title": "Godzilla",
         "price": 350,
         "image": "Tshirts/Godzilla.jpg",
         "type": "Tshirts",
@@ -680,39 +762,51 @@
     },
     {
         "id": 77,
-        "name": "GoodbyeColumbus B",
+        "name": "Goodbye Columbus",
+        "title": "Goodbye Columbus",
         "price": 350,
         "image": "Tshirts/GoodbyeColumbus_B.jpg",
         "type": "Tshirts",
+        "variantColor": "B",
+        "variantSide": "back",
         "category": "tshirts"
     },
     {
         "id": 78,
-        "name": "GoodbyeColumbus",
+        "name": "Goodbye Columbus",
+        "title": "Goodbye Columbus",
         "price": 350,
         "image": "Tshirts/GoodbyeColumbus.jpg",
         "type": "Tshirts",
+        "variantSide": "back",
         "category": "tshirts"
     },
     {
         "id": 79,
-        "name": "HafezVCat B",
+        "name": "Hafez V Cat",
+        "title": "Hafez V Cat",
         "price": 350,
         "image": "Tshirts/HafezVCat_B.jpg",
         "type": "Tshirts",
+        "variantColor": "B",
+        "variantSide": "back",
         "category": "tshirts"
     },
     {
         "id": 80,
-        "name": "HafezVCat W",
+        "name": "Hafez V Cat",
+        "title": "Hafez V Cat",
         "price": 350,
         "image": "Tshirts/HafezVCat_W.jpg",
         "type": "Tshirts",
+        "variantColor": "W",
+        "variantSide": "back",
         "category": "tshirts"
     },
     {
         "id": 81,
         "name": "Jahez",
+        "title": "Jahez",
         "price": 350,
         "image": "Tshirts/Jahez.jpg",
         "type": "Tshirts",
@@ -720,7 +814,8 @@
     },
     {
         "id": 82,
-        "name": "JeninJenin",
+        "name": "Jenin Jenin",
+        "title": "Jenin Jenin",
         "price": 350,
         "image": "Tshirts/JeninJenin.jpg",
         "type": "Tshirts",
@@ -728,23 +823,29 @@
     },
     {
         "id": 83,
-        "name": "Kiddo B",
+        "name": "Kiddo",
+        "title": "Kiddo",
         "price": 350,
         "image": "Tshirts/Kiddo_B.jpg",
         "type": "Tshirts",
+        "variantColor": "B",
+        "variantSide": "back",
         "category": "tshirts"
     },
     {
         "id": 84,
         "name": "Kiddo",
+        "title": "Kiddo",
         "price": 350,
         "image": "Tshirts/Kiddo.jpg",
         "type": "Tshirts",
+        "variantSide": "back",
         "category": "tshirts"
     },
     {
         "id": 85,
-        "name": "LocalProduct",
+        "name": "Local Product",
+        "title": "Local Product",
         "price": 350,
         "image": "Tshirts/LocalProduct.jpg",
         "type": "Tshirts",
@@ -752,71 +853,100 @@
     },
     {
         "id": 86,
-        "name": "Map B F",
+        "name": "Map",
+        "title": "Map",
         "price": 350,
         "image": "Tshirts/Map_B_F.jpg",
         "type": "Tshirts",
+        "variantColor": "B",
+        "variantSide": "front",
         "category": "tshirts"
     },
     {
         "id": 87,
-        "name": "Map B",
+        "name": "Map",
+        "title": "Map",
         "price": 350,
         "image": "Tshirts/Map_B.jpg",
         "type": "Tshirts",
+        "variantColor": "B",
+        "variantSide": "back",
         "category": "tshirts"
     },
     {
         "id": 88,
-        "name": "Map W F",
+        "name": "Map",
+        "title": "Map",
         "price": 350,
         "image": "Tshirts/Map_W_F.jpg",
         "type": "Tshirts",
+        "variantColor": "W",
+        "variantSide": "front",
+        "variantDefault": true,
+        "defaultSide": "front",
         "category": "tshirts"
     },
     {
         "id": 89,
-        "name": "Map W",
+        "name": "Map",
+        "title": "Map",
         "price": 350,
         "image": "Tshirts/Map_W.jpg",
         "type": "Tshirts",
+        "variantColor": "W",
+        "variantSide": "back",
+        "variantDefault": true,
+        "defaultSide": "front",
         "category": "tshirts"
     },
     {
         "id": 90,
-        "name": "Mosaic B",
+        "name": "Mosaic",
+        "title": "Mosaic",
         "price": 350,
         "image": "Tshirts/Mosaic_B.jpg",
         "type": "Tshirts",
+        "variantColor": "B",
+        "variantSide": "back",
         "category": "tshirts"
     },
     {
         "id": 91,
-        "name": "Mosaic W",
+        "name": "Mosaic",
+        "title": "Mosaic",
         "price": 350,
         "image": "Tshirts/Mosaic_W.jpg",
         "type": "Tshirts",
+        "variantColor": "W",
+        "variantSide": "back",
         "category": "tshirts"
     },
     {
         "id": 92,
-        "name": "NationalTeam B",
+        "name": "National Team",
+        "title": "National Team",
         "price": 350,
         "image": "Tshirts/NationalTeam_B.jpg",
         "type": "Tshirts",
+        "variantColor": "B",
+        "variantSide": "back",
         "category": "tshirts"
     },
     {
         "id": 93,
-        "name": "NationalTeam W",
+        "name": "National Team",
+        "title": "National Team",
         "price": 350,
         "image": "Tshirts/NationalTeam_W.jpg",
         "type": "Tshirts",
+        "variantColor": "W",
+        "variantSide": "back",
         "category": "tshirts"
     },
     {
         "id": 94,
         "name": "P@R",
+        "title": "P@R",
         "price": 350,
         "image": "Tshirts/P@R.jpg",
         "type": "Tshirts",
@@ -824,119 +954,161 @@
     },
     {
         "id": 95,
-        "name": "PvsP B B",
+        "name": "P vs P",
+        "title": "P vs P",
         "price": 350,
-        "image": "Tshirts/PvsP_B_B.jpg",
+        "image": "Tshirts/PvsP_B_F.jpg",
         "type": "Tshirts",
+        "variantColor": "B",
+        "variantSide": "front",
         "category": "tshirts"
     },
     {
         "id": 96,
-        "name": "PvsP B F",
+        "name": "P vs P",
+        "title": "P vs P",
         "price": 350,
-        "image": "Tshirts/PvsP_B_F.jpg",
+        "image": "Tshirts/PvsP_B_B.jpg",
         "type": "Tshirts",
+        "variantColor": "B",
+        "variantSide": "back",
         "category": "tshirts"
     },
     {
         "id": 97,
-        "name": "PvsP F",
+        "name": "P vs P",
+        "title": "P vs P",
         "price": 350,
         "image": "Tshirts/PvsP_F.jpg",
         "type": "Tshirts",
+        "variantSide": "front",
         "category": "tshirts"
     },
     {
         "id": 98,
-        "name": "QlbDmshq B",
+        "name": "Qlb Dmshq",
+        "title": "Qlb Dmshq",
         "price": 350,
         "image": "Tshirts/QlbDmshq_B.jpg",
         "type": "Tshirts",
+        "variantColor": "B",
+        "variantSide": "back",
         "category": "tshirts"
     },
     {
         "id": 99,
-        "name": "QlbDmshq W",
+        "name": "Qlb Dmshq",
+        "title": "Qlb Dmshq",
         "price": 350,
         "image": "Tshirts/QlbDmshq_W.jpg",
         "type": "Tshirts",
+        "variantColor": "W",
+        "variantSide": "back",
         "category": "tshirts"
     },
     {
         "id": 100,
-        "name": "Royal B",
+        "name": "Royal",
+        "title": "Royal",
         "price": 350,
         "image": "Tshirts/Royal_B.jpg",
         "type": "Tshirts",
+        "variantColor": "B",
+        "variantSide": "back",
         "category": "tshirts"
     },
     {
         "id": 101,
-        "name": "SL B",
+        "name": "SL",
+        "title": "SL",
         "price": 350,
         "image": "Tshirts/SL_B.jpg",
         "type": "Tshirts",
+        "variantColor": "B",
+        "variantSide": "back",
         "category": "tshirts"
     },
     {
         "id": 102,
-        "name": "SL BL B",
+        "name": "SL",
+        "title": "SL",
         "price": 350,
-        "image": "Tshirts/SL_BL_B.jpg",
+        "image": "Tshirts/SL_BL.jpg",
         "type": "Tshirts",
+        "variantColor": "BL",
+        "variantSide": "front",
         "category": "tshirts"
     },
     {
         "id": 103,
-        "name": "SL BL",
+        "name": "SL",
+        "title": "SL",
         "price": 350,
-        "image": "Tshirts/SL_BL.jpg",
+        "image": "Tshirts/SL_BL_B.jpg",
         "type": "Tshirts",
+        "variantColor": "BL",
+        "variantSide": "back",
         "category": "tshirts"
     },
     {
         "id": 104,
-        "name": "SL W",
+        "name": "SL",
+        "title": "SL",
         "price": 350,
         "image": "Tshirts/SL_W.jpg",
         "type": "Tshirts",
+        "variantColor": "W",
+        "variantSide": "back",
         "category": "tshirts"
     },
     {
         "id": 105,
-        "name": "Supreme B",
+        "name": "Supreme",
+        "title": "Supreme",
         "price": 350,
         "image": "Tshirts/Supreme_B.jpg",
         "type": "Tshirts",
+        "variantColor": "B",
+        "variantSide": "back",
         "category": "tshirts"
     },
     {
         "id": 106,
-        "name": "Supreme W",
+        "name": "Supreme",
+        "title": "Supreme",
         "price": 350,
         "image": "Tshirts/Supreme_W.jpg",
         "type": "Tshirts",
+        "variantColor": "W",
+        "variantSide": "back",
         "category": "tshirts"
     },
     {
         "id": 107,
-        "name": "Varsity B",
+        "name": "Varsity",
+        "title": "Varsity",
         "price": 350,
         "image": "Tshirts/Varsity_B.jpg",
         "type": "Tshirts",
+        "variantColor": "B",
+        "variantSide": "back",
         "category": "tshirts"
     },
     {
         "id": 108,
-        "name": "Varsity W",
+        "name": "Varsity",
+        "title": "Varsity",
         "price": 350,
         "image": "Tshirts/Varsity_W.jpg",
         "type": "Tshirts",
+        "variantColor": "W",
+        "variantSide": "back",
         "category": "tshirts"
     },
     {
         "id": 109,
         "name": "Watermelon",
+        "title": "Watermelon",
         "price": 350,
         "image": "Tshirts/Watermelon.jpg",
         "type": "Tshirts",

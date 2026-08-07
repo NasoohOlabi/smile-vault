@@ -10,28 +10,9 @@ const assetUrl = (path) => (window.DAMA_BASE || "") + path;
 
 const money = (n) => `${n.toLocaleString("en-US")} ليرة سوري`;
 const itemsCount = (n) => `${n} ${n === 1 ? "item" : "items"}`;
-/* Second-level shop sections — order matches docs/website-hierarchy.md */
-const TYPE_SECTIONS = {
-	Posters: [],
-	Stickers: [
-		{ id: "curated", label: "Curated Collections" },
-		{ id: "nuggets", label: "Nuggets" },
-	],
-	Tshirts: [],
-	Hoodies: [],
-	Collabs: [
-		{ id: "dama-x-elat", label: "Dama x Elat" },
-		{
-			id: "stunning-studio",
-			label: "Stunning Studio",
-			feature: {
-				image: "assets/stunning-studio.png",
-				alt: "Stunning Studio × Dama.Obsrv collab",
-				copy: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-			},
-		},
-	],
-};
+/* Shop tabs + sections — loaded from catalog-nav.json (built from catalog/shop/) */
+let TYPE_SECTIONS = {};
+let PRODUCT_TYPES = [];
 const sectionsFor = (type) => TYPE_SECTIONS[type] || [];
 const sectionLabel = (type, id) => {
 	const sections = sectionsFor(type);
@@ -40,18 +21,32 @@ const sectionLabel = (type, id) => {
 	const grouped = sections.find((s) => s.categories?.includes(id));
 	return grouped?.label || id;
 };
+
+function applyCatalogNav(nav) {
+	const types = Array.isArray(nav?.types) ? nav.types : [];
+	PRODUCT_TYPES = types.map((t) => t.id).filter(Boolean);
+	TYPE_SECTIONS = Object.fromEntries(
+		types.map((t) => [t.id, Array.isArray(t.sections) ? t.sections : []]),
+	);
+	if (!PRODUCT_TYPES.includes(activeCat)) {
+		activeCat = PRODUCT_TYPES[0] || "Posters";
+	}
+	const sections = sectionsFor(activeCat);
+	if (!sections.length) activeSection = null;
+	else if (!sections.some((s) => s.id === activeSection)) activeSection = sections[0].id;
+}
+
 /* Arabic product names need RTL even though the shell is LTR English. */
 const textDir = (s) => (/[\u0600-\u06FF]/.test(s) ? "rtl" : "ltr");
 
 /* ---------- state ---------- */
-const PRODUCT_TYPES = ["Posters", "Stickers", "Tshirts", "Hoodies", "Collabs"];
 const VIEWS = ["shop", "observatory", "about"];
 
 let products = [];
 let cart = loadCart();
 let activeView = "shop";
 let activeCat = "Posters";
-let activeSection = sectionsFor("Posters")[0]?.id || null;
+let activeSection = null;
 let visible = [];   // currently rendered products (drives lightbox nav)
 let lbIndex = -1;
 let obsBuilt = false;
@@ -157,10 +152,14 @@ function groupTshirts(raw) {
 			others.push(p);
 			continue;
 		}
-		const { base, color, side } = parseTshirtStem(imageStem(p.image));
-		const key = base || p.name;
+		const parsed = parseTshirtStem(imageStem(p.image));
+		const color = p.variantColor != null && p.variantColor !== ""
+			? String(p.variantColor)
+			: parsed.color;
+		const side = p.variantSide || parsed.side || "back";
+		const key = parsed.base || p.title || p.name;
 		if (!buckets.has(key)) buckets.set(key, []);
-		buckets.get(key).push({ ...p, _color: color, _side: side || "back" });
+		buckets.get(key).push({ ...p, _color: color, _side: side });
 	}
 
 	const grouped = [];
@@ -169,13 +168,22 @@ function groupTshirts(raw) {
 			const only = items[0];
 			delete only._color;
 			delete only._side;
+			if (only.title) only.name = only.title;
 			grouped.push(only);
 			continue;
 		}
 
 		const byColor = new Map();
+		let defaultColorCode = null;
+		let defaultSide = null;
 		for (const item of items) {
 			const code = item._color || "";
+			if (item.variantDefault && defaultColorCode == null) {
+				defaultColorCode = code;
+				if (item.defaultSide === "front" || item.defaultSide === "back") {
+					defaultSide = item.defaultSide;
+				}
+			}
 			if (!byColor.has(code)) {
 				byColor.set(code, {
 					id: String(item.id),
@@ -205,15 +213,35 @@ function groupTshirts(raw) {
 
 		const colors = [...byColor.values()]
 			.map(({ _lockedId, ...c }) => c)
-			.sort((a, b) => (TSHIRT_COLOR_ORDER[a.code] ?? 9) - (TSHIRT_COLOR_ORDER[b.code] ?? 9));
+			.sort((a, b) => {
+				if (defaultColorCode != null) {
+					if (a.code === defaultColorCode && b.code !== defaultColorCode) return -1;
+					if (b.code === defaultColorCode && a.code !== defaultColorCode) return 1;
+				}
+				return (TSHIRT_COLOR_ORDER[a.code] ?? 9) - (TSHIRT_COLOR_ORDER[b.code] ?? 9);
+			});
 
 		const primary = colors[0];
+		const thumbSide =
+			defaultSide && primary.images[defaultSide]
+				? defaultSide
+				: primary.images.front
+					? "front"
+					: "back";
 		const thumb =
-			primary.images.front || primary.images.back || items[0].image;
+			primary.images[thumbSide] ||
+			primary.images.front ||
+			primary.images.back ||
+			items[0].image;
+		const title =
+			items.find((i) => i.title)?.title ||
+			items.find((i) => i.name && i.name !== base)?.name ||
+			base;
 
-		grouped.push({
+		const groupedProduct = {
 			id: `t-${base}`,
-			name: base,
+			name: title,
+			title,
 			price: primary.price,
 			image: thumb,
 			type: "Tshirts",
@@ -221,7 +249,10 @@ function groupTshirts(raw) {
 			section: items[0].section,
 			colors,
 			skuIds: colors.map((c) => c.id),
-		});
+		};
+		if (defaultColorCode != null) groupedProduct.defaultColor = defaultColorCode;
+		if (defaultSide) groupedProduct.defaultSide = defaultSide;
+		grouped.push(groupedProduct);
 	}
 
 	return [...others, ...grouped];
@@ -231,11 +262,17 @@ function shirtSelection(p) {
 	if (!p?.colors?.length) return null;
 	let sel = shirtView.get(p.id);
 	if (!sel || !p.colors.some((c) => c.id === sel.colorId)) {
-		const color = p.colors[0];
-		sel = {
-			colorId: color.id,
-			side: color.images.front ? "front" : "back",
-		};
+		const color =
+			(p.defaultColor != null &&
+				p.colors.find((c) => c.code === p.defaultColor)) ||
+			p.colors[0];
+		const side =
+			p.defaultSide && color.images[p.defaultSide]
+				? p.defaultSide
+				: color.images.front
+					? "front"
+					: "back";
+		sel = { colorId: color.id, side };
 		shirtView.set(p.id, sel);
 	}
 	return sel;
@@ -406,10 +443,16 @@ function renderShirtControls(host, p, { onChange } = {}) {
 
 /* ---------- data ---------- */
 async function fetchProducts() {
-	const res = await fetch(assetUrl("products.json"));
+	const [navRes, res] = await Promise.all([
+		fetch(assetUrl("catalog-nav.json")),
+		fetch(assetUrl("products.json")),
+	]);
+	if (!navRes.ok) throw new Error(`catalog-nav.json → ${navRes.status}`);
 	if (!res.ok) throw new Error(`products.json → ${res.status}`);
-	const data = await res.json();
 
+	applyCatalogNav(await navRes.json());
+
+	const data = await res.json();
 	const raw = data.map((p) => ({ ...p, id: String(p.id) }));
 	products = groupTshirts(raw);
 
@@ -893,7 +936,7 @@ function renderGrid() {
 			<div class="flex flex-1 flex-col">
 				<p class="relative z-[1] -mt-5 mb-0 ms-3 self-start rounded-full bg-[#111] px-[0.9rem] py-[0.3rem] text-[0.8125rem] font-bold text-white tabular-nums shadow-[0_2px_6px_rgb(0_0_0_/_0.35)]" dir="rtl">${money(p.price)}</p>
 				<div class="mt-3 mb-2.5 px-5">
-					<h3 class="line-clamp-2 overflow-hidden text-start text-[0.8125rem] leading-snug font-semibold sm:text-sm" dir="${textDir(p.name)}">${escapeHtml(p.name)}</h3>
+					<h3 class="line-clamp-2 overflow-hidden text-start text-[0.8125rem] leading-snug font-semibold sm:text-sm" dir="${textDir(p.title || p.name)}">${escapeHtml(p.title || p.name)}</h3>
 				</div>
 				<p class="hidden text-[0.6875rem] text-kiosk-muted">${escapeHtml(sectionLabel(productType(p), productSection(p)))}</p>
 				<div class="mt-auto px-5 pb-3" data-qtybox="${skuId}"></div>

@@ -1,0 +1,19 @@
+{
+	"version": "0.0.1",
+	"configurations": [
+		{
+			"name": "smile-vault",
+			"runtimeExecutable": "powershell.exe",
+			"runtimeArgs": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				".claude/static-server.ps1",
+				"-Port",
+				"8080"
+			],
+			"port": 8080
+		}
+	]
+}
