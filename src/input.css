@@ -1,0 +1,185 @@
+/* DAMA OBSRV — Tailwind source (Kiosk Screen)
+   Dev: npm run dev (Vite + HMR) · Prod: npm run build */
+
+@import "tailwindcss";
+
+@source "../index.html";
+@source "./app.js";
+
+/* JS toggles these class names — use as variants in markup */
+@custom-variant is-open (&:where(.is-open));
+@custom-variant is-visible (&:where(.is-visible));
+@custom-variant is-dragging (&:where(.is-dragging));
+@custom-variant is-active (&:where(.is-active));
+@custom-variant is-invalid (&:where(.is-invalid));
+@custom-variant is-locked (&:where(.is-locked));
+@custom-variant is-blurred (&:where(.is-blurred));
+@custom-variant is-revealed (&:where(.is-revealed));
+
+/* ---- Kiosk tokens ---- */
+@theme {
+	--animate-sun-spin: sun-spin 10s linear infinite;
+	--animate-fade-up: fade-up 0.3s ease-out both;
+	--animate-obs-fade-in: obs-fade-in 0.7s ease both;
+	--animate-skel-pulse: skel-pulse 1.5s ease-in-out infinite;
+	--animate-pop: pop 0.16s ease-out both;
+
+	--font-sans: "Space Mono", "IBM Plex Sans Arabic", ui-monospace, monospace;
+	--font-display: "Space Mono", "IBM Plex Sans Arabic", ui-monospace, monospace;
+
+	--color-kiosk: #3a3a3a;
+	--color-kiosk-elevated: #4d4d4d;
+	--color-kiosk-fg: #ffffff;
+	--color-kiosk-muted: #bdbdbd;
+	--color-kiosk-border: rgb(255 255 255 / 0.14);
+	--color-kiosk-accent: #f21ce0;
+	--color-kiosk-accent-fg: #14000f;
+	--color-kiosk-accent-light: #f2e50c;
+	--color-kiosk-olive: #9ea01f;
+	--color-kiosk-lime: #fcf900;
+	--color-kiosk-lime-rail: #fcf900;
+	--color-kiosk-cyan: #2ee0e8;
+	--color-kiosk-focus: #f2e50c;
+	--color-kiosk-overlay: rgb(20 20 20 / 0.72);
+	--color-kiosk-checker-a: #565656;
+	--color-kiosk-checker-b: rgb(255 255 255 / 0.05);
+	--color-kiosk-media: #5a5a5a;
+
+	--radius-kiosk-sm: 999px;
+	--radius-kiosk-md: 0.75rem;
+	--radius-kiosk-lg: 1rem;
+
+	--shadow-kiosk: 0 12px 32px rgb(0 0 0 / 0.45);
+	--shadow-inset-top: inset 0 14px 18px -10px rgb(0 0 0 / 0.75);
+}
+
+@keyframes sun-spin {
+	from { transform: rotate(0deg); }
+	to { transform: rotate(360deg); }
+}
+
+@keyframes fade-up {
+	from { opacity: 0; transform: translateY(10px); }
+	to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes obs-fade-in {
+	from { opacity: 0; transform: translateY(0.6rem); }
+	to { opacity: 1; transform: none; }
+}
+
+@keyframes skel-pulse {
+	0%, 100% { opacity: 1; }
+	50% { opacity: 0.4; }
+}
+
+@keyframes pop {
+	from { transform: scale(0.92); opacity: 0; }
+	to { transform: scale(1); opacity: 1; }
+}
+
+/* Checkerboard media wells + hidden scrollbars (pattern utilities) */
+@utility bg-checker {
+	background-color: var(--color-kiosk-media);
+	background-image:
+		linear-gradient(45deg, var(--color-kiosk-checker-b) 25%, transparent 25%),
+		linear-gradient(-45deg, var(--color-kiosk-checker-b) 25%, transparent 25%),
+		linear-gradient(45deg, transparent 75%, var(--color-kiosk-checker-b) 75%),
+		linear-gradient(-45deg, transparent 75%, var(--color-kiosk-checker-b) 75%);
+	background-size: 16px 16px;
+	background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+}
+
+@utility bg-checker-dark {
+	background-color: var(--color-kiosk-checker-a);
+	background-image:
+		linear-gradient(45deg, var(--color-kiosk-checker-b) 25%, transparent 25%),
+		linear-gradient(-45deg, var(--color-kiosk-checker-b) 25%, transparent 25%),
+		linear-gradient(45deg, transparent 75%, var(--color-kiosk-checker-b) 75%),
+		linear-gradient(-45deg, transparent 75%, var(--color-kiosk-checker-b) 75%);
+	background-size: 16px 16px;
+	background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+}
+
+@utility scrollbar-none {
+	scrollbar-width: none;
+	-ms-overflow-style: none;
+	&::-webkit-scrollbar {
+		display: none;
+	}
+}
+
+/* ---- base ---- */
+@layer base {
+	html {
+		-webkit-text-size-adjust: 100%;
+		overscroll-behavior-y: none;
+		scroll-behavior: smooth;
+	}
+
+	body {
+		@apply m-0 min-h-dvh bg-kiosk font-sans text-kiosk-fg antialiased;
+	}
+
+	button,
+	input,
+	textarea,
+	select {
+		font: inherit;
+		color: inherit;
+	}
+
+	button {
+		@apply cursor-pointer border-0 bg-transparent p-0;
+	}
+
+	a {
+		@apply text-inherit no-underline;
+	}
+
+	img {
+		@apply block max-w-full;
+	}
+
+	h1,
+	h2,
+	h3,
+	p {
+		@apply m-0;
+	}
+
+	:focus-visible {
+		outline: 2px solid var(--color-kiosk-focus);
+		outline-offset: 2px;
+	}
+
+	[hidden] {
+		display: none !important;
+	}
+
+	* {
+		-webkit-tap-highlight-color: transparent;
+	}
+
+	button,
+	a,
+	input,
+	select,
+	textarea {
+		touch-action: manipulation;
+	}
+
+	::selection {
+		background: var(--color-kiosk-accent);
+		color: #fff;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		*,
+		*::before,
+		*::after {
+			animation-duration: 0.01ms !important;
+			transition-duration: 0.01ms !important;
+		}
+	}
+}

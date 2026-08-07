@@ -1,457 +1,945 @@
-﻿[
+[
+    {
+        "id": 1,
+        "name": "Homeland Pack",
+        "price": 350,
+        "image": "Stickers/Curated Collections/bg designs 02.jpg",
+        "type": "Stickers",
+        "section": "curated",
+        "category": "curated"
+    },
+    {
+        "id": 2,
+        "name": "From Damascus Pack",
+        "price": 350,
+        "image": "Stickers/Curated Collections/bg designs 03.jpg",
+        "type": "Stickers",
+        "section": "curated",
+        "category": "curated"
+    },
+    {
+        "id": 3,
+        "name": "Between Us Pack",
+        "price": 350,
+        "image": "Stickers/Curated Collections/bg designs 06.jpg",
+        "type": "Stickers",
+        "section": "curated",
+        "category": "curated"
+    },
+    {
+        "id": 4,
+        "name": "Internal Tourism Pack",
+        "price": 350,
+        "image": "Stickers/Curated Collections/bg designs 9.jpg",
+        "type": "Stickers",
+        "section": "curated",
+        "category": "curated"
+    },
+    {
+        "id": 5,
+        "name": "Dead Love Pack",
+        "price": 350,
+        "image": "Stickers/Curated Collections/bg designs.jpg",
+        "type": "Stickers",
+        "section": "curated",
+        "category": "curated"
+    },
+    {
+        "id": 6,
+        "name": "Kohl Pot",
+        "price": 350,
+        "image": "Stickers/Nuggets/02 ع-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
+    },
+    {
+        "id": 7,
+        "name": "Best Shawarma",
+        "price": 350,
+        "image": "Stickers/Nuggets/03 ع-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
+    },
+    {
+        "id": 8,
+        "name": "Loose Weapon",
+        "price": 350,
+        "image": "Stickers/Nuggets/04 ع-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
+    },
     {
         "id": 9,
-        "name": "الحرب مو منيحة لصحتك",
-        "price": 5000,
-        "image": "backboneAndStories/07 ع-small.png",
-        "category": "01"
+        "name": "Stamp Sheet One",
+        "price": 350,
+        "image": "Stickers/Nuggets/05 ع-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 10,
-        "name": "الناطق الرسمي",
-        "price": 5000,
-        "image": "backboneAndStories/08 ع-small.png",
-        "category": "01"
+        "name": "Stamp Sheet Two",
+        "price": 350,
+        "image": "Stickers/Nuggets/06 ع-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 11,
-        "name": "هالضفدع ما حيموت سلق",
-        "price": 5000,
-        "image": "backboneAndStories/100 ع-small.png",
-        "category": "01"
+        "name": "War Is Bad For You",
+        "price": 350,
+        "image": "Stickers/Nuggets/07 ع-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 12,
-        "name": "المقاومة مو جكر",
-        "price": 5000,
-        "image": "backboneAndStories/1012 2-small.png",
-        "category": "01"
+        "name": "Official Speaker",
+        "price": 350,
+        "image": "Stickers/Nuggets/08 ع-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 13,
-        "name": "فيقي وصحصحي",
-        "price": 5000,
-        "image": "backboneAndStories/1014 ع-small.png",
-        "category": "01"
+        "name": "Five Piastres",
+        "price": 350,
+        "image": "Stickers/Nuggets/09 ع-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 14,
-        "name": "فيق وصحصح",
-        "price": 5000,
-        "image": "backboneAndStories/1014-small.png",
-        "category": "01"
+        "name": "All Eyes",
+        "price": 350,
+        "image": "Stickers/Nuggets/10 ع-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 15,
-        "name": "هدوا بالنا",
-        "price": 5000,
-        "image": "backboneAndStories/19 ع-small.png",
-        "category": "01"
+        "name": "This Frog Wont Boil",
+        "price": 350,
+        "image": "Stickers/Nuggets/100 ع-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 16,
-        "name": "مو صاير علينا شي",
-        "price": 5000,
-        "image": "backboneAndStories/201 ع-small.png",
-        "category": "01"
+        "name": "For the Era",
+        "price": 350,
+        "image": "Stickers/Nuggets/1011-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 17,
-        "name": "ما في رجعة",
-        "price": 5000,
-        "image": "backboneAndStories/24 ع-small.png",
-        "category": "01"
+        "name": "Resistance Is Not Cool",
+        "price": 350,
+        "image": "Stickers/Nuggets/1012 2-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 18,
-        "name": "خدلك موقف - رسم",
-        "price": 5000,
-        "image": "backboneAndStories/47 ع-small.png",
-        "category": "01"
+        "name": "Wake Up Girl",
+        "price": 350,
+        "image": "Stickers/Nuggets/1014 ع-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 19,
-        "name": "مو صاير علينا شي - رسم",
-        "price": 5000,
-        "image": "backboneAndStories/51 ع-small.png",
-        "category": "01"
+        "name": "Wake Up Boy",
+        "price": 350,
+        "image": "Stickers/Nuggets/1014-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 20,
-        "name": "جنين، جنين",
-        "price": 5000,
-        "image": "backboneAndStories/76 ع-small.png",
-        "category": "01"
+        "name": "Life Frame",
+        "price": 350,
+        "image": "Stickers/Nuggets/10189-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 21,
-        "name": "كلمات متقاطعة",
-        "price": 5000,
-        "image": "backboneAndStories/78 ع-small.png",
-        "category": "01"
+        "name": "Five Lira",
+        "price": 350,
+        "image": "Stickers/Nuggets/11 ع-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 22,
-        "name": "تسقط للأبد",
-        "price": 5000,
-        "image": "backboneAndStories/85 ع-small.png",
-        "category": "01"
+        "name": "One Lira",
+        "price": 350,
+        "image": "Stickers/Nuggets/12 ع-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 23,
-        "name": "لا تكب عالأرض",
-        "price": 5000,
-        "image": "backboneAndStories/96 ع-small.png",
-        "category": "01"
+        "name": "Damascus Window",
+        "price": 350,
+        "image": "Stickers/Nuggets/15 ع-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 24,
-        "name": "معلش",
-        "price": 5000,
-        "image": "blackAndWhite/04 ع-small.png",
-        "category": "02"
+        "name": "Ease Our Minds",
+        "price": 350,
+        "image": "Stickers/Nuggets/19 ع-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 25,
-        "name": "راس واسع مجرة",
-        "price": 5000,
-        "image": "blackAndWhite/21 ع-small.png",
-        "category": "02"
+        "name": "Coffee Cups",
+        "price": 350,
+        "image": "Stickers/Nuggets/20 ع-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 26,
-        "name": "العيون عليها",
-        "price": 5000,
-        "image": "blackAndWhite/22 ع-small.png",
-        "category": "02"
+        "name": "Nothing Happened",
+        "price": 350,
+        "image": "Stickers/Nuggets/201 ع-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 27,
-        "name": "سلالم وحيايا",
-        "price": 5000,
-        "image": "blackAndWhite/32 ع-small.png",
-        "category": "02"
+        "name": "Black Ink One",
+        "price": 350,
+        "image": "Stickers/Nuggets/21 ع-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 28,
-        "name": "السلاح الفلتان، اربطوه",
-        "price": 5000,
-        "image": "blackAndWhite/39 ع (2)-small.png",
-        "category": "02"
+        "name": "Black Ink Two",
+        "price": 350,
+        "image": "Stickers/Nuggets/22 ع-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 29,
-        "name": "قلب دمشق",
-        "price": 5000,
-        "image": "blackAndWhite/49 ع-small.png",
-        "category": "02"
+        "name": "Square Mosaic Box",
+        "price": 350,
+        "image": "Stickers/Nuggets/23 ع-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 30,
-        "name": "حب ميت",
-        "price": 5000,
-        "image": "blackAndWhite/62 ع-small.png",
-        "category": "02"
+        "name": "No Going Back",
+        "price": 350,
+        "image": "Stickers/Nuggets/24 ع-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 31,
-        "name": "حب سام",
-        "price": 5000,
-        "image": "blackAndWhite/63 ع-small.png",
-        "category": "02"
+        "name": "Octagon Mosaic Box",
+        "price": 350,
+        "image": "Stickers/Nuggets/25 ع-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 32,
-        "name": "دخان وطني",
-        "price": 5000,
-        "image": "blackAndWhite/65 ع-small.png",
-        "category": "02"
+        "name": "Fresh Cut",
+        "price": 350,
+        "image": "Stickers/Nuggets/26 ع-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 33,
-        "name": "سحر دمشق",
-        "price": 5000,
-        "image": "blackAndWhite/67 ع (2)-small.png",
-        "category": "02"
+        "name": "TV Table",
+        "price": 350,
+        "image": "Stickers/Nuggets/27 ع-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 34,
-        "name": "الحياة مدرسة",
-        "price": 5000,
-        "image": "life/03 ع-small.png",
-        "category": "03"
+        "name": "City Life",
+        "price": 350,
+        "image": "Stickers/Nuggets/29 ع-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 35,
-        "name": "ساخر وواعي",
-        "price": 5000,
-        "image": "life/10189-small.png",
-        "category": "03"
+        "name": "Black Ink Three",
+        "price": 350,
+        "image": "Stickers/Nuggets/32 ع-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 36,
-        "name": "معي تلاتمية",
-        "price": 5000,
-        "image": "life/29 ع-small.png",
-        "category": "03"
+        "name": "New Signal",
+        "price": 350,
+        "image": "Stickers/Nuggets/34 ع-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 37,
-        "name": "معلش معلش",
-        "price": 5000,
-        "image": "life/52 ع-small.png",
-        "category": "03"
+        "name": "Bright Edge",
+        "price": 350,
+        "image": "Stickers/Nuggets/36 ع-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 38,
-        "name": "يارب احميها",
-        "price": 5000,
-        "image": "life/55 ع-small.png",
-        "category": "03"
+        "name": "Local Merch",
+        "price": 350,
+        "image": "Stickers/Nuggets/37 ع-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 39,
-        "name": "مليت بس مكمل",
-        "price": 5000,
-        "image": "life/83 L-small.png",
-        "category": "03"
+        "name": "Black Ink Four",
+        "price": 350,
+        "image": "Stickers/Nuggets/39 ع (2)-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 40,
-        "name": "بحب سوريا، أغلب الأوقات",
-        "price": 5000,
-        "image": "life/897 ش-small.png",
-        "category": "03"
+        "name": "Yellow Horizon",
+        "price": 350,
+        "image": "Stickers/Nuggets/40 ع-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 41,
-        "name": "بحب سوريا، أحيانا",
-        "price": 5000,
-        "image": "life/897-small.png",
-        "category": "03"
+        "name": "Take a Stand",
+        "price": 350,
+        "image": "Stickers/Nuggets/47 ع-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 42,
-        "name": "مجنونة",
-        "price": 5000,
-        "image": "newThings/26 ع-small.png",
-        "category": "04"
+        "name": "Black Ink Five",
+        "price": 350,
+        "image": "Stickers/Nuggets/49 ع-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 43,
-        "name": "Yves Saint Dama",
-        "price": 5000,
-        "image": "newThings/34 ع-small.png",
-        "category": "04"
+        "name": "Nothing Happened Sketch",
+        "price": 350,
+        "image": "Stickers/Nuggets/51 ع-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 44,
-        "name": "Damascape_ Blue",
-        "price": 5000,
-        "image": "newThings/36 ع-small.png",
-        "category": "04"
+        "name": "Daily Route",
+        "price": 350,
+        "image": "Stickers/Nuggets/52 ع-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 45,
-        "name": "Damascape_ Pink",
-        "price": 5000,
-        "image": "newThings/37 ع-small.png",
-        "category": "04"
+        "name": "Street Pulse",
+        "price": 350,
+        "image": "Stickers/Nuggets/55 ع-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 46,
-        "name": "صورة عالسريع",
-        "price": 5000,
-        "image": "newThings/40 ع-small.png",
-        "category": "04"
+        "name": "Welcome to Damascus",
+        "price": 350,
+        "image": "Stickers/Nuggets/56 ع-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 47,
-        "name": "Local Merch",
-        "price": 5000,
-        "image": "newThings/56 ع-small.png",
-        "category": "04"
+        "name": "Soft Landing",
+        "price": 350,
+        "image": "Stickers/Nuggets/61 ع-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 48,
-        "name": "D4m45cu5",
-        "price": 5000,
-        "image": "newThings/61 ع-small.png",
-        "category": "04"
+        "name": "Black Ink Six",
+        "price": 350,
+        "image": "Stickers/Nuggets/62 ع-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 49,
-        "name": "Welcome 3 Damascus",
-        "price": 5000,
-        "image": "newThings/64 ع-small.png",
-        "category": "04"
+        "name": "Black Ink Seven",
+        "price": 350,
+        "image": "Stickers/Nuggets/63 ع-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 50,
-        "name": "أطيب شاورما",
-        "price": 5000,
-        "image": "newThings/66 ع (2)-small.png",
-        "category": "04"
+        "name": "Welcome 3 Damascus",
+        "price": 350,
+        "image": "Stickers/Nuggets/64 ع-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 51,
-        "name": "بطيخة بالبحرة",
-        "price": 5000,
-        "image": "newThings/80 ع-small.png",
-        "category": "04"
+        "name": "Black Ink Eight",
+        "price": 350,
+        "image": "Stickers/Nuggets/65 ع-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 52,
-        "name": "مفاتيح البيت",
-        "price": 5000,
-        "image": "newThings/84 ع-small.png",
-        "category": "04"
+        "name": "Shawarma Star",
+        "price": 350,
+        "image": "Stickers/Nuggets/66 ع (2)-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 53,
-        "name": "علامة مسجلة، بالقلب",
-        "price": 5000,
-        "image": "newThings/87 ع-small.png",
-        "category": "04"
+        "name": "Black Ink Nine",
+        "price": 350,
+        "image": "Stickers/Nuggets/67 ع (2)-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 54,
-        "name": "مدينة الياسمين",
-        "price": 5000,
-        "image": "newThings/91 ع-small.png",
-        "category": "04"
+        "name": "Damascus Shabak",
+        "price": 350,
+        "image": "Stickers/Nuggets/75 ع-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 55,
-        "name": "نجمة الشمال",
-        "price": 5000,
-        "image": "newThings/92 ع-small.png",
-        "category": "04"
+        "name": "Jenin Jenin",
+        "price": 350,
+        "image": "Stickers/Nuggets/76 ع-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 56,
-        "name": "الحرية مسؤولية",
-        "price": 5000,
-        "image": "newThings/98 ع-small.png",
-        "category": "04"
+        "name": "Crossword",
+        "price": 350,
+        "image": "Stickers/Nuggets/78 ع-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 57,
-        "name": "دبكة",
-        "price": 5000,
-        "image": "newThings/Matisse - Dance but Syrian-small.png",
-        "category": "04"
+        "name": "Watermelon Fountain",
+        "price": 350,
+        "image": "Stickers/Nuggets/80 ع-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 58,
-        "name": "مكحلة",
-        "price": 5000,
-        "image": "nostalgia/02 ع-small.png",
-        "category": "05"
+        "name": "On-the-Go Portrait",
+        "price": 350,
+        "image": "Stickers/Nuggets/83 L-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 59,
-        "name": "طوابع - 1",
-        "price": 5000,
-        "image": "nostalgia/05 ع-small.png",
-        "category": "05"
+        "name": "House Keys",
+        "price": 350,
+        "image": "Stickers/Nuggets/84 ع-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 60,
-        "name": "طوابع - 2",
-        "price": 5000,
-        "image": "nostalgia/06 ع-small.png",
-        "category": "05"
+        "name": "Fall Forever",
+        "price": 350,
+        "image": "Stickers/Nuggets/85 ع-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 61,
-        "name": "5 قروش",
-        "price": 5000,
-        "image": "nostalgia/09 ع-small.png",
-        "category": "05"
+        "name": "Heart Trademark",
+        "price": 350,
+        "image": "Stickers/Nuggets/87 ع-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
+    },
+    {
+        "id": 62,
+        "name": "Thirty on Me",
+        "price": 350,
+        "image": "Stickers/Nuggets/897 ش-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 63,
-        "name": "للعهد",
-        "price": 5000,
-        "image": "nostalgia/1011-small.png",
-        "category": "05"
+        "name": "Got Thirty?",
+        "price": 350,
+        "image": "Stickers/Nuggets/897-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 64,
-        "name": "5 ليرات",
-        "price": 5000,
-        "image": "nostalgia/11 ع-small.png",
-        "category": "05"
+        "name": "That Ice Cream",
+        "price": 350,
+        "image": "Stickers/Nuggets/90 ع-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 65,
-        "name": "ليرة",
-        "price": 5000,
-        "image": "nostalgia/12 ع-small.png",
-        "category": "05"
+        "name": "Jasmine City",
+        "price": 350,
+        "image": "Stickers/Nuggets/91 ع-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 66,
-        "name": "شباك",
-        "price": 5000,
-        "image": "nostalgia/15 ع-small.png",
-        "category": "05"
+        "name": "North Star",
+        "price": 350,
+        "image": "Stickers/Nuggets/92 ع-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 67,
-        "name": "فناجين",
-        "price": 5000,
-        "image": "nostalgia/20 ع-small.png",
-        "category": "05"
+        "name": "Protect Her",
+        "price": 350,
+        "image": "Stickers/Nuggets/96 ع-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 68,
-        "name": "علبة موزاييك مربعة",
-        "price": 5000,
-        "image": "nostalgia/23 ع-small.png",
-        "category": "05"
+        "name": "Freedom Is Duty",
+        "price": 350,
+        "image": "Stickers/Nuggets/98 ع-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 69,
-        "name": "علبة موزاييك متمنة",
-        "price": 5000,
-        "image": "nostalgia/25 ع-small.png",
-        "category": "05"
+        "name": "Syrian Dance",
+        "price": 350,
+        "image": "Stickers/Nuggets/Matisse - Dance but Syrian-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 70,
-        "name": "طاولة تلفزيون",
-        "price": 5000,
-        "image": "nostalgia/27 ع-small.png",
-        "category": "05"
+        "name": "Mirror Mad Damascus",
+        "price": 350,
+        "image": "Stickers/Nuggets/mirro3r ع-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 71,
-        "name": "شباك - Damascus",
-        "price": 5000,
-        "image": "nostalgia/75 ع-small.png",
-        "category": "05"
+        "name": "Inlaid Mirror",
+        "price": 350,
+        "image": "Stickers/Nuggets/mirror ع-small.png",
+        "type": "Stickers",
+        "section": "nuggets",
+        "category": "nuggets"
     },
     {
         "id": 72,
-        "name": "هديك البوظة ما غيرا",
-        "price": 5000,
-        "image": "nostalgia/90 ع-small.png",
-        "category": "05"
+        "name": "Crosswords B",
+        "price": 350,
+        "image": "Tshirts/Crosswords_B.jpg",
+        "type": "Tshirts",
+        "category": "tshirts"
     },
     {
         "id": 73,
-        "name": "مراية ومجنونة ودمشق",
-        "price": 5000,
-        "image": "nostalgia/mirro3r ع-small.png",
-        "category": "05"
+        "name": "Crosswords W",
+        "price": 350,
+        "image": "Tshirts/Crosswords_W.jpg",
+        "type": "Tshirts",
+        "category": "tshirts"
     },
     {
         "id": 74,
-        "name": "مراية مطعمة",
-        "price": 5000,
-        "image": "nostalgia/mirror ع-small.png",
-        "category": "05"
+        "name": "D4m45cu5 B",
+        "price": 350,
+        "image": "Tshirts/D4m45cu5_B.jpg",
+        "type": "Tshirts",
+        "category": "tshirts"
+    },
+    {
+        "id": 75,
+        "name": "Damascape",
+        "price": 350,
+        "image": "Tshirts/Damascape.jpg",
+        "type": "Tshirts",
+        "category": "tshirts"
+    },
+    {
+        "id": 76,
+        "name": "Godzilla",
+        "price": 350,
+        "image": "Tshirts/Godzilla.jpg",
+        "type": "Tshirts",
+        "category": "tshirts"
+    },
+    {
+        "id": 77,
+        "name": "GoodbyeColumbus B",
+        "price": 350,
+        "image": "Tshirts/GoodbyeColumbus_B.jpg",
+        "type": "Tshirts",
+        "category": "tshirts"
+    },
+    {
+        "id": 78,
+        "name": "GoodbyeColumbus",
+        "price": 350,
+        "image": "Tshirts/GoodbyeColumbus.jpg",
+        "type": "Tshirts",
+        "category": "tshirts"
+    },
+    {
+        "id": 79,
+        "name": "HafezVCat B",
+        "price": 350,
+        "image": "Tshirts/HafezVCat_B.jpg",
+        "type": "Tshirts",
+        "category": "tshirts"
+    },
+    {
+        "id": 80,
+        "name": "HafezVCat W",
+        "price": 350,
+        "image": "Tshirts/HafezVCat_W.jpg",
+        "type": "Tshirts",
+        "category": "tshirts"
+    },
+    {
+        "id": 81,
+        "name": "Jahez",
+        "price": 350,
+        "image": "Tshirts/Jahez.jpg",
+        "type": "Tshirts",
+        "category": "tshirts"
+    },
+    {
+        "id": 82,
+        "name": "JeninJenin",
+        "price": 350,
+        "image": "Tshirts/JeninJenin.jpg",
+        "type": "Tshirts",
+        "category": "tshirts"
+    },
+    {
+        "id": 83,
+        "name": "Kiddo B",
+        "price": 350,
+        "image": "Tshirts/Kiddo_B.jpg",
+        "type": "Tshirts",
+        "category": "tshirts"
+    },
+    {
+        "id": 84,
+        "name": "Kiddo",
+        "price": 350,
+        "image": "Tshirts/Kiddo.jpg",
+        "type": "Tshirts",
+        "category": "tshirts"
+    },
+    {
+        "id": 85,
+        "name": "LocalProduct",
+        "price": 350,
+        "image": "Tshirts/LocalProduct.jpg",
+        "type": "Tshirts",
+        "category": "tshirts"
+    },
+    {
+        "id": 86,
+        "name": "Map B F",
+        "price": 350,
+        "image": "Tshirts/Map_B_F.jpg",
+        "type": "Tshirts",
+        "category": "tshirts"
+    },
+    {
+        "id": 87,
+        "name": "Map B",
+        "price": 350,
+        "image": "Tshirts/Map_B.jpg",
+        "type": "Tshirts",
+        "category": "tshirts"
+    },
+    {
+        "id": 88,
+        "name": "Map W F",
+        "price": 350,
+        "image": "Tshirts/Map_W_F.jpg",
+        "type": "Tshirts",
+        "category": "tshirts"
+    },
+    {
+        "id": 89,
+        "name": "Map W",
+        "price": 350,
+        "image": "Tshirts/Map_W.jpg",
+        "type": "Tshirts",
+        "category": "tshirts"
+    },
+    {
+        "id": 90,
+        "name": "Mosaic B",
+        "price": 350,
+        "image": "Tshirts/Mosaic_B.jpg",
+        "type": "Tshirts",
+        "category": "tshirts"
+    },
+    {
+        "id": 91,
+        "name": "Mosaic W",
+        "price": 350,
+        "image": "Tshirts/Mosaic_W.jpg",
+        "type": "Tshirts",
+        "category": "tshirts"
+    },
+    {
+        "id": 92,
+        "name": "NationalTeam B",
+        "price": 350,
+        "image": "Tshirts/NationalTeam_B.jpg",
+        "type": "Tshirts",
+        "category": "tshirts"
+    },
+    {
+        "id": 93,
+        "name": "NationalTeam W",
+        "price": 350,
+        "image": "Tshirts/NationalTeam_W.jpg",
+        "type": "Tshirts",
+        "category": "tshirts"
+    },
+    {
+        "id": 94,
+        "name": "P@R",
+        "price": 350,
+        "image": "Tshirts/P@R.jpg",
+        "type": "Tshirts",
+        "category": "tshirts"
+    },
+    {
+        "id": 95,
+        "name": "PvsP B B",
+        "price": 350,
+        "image": "Tshirts/PvsP_B_B.jpg",
+        "type": "Tshirts",
+        "category": "tshirts"
+    },
+    {
+        "id": 96,
+        "name": "PvsP B F",
+        "price": 350,
+        "image": "Tshirts/PvsP_B_F.jpg",
+        "type": "Tshirts",
+        "category": "tshirts"
+    },
+    {
+        "id": 97,
+        "name": "PvsP F",
+        "price": 350,
+        "image": "Tshirts/PvsP_F.jpg",
+        "type": "Tshirts",
+        "category": "tshirts"
+    },
+    {
+        "id": 98,
+        "name": "QlbDmshq B",
+        "price": 350,
+        "image": "Tshirts/QlbDmshq_B.jpg",
+        "type": "Tshirts",
+        "category": "tshirts"
+    },
+    {
+        "id": 99,
+        "name": "QlbDmshq W",
+        "price": 350,
+        "image": "Tshirts/QlbDmshq_W.jpg",
+        "type": "Tshirts",
+        "category": "tshirts"
+    },
+    {
+        "id": 100,
+        "name": "Royal B",
+        "price": 350,
+        "image": "Tshirts/Royal_B.jpg",
+        "type": "Tshirts",
+        "category": "tshirts"
+    },
+    {
+        "id": 101,
+        "name": "SL B",
+        "price": 350,
+        "image": "Tshirts/SL_B.jpg",
+        "type": "Tshirts",
+        "category": "tshirts"
+    },
+    {
+        "id": 102,
+        "name": "SL BL B",
+        "price": 350,
+        "image": "Tshirts/SL_BL_B.jpg",
+        "type": "Tshirts",
+        "category": "tshirts"
+    },
+    {
+        "id": 103,
+        "name": "SL BL",
+        "price": 350,
+        "image": "Tshirts/SL_BL.jpg",
+        "type": "Tshirts",
+        "category": "tshirts"
+    },
+    {
+        "id": 104,
+        "name": "SL W",
+        "price": 350,
+        "image": "Tshirts/SL_W.jpg",
+        "type": "Tshirts",
+        "category": "tshirts"
+    },
+    {
+        "id": 105,
+        "name": "Supreme B",
+        "price": 350,
+        "image": "Tshirts/Supreme_B.jpg",
+        "type": "Tshirts",
+        "category": "tshirts"
+    },
+    {
+        "id": 106,
+        "name": "Supreme W",
+        "price": 350,
+        "image": "Tshirts/Supreme_W.jpg",
+        "type": "Tshirts",
+        "category": "tshirts"
+    },
+    {
+        "id": 107,
+        "name": "Varsity B",
+        "price": 350,
+        "image": "Tshirts/Varsity_B.jpg",
+        "type": "Tshirts",
+        "category": "tshirts"
+    },
+    {
+        "id": 108,
+        "name": "Varsity W",
+        "price": 350,
+        "image": "Tshirts/Varsity_W.jpg",
+        "type": "Tshirts",
+        "category": "tshirts"
+    },
+    {
+        "id": 109,
+        "name": "Watermelon",
+        "price": 350,
+        "image": "Tshirts/Watermelon.jpg",
+        "type": "Tshirts",
+        "category": "tshirts"
     }
 ]

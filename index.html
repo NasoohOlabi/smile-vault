@@ -11,198 +11,281 @@
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 	<meta name="format-detection" content="telephone=no" />
-	<link rel="stylesheet" href="./assets/base.css" />
-	<link rel="stylesheet" href="./design.css" />
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet" />
 </head>
 
-<body>
+<body class="relative isolate flex min-h-dvh flex-col is-locked:fixed is-locked:inset-x-0 is-locked:w-full is-locked:overflow-hidden">
+	<!-- Stamp, layer 1 of 2: sits below the content (z-0 vs z-[1]) so cards cover it.
+	     The opaque header hides its top, so the header paints its own copy — see below.
+	     Both copies use identical geometry so they read as one continuous image. -->
+	<img
+		id="stampPick"
+		class="pointer-events-none fixed top-0 left-[60%] z-0 h-auto w-[min(28rem,100vw)] -translate-x-1/2 object-contain opacity-70 select-none sm:left-[66%] sm:w-[min(52rem,76vw)] sm:opacity-75"
+		src="assets/header-stamp.png" alt="" aria-hidden="true" decoding="async" />
+
 	<!-- ============ HEADER ============ -->
-	<header class="site-header">
-		<div class="header-bar">
-			<a href="#top" class="brand" aria-label="DAMA OBSRV home">
-				<img class="brand__logo" src="assets/images/dama-obsrv-logo-cropped.png" alt="DAMA OBSRV" />
+	<header class="sticky top-0 z-30 shrink-0 overflow-visible bg-kiosk pt-[env(safe-area-inset-top)]">
+		<!-- Stamp, layer 2 of 2: above the header background, below the header contents.
+		     Clipped to the header box so it never spills over the cards. -->
+		<span class="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
+			<img
+				class="absolute top-[calc(env(safe-area-inset-top)*-1)] left-[60%] h-auto w-[min(28rem,100vw)] -translate-x-1/2 object-contain opacity-70 select-none sm:left-[66%] sm:w-[min(52rem,76vw)] sm:opacity-75"
+				src="assets/header-stamp.png" alt="" decoding="async" />
+		</span>
+
+		<div class="relative z-[3] grid min-h-[9rem] grid-cols-[auto_minmax(0,1fr)_auto] items-stretch overflow-visible border-b-[3px] border-kiosk-lime-rail sm:min-h-[11rem]">
+			<!-- Shadow sits on the yellow rail only — a full-row drop-shadow would show through the transparent header. -->
+			<span class="pointer-events-none absolute inset-x-0 top-[calc(100%+3px)] z-[4] h-5 bg-gradient-to-b from-black/25 to-transparent" aria-hidden="true"></span>
+
+			<a id="brandHome" href="#shop" class="relative z-[2] flex h-full min-h-0 shrink-0 items-center self-stretch py-1 pr-1 pl-3 sm:pr-2 sm:pl-5" aria-label="DAMA OBSRV home">
+				<img class="block h-auto w-auto max-h-[5rem] max-w-[min(11rem,32vw)] object-contain object-left mix-blend-lighten sm:max-h-[6.25rem] sm:max-w-[min(15rem,26vw)]" src="assets/logo-dama.png" alt="DAMA OBSRV" />
 			</a>
 
-			<div class="header-actions">
-				<button id="cartBtn" class="btn btn--solid">
-					<span data-i18n="cart">Cart</span>
-					<span id="cartCount" class="badge">0</span>
-				</button>
+			<div class="relative z-[3] flex min-w-0 flex-col justify-between gap-1 pt-1.5 pb-0">
+				<div class="flex min-h-10 items-center justify-end gap-2 px-2 sm:min-h-11 sm:px-3">
+					<nav id="topNav" class="flex min-w-0 items-center gap-0.5 sm:gap-1" aria-label="Primary">
+						<a href="#shop" class="inline-flex h-9 shrink-0 items-center rounded-full px-2.5 text-[0.7rem] font-semibold tracking-[0.04em] text-kiosk-fg/70 no-underline transition-[transform,background,color] duration-150 active:scale-95 is-active:bg-kiosk-lime is-active:text-[#111] not-is-active:hover:text-kiosk-fg sm:h-10 sm:px-3.5 sm:text-sm is-active" data-view="shop" aria-current="page" hidden>Giftshop</a>
+						<a href="#observatory" class="inline-flex h-9 shrink-0 items-center rounded-full px-2.5 text-[0.7rem] font-semibold tracking-[0.04em] text-kiosk-fg/70 no-underline transition-[transform,background,color] duration-150 active:scale-95 is-active:bg-kiosk-lime is-active:text-[#111] not-is-active:hover:text-kiosk-fg sm:h-10 sm:px-3.5 sm:text-sm" data-view="observatory">The Observatory</a>
+						<a href="#about" class="inline-flex h-9 shrink-0 items-center rounded-full px-2.5 text-[0.7rem] font-semibold tracking-[0.04em] text-kiosk-fg/70 no-underline transition-[transform,background,color] duration-150 active:scale-95 is-active:bg-kiosk-lime is-active:text-[#111] not-is-active:hover:text-kiosk-fg sm:h-10 sm:px-3.5 sm:text-sm" data-view="about">About Us</a>
+					</nav>
+					<div class="flex shrink-0 items-center gap-1">
+						<button id="cartBtn" class="inline-flex h-11 items-center justify-center gap-2 rounded-full bg-kiosk-accent px-4 text-sm font-semibold whitespace-nowrap text-white transition-transform duration-150 active:scale-95 disabled:opacity-40">
+							<span>Cart</span>
+							<span id="cartCount" class="grid h-6 min-w-6 place-items-center rounded-full bg-black/30 px-1 text-xs tabular-nums">0</span>
+						</button>
+					</div>
+				</div>
+
+				<nav id="filterNav" class="relative z-[1] -mb-[3px] flex min-w-0 justify-center overflow-x-auto pb-[3px] scrollbar-none [scroll-snap-type:x_proximity] [-webkit-overflow-scrolling:touch]" data-shop-only>
+					<div id="filterTrack" class="mx-auto flex w-max items-end justify-center gap-[0.15rem] px-2 sm:px-3"></div>
+				</nav>
 			</div>
+
+			<span class="pointer-events-none relative z-[1] box-border h-full w-[9rem] shrink-0 self-stretch overflow-hidden sm:w-[11rem]" aria-hidden="true">
+				<img class="block h-full w-full origin-center animate-sun-spin object-contain mix-blend-lighten motion-reduce:animate-none" src="assets/header-sun.png" alt="" width="176" height="176" decoding="async" />
+			</span>
 		</div>
 
-		<nav id="filterNav" class="filter-nav">
-			<div class="filter-nav__track"></div>
-		</nav>
-		<nav id="stickerSubnav" class="sticker-subnav" aria-label="Sticker collections">
-			<div class="sticker-subnav__track"></div>
+		<nav id="sectionSubnav" class="relative z-[2] overflow-x-auto bg-transparent pt-3 scrollbar-none sm:pt-4" aria-label="Shop sections" data-shop-only hidden>
+			<div id="sectionTrack" class="mx-auto flex w-max max-w-7xl items-center justify-center gap-[0.45rem] px-4 py-[0.55rem] pb-[0.7rem] sm:px-6"></div>
 		</nav>
 	</header>
 
-	<!-- ============ HERO ============ -->
-	<section id="top" class="hero">
-		<h1 class="hero__title" data-i18n="heroTitle"></h1>
-		<p class="hero__sub" data-i18n="heroSub"></p>
-		<div class="hero__stats">
-			<span class="stat"><b id="statCount">0</b> <span data-i18n="statDesigns"></span></span>
-			<span class="stat"><b id="statPrice"></b> <span data-i18n="statEach"></span></span>
-		</div>
-	</section>
+	<!-- ============ MAIN (recessed under yellow rail) ============ -->
+	<div class="relative z-[1] flex-1">
+		<!-- ============ SHOP ============ -->
+		<div id="shop" data-view-panel="shop">
+			<section id="top" class="mx-auto max-w-7xl px-4 pt-6 pb-4 sm:px-6 sm:pt-10 sm:pb-6">
+				<div id="shopStats" class="flex flex-wrap gap-x-5 gap-y-1 text-xs text-kiosk-muted">
+					<span><b id="statCount" class="font-semibold text-kiosk-fg">0</b> designs</span>
+				</div>
+			</section>
 
-	<!-- ============ GRID ============ -->
-	<main class="main">
-		<div id="grid" class="product-grid"></div>
-		<p id="emptyState" hidden class="empty-state" data-i18n="noResults"></p>
-		<div id="skeleton" class="product-grid"></div>
-	</main>
+			<main class="mx-auto max-w-7xl px-4 pb-[calc(7rem+env(safe-area-inset-bottom))] sm:px-6 sm:pb-24">
+				<div id="sectionFeature" hidden class="grid items-start gap-8 pb-8 md:grid-cols-2 md:gap-10 lg:gap-14">
+					<div class="order-2 min-w-0 md:order-1">
+						<p id="sectionFeatureCopy" class="max-w-md text-sm leading-relaxed text-kiosk-muted sm:text-base">
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+						</p>
+					</div>
+					<div class="order-1 md:order-2">
+						<img
+							id="sectionFeatureImg"
+							class="mx-auto h-auto w-full max-w-xl object-contain md:ms-auto md:me-0"
+							src="assets/stunning-studio.png"
+							alt="Stunning Studio × Dama.Obsrv collab"
+							decoding="async"
+						/>
+					</div>
+				</div>
+				<div id="grid" class="grid grid-cols-2 gap-3 sm:gap-6 md:grid-cols-3 lg:grid-cols-5"></div>
+				<p id="emptyState" hidden class="py-24 text-center text-kiosk-muted">No designs in this category.</p>
+				<div id="skeleton" class="grid grid-cols-2 gap-3 sm:gap-6 md:grid-cols-3 lg:grid-cols-5"></div>
+			</main>
+		</div>
+
+		<!-- ============ OBSERVATORY ============ -->
+		<section id="observatory" class="mx-auto max-w-7xl overflow-hidden px-4 pt-6 pb-[calc(7rem+env(safe-area-inset-bottom))] sm:px-6 sm:pt-10" data-view-panel="observatory" hidden aria-labelledby="obsTitle">
+			<div class="relative z-[1] mb-6 max-w-xl">
+				<h1 id="obsTitle" class="font-display text-2xl leading-tight font-bold tracking-[-0.02em] uppercase sm:text-5xl">The Observatory</h1>
+				<p class="mt-2 text-sm text-kiosk-muted sm:text-base">A collage of pieces soon to be republished — some clear, some still behind the blur.</p>
+			</div>
+			<div id="obsCollage" class="relative mx-auto grid min-h-72 max-w-5xl grid-cols-3 gap-2 sm:grid-cols-4 sm:gap-3 md:grid-cols-6" aria-hidden="true"></div>
+		</section>
+
+		<!-- ============ ABOUT ============ -->
+		<section id="about" class="mx-auto max-w-7xl overflow-hidden px-4 pt-6 pb-[calc(7rem+env(safe-area-inset-bottom))] sm:px-6 sm:pt-10" data-view-panel="about" hidden aria-labelledby="aboutTitle">
+			<div class="relative z-[1] max-w-xl">
+				<h1 id="aboutTitle" class="font-display text-2xl leading-tight font-bold tracking-[-0.02em] uppercase sm:text-5xl">About Us</h1>
+				<p class="mt-2 text-sm text-kiosk-muted sm:text-base">DAMA OBSRV — hand-drawn stickers and prints from Damascus. More soon.</p>
+			</div>
+		</section>
+	</div>
 
 	<!-- ============ FOOTER ============ -->
-	<footer class="site-footer">
-		<p class="site-footer__brand">DAMA OBSRV</p>
-		<p class="site-footer__note" data-i18n="footer"></p>
+	<footer class="relative z-[1] shrink-0 bg-neutral-900 shadow-inset-top pb-[env(safe-area-inset-bottom)]">
+		<div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:px-6 sm:py-5">
+			<div class="min-w-0 font-display text-sm leading-snug sm:text-base">
+				<p class="text-kiosk-accent">Contact us for more info &lt;3</p>
+				<a
+					href="https://www.instagram.com/dama.obsrv/"
+					class="text-kiosk-lime transition-opacity hover:opacity-80"
+					target="_blank"
+					rel="noopener noreferrer"
+				>@Dama.Obsrv</a>
+			</div>
+			<img
+				src="assets/footer-thumb.png"
+				alt=""
+				width="120"
+				height="72"
+				decoding="async"
+				class="h-14 w-auto shrink-0 object-contain sm:h-16"
+			/>
+		</div>
 	</footer>
 
 	<!-- ============ STICKY CART BAR (phones) ============ -->
-	<div id="mobileBar" class="mobile-bar">
-		<button id="mobileCartBtn" class="mobile-bar__btn">
-			<span id="barThumbs" class="bar-thumbs"></span>
-			<span class="mobile-bar__label">
-				<span id="barCount" class="mobile-bar__count"></span>
-				<span data-i18n="viewCart"></span>
+	<div id="mobileBar" class="fixed inset-x-0 bottom-0 z-30 translate-y-[130%] bg-gradient-to-t from-kiosk from-[62%] to-transparent px-3 pt-2 pb-[calc(env(safe-area-inset-bottom)+0.75rem)] transition-transform duration-300 ease-out is-visible:translate-y-0 sm:hidden">
+		<button id="mobileCartBtn" class="flex h-14 w-full items-center gap-3 rounded-kiosk-lg bg-kiosk-accent px-3 text-white shadow-kiosk transition-transform duration-150 active:scale-[0.98]">
+			<span id="barThumbs" class="flex shrink-0 items-center"></span>
+			<span class="flex flex-col items-start leading-tight">
+				<span id="barCount" class="text-xs tabular-nums opacity-80"></span>
+				<span>View cart</span>
 			</span>
-			<span id="mobileTotal" class="mobile-bar__total"></span>
+			<span id="mobileTotal" class="ms-auto me-1 text-base tabular-nums"></span>
 		</button>
 	</div>
 
 	<!-- ============ CART PANEL ============ -->
-	<div id="cartOverlay" hidden class="overlay"></div>
-	<aside id="cartDrawer" hidden class="cart-drawer" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
-		<div id="dragHandle" class="drag-handle">
-			<div class="drag-handle__grip"></div>
+	<div id="cartOverlay" hidden class="fixed inset-0 z-40 bg-kiosk-overlay opacity-0 transition-opacity duration-300 is-visible:opacity-100"></div>
+	<aside id="cartDrawer" hidden class="fixed inset-x-0 top-auto bottom-0 z-50 flex h-[88dvh] max-h-[88dvh] translate-y-full flex-col overflow-hidden overscroll-contain rounded-t-kiosk-lg bg-kiosk text-kiosk-fg shadow-[0_-12px_40px_rgb(0_0_0_/_0.28)] transition-transform duration-[320ms] ease-[cubic-bezier(0.32,0.72,0,1)] is-open:translate-y-0 is-dragging:transition-none sm:inset-y-0 sm:start-auto sm:end-0 sm:h-full sm:max-h-none sm:w-[26rem] sm:translate-x-full sm:translate-y-0 sm:rounded-none sm:shadow-[-12px_0_40px_rgb(0_0_0_/_0.22)] sm:is-open:translate-x-0" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
+		<div id="dragHandle" class="block shrink-0 cursor-grab touch-none py-2.5 pb-1 sm:hidden">
+			<div class="mx-auto h-1.5 w-11 rounded-full bg-kiosk-border"></div>
 		</div>
 
-		<div class="cart-drawer__head">
-			<h2 id="cartTitle" class="cart-drawer__title" data-i18n="yourOrder"></h2>
-			<button id="cartClose" class="icon-btn">
-				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+		<div class="flex h-14 shrink-0 items-center justify-between border-b border-kiosk-border px-5 sm:h-16">
+			<h2 id="cartTitle" class="font-display text-lg font-bold tracking-[0.02em] uppercase">Your order</h2>
+			<button id="cartClose" class="grid h-11 w-11 shrink-0 place-items-center rounded-full transition-transform duration-150 active:scale-95">
+				<svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 					<path stroke-linecap="round" d="M6 18L18 6M6 6l12 12" />
 				</svg>
 			</button>
 		</div>
 
-		<div id="cartBody" class="cart-body"></div>
+		<div id="cartBody" class="flex flex-1 flex-col gap-4 overflow-y-auto overscroll-contain p-4 px-5"></div>
 
-		<div class="cart-drawer__foot">
-			<div class="cart-drawer__total-row">
-				<span data-i18n="total"></span>
+		<div class="flex shrink-0 flex-col gap-3 border-t border-kiosk-border p-5 pb-[calc(env(safe-area-inset-bottom)+1.25rem)]">
+			<div class="flex justify-between text-lg font-bold">
+				<span>Total</span>
 				<span id="totalPrice"></span>
 			</div>
-			<button id="checkoutBtn" class="btn btn--accent btn--block" data-i18n="checkout"></button>
+			<button id="checkoutBtn" class="inline-flex h-14 w-full items-center justify-center gap-2 rounded-kiosk-lg bg-kiosk-accent-light px-4 text-sm font-bold whitespace-nowrap text-[#14140a] transition-transform duration-150 active:scale-95 disabled:opacity-40">Checkout</button>
 		</div>
 
-		<form id="orderForm" hidden class="checkout-form">
-			<div class="checkout-form__head">
-				<button type="button" id="backToCart" class="icon-btn">
-					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+		<form id="orderForm" hidden class="absolute inset-0 flex flex-col rounded-[inherit] bg-kiosk">
+			<div class="flex h-14 shrink-0 items-center gap-1 border-b border-kiosk-border px-3 pt-[env(safe-area-inset-top)] sm:h-16 sm:px-5 sm:pt-0">
+				<button type="button" id="backToCart" class="grid h-11 w-11 shrink-0 place-items-center rounded-full transition-transform duration-150 active:scale-95">
+					<svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 						<path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
 					</svg>
 				</button>
-				<h2 class="checkout-form__title" data-i18n="details"></h2>
+				<h2 class="font-display text-lg font-bold tracking-[0.02em] uppercase">Delivery details</h2>
 			</div>
 
-			<div class="checkout-form__body">
-				<div class="field-group">
-					<label class="field-label" for="customerName"><span data-i18n="fName"></span> <span class="req">*</span></label>
-					<input id="customerName" type="text" autocomplete="name" enterkeyhint="next" class="field" />
+			<div class="flex flex-1 flex-col gap-4 overflow-y-auto overscroll-contain p-4 px-5">
+				<div class="flex flex-col gap-1.5">
+					<label class="text-xs font-medium" for="customerName">Name <span class="text-kiosk-accent">*</span></label>
+					<input id="customerName" type="text" autocomplete="name" enterkeyhint="next" class="w-full rounded-xl border border-kiosk-border bg-black/28 px-3.5 py-3 text-base leading-snug text-kiosk-fg outline-none focus:border-kiosk-accent focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--color-kiosk-accent)_20%,transparent)] is-invalid:border-red-500" />
 				</div>
-				<div class="field-group">
-					<label class="field-label" for="phone"><span data-i18n="fPhone"></span> <span class="req">*</span></label>
+				<div class="flex flex-col gap-1.5">
+					<label class="text-xs font-medium" for="phone">Phone <span class="text-kiosk-accent">*</span></label>
 					<input id="phone" type="tel" inputmode="tel" pattern="[0-9]*" placeholder="09XXXXXXXX" autocomplete="tel"
-						enterkeyhint="next" class="field" />
+						enterkeyhint="next" class="w-full rounded-xl border border-kiosk-border bg-black/28 px-3.5 py-3 text-base leading-snug text-kiosk-fg outline-none focus:border-kiosk-accent focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--color-kiosk-accent)_20%,transparent)] is-invalid:border-red-500" />
 				</div>
-				<div class="field-group">
-					<label class="field-label" for="instaAccount"><span data-i18n="fInsta"></span></label>
+				<div class="flex flex-col gap-1.5">
+					<label class="text-xs font-medium" for="instaAccount">Instagram</label>
 					<input id="instaAccount" type="text" placeholder="@yourhandle" autocapitalize="none" autocorrect="off"
-						spellcheck="false" enterkeyhint="next" class="field" />
+						spellcheck="false" enterkeyhint="next" class="w-full rounded-xl border border-kiosk-border bg-black/28 px-3.5 py-3 text-base leading-snug text-kiosk-fg outline-none focus:border-kiosk-accent focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--color-kiosk-accent)_20%,transparent)] is-invalid:border-red-500" />
 				</div>
-				<div class="field-group">
-					<label class="field-label" for="customerAddress"><span data-i18n="fAddress"></span> <span class="req">*</span></label>
-					<textarea id="customerAddress" rows="3" autocomplete="street-address" class="field"></textarea>
+				<div class="flex flex-col gap-1.5">
+					<label class="text-xs font-medium" for="customerAddress">Shipping address <span class="text-kiosk-accent">*</span></label>
+					<textarea id="customerAddress" rows="3" autocomplete="street-address" class="w-full resize-y rounded-xl border border-kiosk-border bg-black/28 px-3.5 py-3 text-base leading-snug text-kiosk-fg outline-none focus:border-kiosk-accent focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--color-kiosk-accent)_20%,transparent)] is-invalid:border-red-500"></textarea>
 				</div>
-				<div class="field-group">
-					<label class="field-label" for="orderNotes"><span data-i18n="fNotes"></span></label>
-					<textarea id="orderNotes" rows="2" class="field"></textarea>
+				<div class="flex flex-col gap-1.5">
+					<label class="text-xs font-medium" for="orderNotes">Notes (optional)</label>
+					<textarea id="orderNotes" rows="2" class="w-full resize-y rounded-xl border border-kiosk-border bg-black/28 px-3.5 py-3 text-base leading-snug text-kiosk-fg outline-none focus:border-kiosk-accent focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--color-kiosk-accent)_20%,transparent)] is-invalid:border-red-500"></textarea>
 				</div>
 				<div id="orderResponse"></div>
 			</div>
 
-			<div class="checkout-form__foot">
-				<div class="checkout-form__total-row">
-					<span data-i18n="total"></span>
-					<b id="totalPrice2"></b>
+			<div class="flex shrink-0 flex-col gap-3 border-t border-kiosk-border p-5 pb-[calc(env(safe-area-inset-bottom)+1.25rem)]">
+				<div class="flex justify-between text-sm font-normal text-kiosk-muted">
+					<span>Total</span>
+					<b id="totalPrice2" class="font-bold text-kiosk-fg"></b>
 				</div>
-				<button type="submit" id="submitBtn" class="btn btn--accent btn--block" data-i18n="submit"></button>
+				<button type="submit" id="submitBtn" class="inline-flex h-14 w-full items-center justify-center gap-2 rounded-kiosk-lg bg-kiosk-accent-light px-4 text-sm font-bold whitespace-nowrap text-[#14140a] transition-transform duration-150 active:scale-95 disabled:opacity-40">Place order</button>
 			</div>
 		</form>
 	</aside>
 
 	<!-- ============ LIGHTBOX ============ -->
-	<div id="lightbox" hidden class="lightbox" role="dialog" aria-modal="true">
-		<div class="lightbox__top">
-			<span id="lbCounter" class="lightbox__counter"></span>
-			<button id="lbClose" class="icon-btn icon-btn--ghost">
-				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-					<path stroke-linecap="round" d="M6 18L18 6M6 6l12 12" />
-				</svg>
-			</button>
+	<div id="lightbox" hidden class="fixed inset-0 z-[60] bg-black/90 opacity-0 backdrop-blur-[4px] transition-opacity duration-200 is-visible:opacity-100" role="dialog" aria-modal="true">
+		<div class="absolute inset-x-0 top-0 flex items-center justify-between px-3 pt-[calc(env(safe-area-inset-top)+0.75rem)]">
+			<span id="lbCounter" class="rounded-full bg-white/10 px-3 py-1.5 text-xs text-white/80 tabular-nums"></span>
+			<div class="flex items-center gap-1">
+				<button id="lbShare" type="button" class="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-white/10 text-white transition-transform duration-150 active:scale-95" aria-label="Share design">
+					<svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+						<circle cx="18" cy="5" r="3" />
+						<circle cx="6" cy="12" r="3" />
+						<circle cx="18" cy="19" r="3" />
+						<path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98" />
+					</svg>
+				</button>
+				<button id="lbClose" type="button" class="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-white/10 text-white transition-transform duration-150 active:scale-95" aria-label="Close">
+					<svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<path stroke-linecap="round" d="M6 18L18 6M6 6l12 12" />
+					</svg>
+				</button>
+			</div>
 		</div>
 
-		<button id="lbPrev" class="lightbox__nav lightbox__nav--prev">
-			<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+		<button id="lbPrev" class="absolute top-1/2 start-4 hidden h-12 w-12 -translate-y-1/2 place-items-center rounded-full bg-white/10 text-white transition-colors duration-150 hover:bg-white/20 sm:grid">
+			<svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 				<path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
 			</svg>
 		</button>
-		<button id="lbNext" class="lightbox__nav lightbox__nav--next">
-			<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+		<button id="lbNext" class="absolute top-1/2 end-4 hidden h-12 w-12 -translate-y-1/2 place-items-center rounded-full bg-white/10 text-white transition-colors duration-150 hover:bg-white/20 sm:grid">
+			<svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 				<path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
 			</svg>
 		</button>
 
-		<div id="lbStage" class="lightbox__stage">
-			<div class="lightbox__frame">
-				<img id="lbImg" class="lightbox__img" draggable="false" alt="" />
+		<div id="lbStage" class="flex h-full w-full touch-pan-y items-center justify-center px-5 pt-14 pb-[calc(env(safe-area-inset-bottom)+1rem)] transition-[transform,opacity] duration-[250ms] ease-[cubic-bezier(0.32,0.72,0,1)] is-dragging:transition-none">
+			<div class="flex w-full max-w-5xl flex-col items-center gap-4 sm:flex-row sm:items-center sm:gap-8 lg:gap-12">
+				<div id="lbMedia" class="flex shrink-0 items-center justify-center rounded-2xl bg-checker-dark p-3 sm:flex-1">
+					<img id="lbImg" class="max-h-[42vh] max-w-[84vw] object-contain select-none sm:max-h-[72vh] sm:max-w-full" draggable="false" alt="" />
+				</div>
+				<div class="flex w-full max-w-xs flex-col items-center gap-3 text-white sm:w-auto sm:max-w-[16rem] sm:shrink-0 sm:items-start">
+					<div class="px-2 text-center sm:px-0 sm:text-start">
+						<h3 id="lbName" class="text-lg font-semibold sm:text-xl"></h3>
+						<p id="lbCat" class="mt-0.5 text-sm text-white/60"></p>
+						<p id="lbPrice" class="mt-1.5 font-bold text-kiosk-accent-light tabular-nums"></p>
+					</div>
+					<div id="lbVariants" class="flex w-full flex-col items-center gap-2.5 sm:items-start" hidden></div>
+					<div id="lbQty" class="w-48 text-white" data-variant="lightbox"></div>
+					<p class="text-[0.6875rem] text-white/40 sm:hidden">Swipe to browse · swipe down to close</p>
+				</div>
 			</div>
-			<div class="lightbox__info">
-				<h3 id="lbName" class="lightbox__name"></h3>
-				<p id="lbCat" class="lightbox__cat"></p>
-				<p id="lbPrice" class="lightbox__price"></p>
-			</div>
-			<div id="lbQty" class="qty qty--lightbox"></div>
-			<p class="lightbox__hint" data-i18n="swipeHint"></p>
 		</div>
 	</div>
 
 	<!-- ============ TOASTS ============ -->
-	<div id="toasts" class="toast-host"></div>
+	<div id="toasts" class="pointer-events-none fixed inset-x-0 bottom-[calc(6rem+env(safe-area-inset-bottom))] z-[70] flex flex-col items-center gap-2 px-4 sm:bottom-6"></div>
 
-	<script type="module">
-		import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
-		import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-analytics.js";
-
-		const firebaseConfig = {
-			apiKey: "AIzaSyBDZSOlGnDZuv9LpDWCBE3MjhO9qUjfTwA",
-			authDomain: "dama-store.firebaseapp.com",
-			projectId: "dama-store",
-			storageBucket: "dama-store.firebasestorage.app",
-			messagingSenderId: "80005345755",
-			appId: "1:80005345755:web:8048d8aa1d27f6187ff7fe",
-			measurementId: "G-J557MTRP00"
-		};
-
-		getAnalytics(initializeApp(firebaseConfig));
-	</script>
-	<script src="./assets/i18n.js"></script>
-	<script src="./assets/app.js"></script>
+	<script type="module" src="/src/main.js"></script>
 </body>
 
 </html>
