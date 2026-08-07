@@ -562,6 +562,10 @@ function openProductById(id, { pushHash = false } = {}) {
 		return false;
 	}
 	pendingProductId = null;
+	if (!allowsLightbox(product)) {
+		syncHash();
+		return true;
+	}
 	openLightbox(index, { pushHash, fromRoute: true });
 	return true;
 }
@@ -738,6 +742,11 @@ function productSection(p) {
 	return p.section || p.category;
 }
 
+/* Nuggets stay on the grid — no full-screen lightbox. */
+function allowsLightbox(p) {
+	return productSection(p) !== "nuggets";
+}
+
 /* Full-bleed card/lightbox media (no checker) for photo products. */
 function fillsCardMedia(p) {
 	const type = productType(p);
@@ -867,12 +876,20 @@ function renderGrid() {
 			: "absolute inset-0 h-full w-full object-contain p-3 transition-transform duration-300 sm:p-4 sm:group-hover:scale-105";
 		const imgSrc = shirtImage(p) || p.image;
 		const skuId = activeSkuId(p);
+		const canZoom = allowsLightbox(p);
+		const mediaTag = canZoom ? "button" : "div";
+		const mediaCls = canZoom
+			? `relative ${mediaAspect} w-full ${mediaBg} transition-opacity duration-150 active:opacity-80`
+			: `relative ${mediaAspect} w-full ${mediaBg}`;
+		const mediaAttrs = canZoom
+			? ` data-zoom aria-label="${escapeAttr(p.name)}"`
+			: "";
 
 		card.innerHTML = `
-			<button class="relative ${mediaAspect} w-full ${mediaBg} transition-opacity duration-150 active:opacity-80" data-zoom aria-label="${escapeAttr(p.name)}">
+			<${mediaTag} class="${mediaCls}"${mediaAttrs}>
 				<img class="${mediaImg}" src="${encodeURI(assetUrl(imgSrc))}" alt="${escapeAttr(p.name)}" loading="lazy" decoding="async"
 					onerror="this.style.opacity=.15" />
-			</button>
+			</${mediaTag}>
 			<div class="flex flex-1 flex-col">
 				<p class="relative z-[1] -mt-5 mb-0 ms-3 self-start rounded-full bg-[#111] px-[0.9rem] py-[0.3rem] text-[0.8125rem] font-bold text-white tabular-nums shadow-[0_2px_6px_rgb(0_0_0_/_0.35)]" dir="rtl">${money(p.price)}</p>
 				<div class="mt-3 mb-2.5 px-5">
@@ -882,7 +899,9 @@ function renderGrid() {
 				<div class="mt-auto px-5 pb-3" data-qtybox="${skuId}"></div>
 			</div>`;
 
-		card.querySelector("[data-zoom]").onclick = () => openLightbox(i);
+		if (canZoom) {
+			card.querySelector("[data-zoom]").onclick = () => openLightbox(i);
+		}
 		grid.appendChild(card);
 		const qtyHost = card.querySelector("[data-qtybox]");
 		if (viewOnly) qtyHost.remove();
@@ -1100,6 +1119,8 @@ function initSheetDrag() {
 
 /* ---------- lightbox ---------- */
 function openLightbox(index, { pushHash = true, fromRoute = false } = {}) {
+	const p = visible[index];
+	if (!p || !allowsLightbox(p)) return;
 	lbIndex = index;
 	const lb = document.getElementById("lightbox");
 	const wasOpen = !lb.hidden;
