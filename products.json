@@ -3,7 +3,7 @@
         "id": 1,
         "name": "Ready 4 Dama",
         "title": "Ready 4 Dama",
-        "price": 350,
+        "price": 200,
         "image": "Posters/01.png",
         "type": "Posters",
         "category": "posters"
@@ -12,7 +12,7 @@
         "id": 2,
         "name": "Kafu",
         "title": "Kafu",
-        "price": 350,
+        "price": 200,
         "image": "Posters/02.png",
         "type": "Posters",
         "category": "posters"
@@ -21,7 +21,7 @@
         "id": 3,
         "name": "Old Silk Road",
         "title": "Old Silk Road",
-        "price": 350,
+        "price": 200,
         "image": "Posters/03.png",
         "type": "Posters",
         "category": "posters"
@@ -30,7 +30,7 @@
         "id": 4,
         "name": "Streets",
         "title": "Streets",
-        "price": 350,
+        "price": 200,
         "image": "Posters/04.png",
         "type": "Posters",
         "category": "posters"
@@ -39,7 +39,7 @@
         "id": 5,
         "name": "Hal Anna",
         "title": "Hal Anna",
-        "price": 350,
+        "price": 200,
         "image": "Posters/05.png",
         "type": "Posters",
         "category": "posters"
@@ -48,7 +48,7 @@
         "id": 6,
         "name": "Ya Rab",
         "title": "Ya Rab",
-        "price": 350,
+        "price": 200,
         "image": "Posters/06.png",
         "type": "Posters",
         "category": "posters"
@@ -57,7 +57,7 @@
         "id": 7,
         "name": "Homeland Pack",
         "title": "Homeland Pack",
-        "price": 500,
+        "price": 300,
         "image": "Stickers/Curated Collections/bg designs 02.jpg",
         "type": "Stickers",
         "section": "curated",
@@ -67,7 +67,7 @@
         "id": 8,
         "name": "From Damascus Pack",
         "title": "From Damascus Pack",
-        "price": 500,
+        "price": 300,
         "image": "Stickers/Curated Collections/bg designs 03.jpg",
         "type": "Stickers",
         "section": "curated",
@@ -77,7 +77,7 @@
         "id": 9,
         "name": "Between Us Pack",
         "title": "Between Us Pack",
-        "price": 500,
+        "price": 300,
         "image": "Stickers/Curated Collections/bg designs 06.jpg",
         "type": "Stickers",
         "section": "curated",
@@ -87,7 +87,7 @@
         "id": 10,
         "name": "Internal Tourism Pack",
         "title": "Internal Tourism Pack",
-        "price": 500,
+        "price": 300,
         "image": "Stickers/Curated Collections/bg designs 9.jpg",
         "type": "Stickers",
         "section": "curated",
@@ -97,7 +97,7 @@
         "id": 11,
         "name": "Dead Love Pack",
         "title": "Dead Love Pack",
-        "price": 500,
+        "price": 300,
         "image": "Stickers/Curated Collections/bg designs.jpg",
         "type": "Stickers",
         "section": "curated",
@@ -735,16 +735,6 @@
     },
     {
         "id": 75,
-        "name": "Syrian Dance",
-        "title": "Syrian Dance",
-        "price": 500,
-        "image": "Stickers/Nuggets/Matisse - Dance but Syrian-small.png",
-        "type": "Stickers",
-        "section": "nuggets",
-        "category": "nuggets"
-    },
-    {
-        "id": 76,
         "name": "Syrian Dance Outline",
         "title": "Syrian Dance Outline",
         "price": 500,
@@ -754,7 +744,7 @@
         "category": "nuggets"
     },
     {
-        "id": 77,
+        "id": 76,
         "name": "Mirror Mad Damascus",
         "title": "Mirror Mad Damascus",
         "price": 500,
@@ -764,7 +754,7 @@
         "category": "nuggets"
     },
     {
-        "id": 78,
+        "id": 77,
         "name": "Inlaid Mirror",
         "title": "Inlaid Mirror",
         "price": 500,
@@ -774,7 +764,7 @@
         "category": "nuggets"
     },
     {
-        "id": 79,
+        "id": 78,
         "name": "No Morty",
         "title": "No Morty",
         "price": 500,
@@ -784,7 +774,7 @@
         "category": "nuggets"
     },
     {
-        "id": 80,
+        "id": 79,
         "name": "Sandid",
         "title": "Sandid",
         "price": 500,
@@ -794,7 +784,7 @@
         "category": "nuggets"
     },
     {
-        "id": 81,
+        "id": 80,
         "name": "Harbingers of Misfortune",
         "title": "Harbingers of Misfortune",
         "price": 500,
@@ -804,7 +794,7 @@
         "category": "nuggets"
     },
     {
-        "id": 82,
+        "id": 81,
         "name": "Circus",
         "title": "Circus",
         "price": 2800,
@@ -815,7 +805,7 @@
         "category": "tshirts"
     },
     {
-        "id": 83,
+        "id": 82,
         "name": "CoJ",
         "title": "CoJ",
         "price": 2800,
@@ -826,7 +816,7 @@
         "category": "tshirts"
     },
     {
-        "id": 84,
+        "id": 83,
         "name": "CoJ",
         "title": "CoJ",
         "price": 2800,
@@ -837,7 +827,7 @@
         "category": "tshirts"
     },
     {
-        "id": 85,
+        "id": 84,
         "name": "CoY",
         "title": "CoY",
         "price": 2800,
@@ -848,7 +838,7 @@
         "category": "tshirts"
     },
     {
-        "id": 86,
+        "id": 85,
         "name": "CoY",
         "title": "CoY",
         "price": 2800,
@@ -859,7 +849,7 @@
         "category": "tshirts"
     },
     {
-        "id": 87,
+        "id": 86,
         "name": "Crosswords",
         "title": "Crosswords",
         "price": 2400,
@@ -870,7 +860,7 @@
         "category": "tshirts"
     },
     {
-        "id": 88,
+        "id": 87,
         "name": "Crosswords",
         "title": "Crosswords",
         "price": 2400,
@@ -881,7 +871,7 @@
         "category": "tshirts"
     },
     {
-        "id": 89,
+        "id": 88,
         "name": "D4m45cu5",
         "title": "D4m45cu5",
         "price": 2400,
@@ -892,7 +882,7 @@
         "category": "tshirts"
     },
     {
-        "id": 90,
+        "id": 89,
         "name": "D4m45cu5",
         "title": "D4m45cu5",
         "price": 2400,
@@ -903,7 +893,7 @@
         "category": "tshirts"
     },
     {
-        "id": 91,
+        "id": 90,
         "name": "Damascape",
         "title": "Damascape",
         "price": 2400,
@@ -913,7 +903,7 @@
         "category": "tshirts"
     },
     {
-        "id": 92,
+        "id": 91,
         "name": "Godzilla",
         "title": "Godzilla",
         "price": 2800,
@@ -924,7 +914,7 @@
         "category": "tshirts"
     },
     {
-        "id": 93,
+        "id": 92,
         "name": "Godzilla",
         "title": "Godzilla",
         "price": 2800,
@@ -935,7 +925,7 @@
         "category": "tshirts"
     },
     {
-        "id": 94,
+        "id": 93,
         "name": "Goodbye Columbus",
         "title": "Goodbye Columbus",
         "price": 2800,
@@ -946,7 +936,7 @@
         "category": "tshirts"
     },
     {
-        "id": 95,
+        "id": 94,
         "name": "Goodbye Columbus",
         "title": "Goodbye Columbus",
         "price": 2800,
@@ -957,7 +947,7 @@
         "category": "tshirts"
     },
     {
-        "id": 96,
+        "id": 95,
         "name": "Hafez V Cat",
         "title": "Hafez V Cat",
         "price": 2800,
@@ -968,7 +958,7 @@
         "category": "tshirts"
     },
     {
-        "id": 97,
+        "id": 96,
         "name": "Hafez V Cat",
         "title": "Hafez V Cat",
         "price": 2800,
@@ -979,7 +969,7 @@
         "category": "tshirts"
     },
     {
-        "id": 98,
+        "id": 97,
         "name": "Jahez",
         "title": "Jahez",
         "price": 2800,
@@ -990,7 +980,7 @@
         "category": "tshirts"
     },
     {
-        "id": 99,
+        "id": 98,
         "name": "Jenin Jenin",
         "title": "Jenin Jenin",
         "price": 2800,
@@ -1001,7 +991,7 @@
         "category": "tshirts"
     },
     {
-        "id": 100,
+        "id": 99,
         "name": "Kiddo",
         "title": "Kiddo",
         "price": 2800,
@@ -1012,7 +1002,7 @@
         "category": "tshirts"
     },
     {
-        "id": 101,
+        "id": 100,
         "name": "Kiddo",
         "title": "Kiddo",
         "price": 2800,
@@ -1023,7 +1013,7 @@
         "category": "tshirts"
     },
     {
-        "id": 102,
+        "id": 101,
         "name": "Local Product",
         "title": "Local Product",
         "price": 2800,
@@ -1034,7 +1024,7 @@
         "category": "tshirts"
     },
     {
-        "id": 103,
+        "id": 102,
         "name": "Map",
         "title": "Map",
         "price": 2800,
@@ -1045,7 +1035,7 @@
         "category": "tshirts"
     },
     {
-        "id": 104,
+        "id": 103,
         "name": "Map",
         "title": "Map",
         "price": 2800,
@@ -1056,7 +1046,7 @@
         "category": "tshirts"
     },
     {
-        "id": 105,
+        "id": 104,
         "name": "Map",
         "title": "Map",
         "price": 2800,
@@ -1069,7 +1059,7 @@
         "category": "tshirts"
     },
     {
-        "id": 106,
+        "id": 105,
         "name": "Map",
         "title": "Map",
         "price": 2800,
@@ -1082,7 +1072,7 @@
         "category": "tshirts"
     },
     {
-        "id": 107,
+        "id": 106,
         "name": "Mosaic",
         "title": "Mosaic",
         "price": 2800,
@@ -1093,7 +1083,7 @@
         "category": "tshirts"
     },
     {
-        "id": 108,
+        "id": 107,
         "name": "Mosaic",
         "title": "Mosaic",
         "price": 2800,
@@ -1104,7 +1094,7 @@
         "category": "tshirts"
     },
     {
-        "id": 109,
+        "id": 108,
         "name": "National Team",
         "title": "National Team",
         "price": 2400,
@@ -1115,7 +1105,7 @@
         "category": "tshirts"
     },
     {
-        "id": 110,
+        "id": 109,
         "name": "National Team",
         "title": "National Team",
         "price": 2400,
@@ -1126,7 +1116,7 @@
         "category": "tshirts"
     },
     {
-        "id": 111,
+        "id": 110,
         "name": "P@R",
         "title": "P@R",
         "price": 2800,
@@ -1137,7 +1127,7 @@
         "category": "tshirts"
     },
     {
-        "id": 112,
+        "id": 111,
         "name": "P vs P",
         "title": "P vs P",
         "price": 2800,
@@ -1148,7 +1138,7 @@
         "category": "tshirts"
     },
     {
-        "id": 113,
+        "id": 112,
         "name": "P vs P",
         "title": "P vs P",
         "price": 2800,
@@ -1159,7 +1149,7 @@
         "category": "tshirts"
     },
     {
-        "id": 114,
+        "id": 113,
         "name": "P vs P",
         "title": "P vs P",
         "price": 2800,
@@ -1169,7 +1159,7 @@
         "category": "tshirts"
     },
     {
-        "id": 115,
+        "id": 114,
         "name": "Qlb Dmshq",
         "title": "Qlb Dmshq",
         "price": 2400,
@@ -1180,7 +1170,7 @@
         "category": "tshirts"
     },
     {
-        "id": 116,
+        "id": 115,
         "name": "Qlb Dmshq",
         "title": "Qlb Dmshq",
         "price": 2400,
@@ -1191,7 +1181,7 @@
         "category": "tshirts"
     },
     {
-        "id": 117,
+        "id": 116,
         "name": "Royal",
         "title": "Royal",
         "price": 2400,
@@ -1202,7 +1192,7 @@
         "category": "tshirts"
     },
     {
-        "id": 118,
+        "id": 117,
         "name": "SL",
         "title": "SL",
         "price": 2800,
@@ -1213,7 +1203,7 @@
         "category": "tshirts"
     },
     {
-        "id": 119,
+        "id": 118,
         "name": "SL",
         "title": "SL",
         "price": 2800,
@@ -1224,7 +1214,7 @@
         "category": "tshirts"
     },
     {
-        "id": 120,
+        "id": 119,
         "name": "SL",
         "title": "SL",
         "price": 2800,
@@ -1235,7 +1225,7 @@
         "category": "tshirts"
     },
     {
-        "id": 121,
+        "id": 120,
         "name": "SR",
         "title": "SR",
         "price": 2800,
@@ -1246,7 +1236,7 @@
         "category": "tshirts"
     },
     {
-        "id": 122,
+        "id": 121,
         "name": "SR",
         "title": "SR",
         "price": 2800,
@@ -1257,7 +1247,7 @@
         "category": "tshirts"
     },
     {
-        "id": 123,
+        "id": 122,
         "name": "Supreme",
         "title": "Supreme",
         "price": 2400,
@@ -1268,7 +1258,7 @@
         "category": "tshirts"
     },
     {
-        "id": 124,
+        "id": 123,
         "name": "Supreme",
         "title": "Supreme",
         "price": 2400,
@@ -1279,7 +1269,7 @@
         "category": "tshirts"
     },
     {
-        "id": 125,
+        "id": 124,
         "name": "Varsity",
         "title": "Varsity",
         "price": 2400,
@@ -1290,7 +1280,7 @@
         "category": "tshirts"
     },
     {
-        "id": 126,
+        "id": 125,
         "name": "Varsity",
         "title": "Varsity",
         "price": 2400,
@@ -1301,7 +1291,7 @@
         "category": "tshirts"
     },
     {
-        "id": 127,
+        "id": 126,
         "name": "Watermelon",
         "title": "Watermelon",
         "price": 2400,
@@ -1312,7 +1302,7 @@
         "category": "tshirts"
     },
     {
-        "id": 128,
+        "id": 127,
         "name": "Bracelet",
         "title": "Bracelet",
         "price": 350,
@@ -1324,7 +1314,7 @@
         "category": "dama-x-elat"
     },
     {
-        "id": 129,
+        "id": 128,
         "name": "CS",
         "title": "CS",
         "price": 350,
@@ -1336,7 +1326,7 @@
         "category": "dama-x-elat"
     },
     {
-        "id": 130,
+        "id": 129,
         "name": "Sayyar",
         "title": "Sayyar",
         "price": 350,
@@ -1348,7 +1338,7 @@
         "category": "dama-x-elat"
     },
     {
-        "id": 131,
+        "id": 130,
         "name": "Sayyar",
         "title": "Sayyar",
         "price": 350,
