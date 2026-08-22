@@ -105,7 +105,7 @@ function setQty(id, qty) {
 	updateTotals();
 	if (qty !== prev) buzz();
 	if (qty > prev) {
-		toast("Added to cart");
+		toast("Added to cart", "ok");
 		const line = resolveLine(id);
 		const delta = qty - prev;
 		const item = itemFromLine(line, delta);
@@ -168,7 +168,7 @@ const changeQty = (id, delta) => setQty(id, qtyOf(id) + delta);
  * Filenames: Design_B / Design_W / Design_B_F / Design_W_F
  *   Color codes: B black · W white · BL blue
  *   Side: bare color = back · _F = front · Color_B = explicit back
- * Color is the purchasable SKU; front/back is preview only.
+ * Color is the purchasable SKU; front/back is preview only; size is S/M/L.
  */
 const TSHIRT_COLOR = {
 	B: { label: "Black", swatch: "#141414", border: "rgb(255 255 255 / 0.35)" },
@@ -176,7 +176,9 @@ const TSHIRT_COLOR = {
 	BL: { label: "Blue", swatch: "#1d4ed8", border: "rgb(255 255 255 / 0.35)" },
 };
 const TSHIRT_COLOR_ORDER = { B: 0, W: 1, BL: 2, "": 3 };
-const shirtView = new Map(); // groupId → { colorId, side }
+const TSHIRT_SIZES = ["S", "M", "L"];
+const TSHIRT_SIZE_LABEL = { S: "Small", M: "Medium", L: "Large" };
+const shirtView = new Map(); // groupId → { colorId, side, size }
 
 function imageStem(image) {
 	const file = String(image || "").split(/[/\\]/).pop() || "";
@@ -324,9 +326,34 @@ function groupTshirts(raw) {
 	return [...others, ...grouped];
 }
 
+function isShirt(p) {
+	return (p?.type || "") === "Tshirts";
+}
+
+function parseLineId(id) {
+	id = String(id);
+	const i = id.lastIndexOf("::");
+	if (i > 0) {
+		const size = id.slice(i + 2);
+		if (TSHIRT_SIZES.includes(size)) return { skuId: id.slice(0, i), size };
+	}
+	return { skuId: id, size: null };
+}
+
 function shirtSelection(p) {
-	if (!p?.colors?.length) return null;
+	if (!p) return null;
 	let sel = shirtView.get(p.id);
+	const size = TSHIRT_SIZES.includes(sel?.size) ? sel.size : "M";
+
+	if (!p.colors?.length) {
+		if (!isShirt(p)) return null;
+		if (!sel || sel.size !== size) {
+			sel = { ...(sel || {}), size };
+			shirtView.set(p.id, sel);
+		}
+		return sel;
+	}
+
 	if (!sel || !p.colors.some((c) => c.id === sel.colorId)) {
 		const color =
 			(p.defaultColor != null &&
@@ -338,7 +365,10 @@ function shirtSelection(p) {
 				: color.images.front
 					? "front"
 					: "back";
-		sel = { colorId: color.id, side };
+		sel = { colorId: color.id, side, size };
+		shirtView.set(p.id, sel);
+	} else if (sel.size !== size) {
+		sel = { ...sel, size };
 		shirtView.set(p.id, sel);
 	}
 	return sel;
@@ -364,7 +394,7 @@ function setShirtColor(p, colorId) {
 	const side = color.images[sel.side]
 		? sel.side
 		: (color.images.front ? "front" : "back");
-	shirtView.set(p.id, { colorId: color.id, side });
+	shirtView.set(p.id, { ...sel, colorId: color.id, side });
 }
 
 function setShirtSide(p, side) {
@@ -374,40 +404,55 @@ function setShirtSide(p, side) {
 	shirtView.set(p.id, { ...sel, side });
 }
 
+function setShirtSize(p, size) {
+	if (!TSHIRT_SIZES.includes(size)) return;
+	const sel = shirtSelection(p) || {};
+	shirtView.set(p.id, { ...sel, size });
+}
+
 function activeSkuId(p) {
 	if (p?.colors?.length) return shirtSelection(p).colorId;
 	return p.id;
 }
 
+function cartIdFor(p) {
+	const sku = activeSkuId(p);
+	if (!isShirt(p)) return sku;
+	return `${sku}::${shirtSelection(p)?.size || "M"}`;
+}
+
 function resolveLine(id) {
-	id = String(id);
+	const { skuId, size } = parseLineId(id);
+	const sizeTag = size ? ` · ${size}` : "";
 	for (const p of products) {
 		if (p.colors?.length) {
-			const color = p.colors.find((c) => c.id === id);
+			const color = p.colors.find((c) => c.id === skuId);
 			if (color) {
 				return {
-					id: color.id,
-					name: `${p.name} · ${color.label}`,
+					id: size ? `${color.id}::${size}` : color.id,
+					name: `${p.name} · ${color.label}${sizeTag}`,
 					price: color.price ?? p.price,
 					image: color.images.front || color.images.back || p.image,
 					type: p.type,
 					section: productSection(p),
 					product: p,
 					color,
+					size,
 				};
 			}
 			continue;
 		}
-		if (p.id === id) {
+		if (p.id === skuId) {
 			return {
-				id: p.id,
-				name: p.name,
+				id: size ? `${p.id}::${size}` : p.id,
+				name: `${p.name}${sizeTag}`,
 				price: p.price,
 				image: p.image,
 				type: p.type,
 				section: productSection(p),
 				product: p,
 				color: null,
+				size,
 			};
 		}
 	}
@@ -415,7 +460,7 @@ function resolveLine(id) {
 }
 
 function findDisplayProduct(id) {
-	id = String(id);
+	id = parseLineId(id).skuId;
 	const direct = products.find((p) => p.id === id);
 	if (direct) return { product: direct, colorId: direct.colors?.[0]?.id || null };
 	for (const p of products) {
@@ -427,7 +472,9 @@ function findDisplayProduct(id) {
 }
 
 function renderShirtControls(host, p, { onChange } = {}) {
-	if (!host || !p?.colors?.length) {
+	const shirt = isShirt(p);
+	const hasColors = !!p?.colors?.length;
+	if (!host || (!hasColors && !shirt)) {
 		if (host) {
 			host.hidden = true;
 			host.innerHTML = "";
@@ -436,13 +483,13 @@ function renderShirtControls(host, p, { onChange } = {}) {
 	}
 
 	const sel = shirtSelection(p);
-	const color = shirtColor(p, sel.colorId);
-	const hasMultiColor = p.colors.length > 1;
-	const hasFront = !!color.images.front;
-	const hasBack = !!color.images.back;
-	const hasSides = hasFront && hasBack;
+	const color = hasColors ? shirtColor(p, sel.colorId) : null;
+	const hasMultiColor = hasColors && p.colors.length > 1;
+	const hasFront = !!color?.images.front;
+	const hasBack = !!color?.images.back;
+	const hasSides = hasFront && hasBack && color.images.front !== color.images.back;
 
-	if (!hasMultiColor && !hasSides) {
+	if (!hasMultiColor && !hasSides && !shirt) {
 		host.hidden = true;
 		host.innerHTML = "";
 		return;
@@ -450,20 +497,40 @@ function renderShirtControls(host, p, { onChange } = {}) {
 
 	host.hidden = false;
 	host.innerHTML = "";
-	host.className = "flex w-full flex-col items-center gap-2.5 sm:items-start";
+	host.className = "flex w-full flex-col items-center gap-3 sm:items-start";
 
-	if (hasMultiColor) {
+	const labelCls = "mb-1.5 text-sm font-semibold tracking-wide text-white";
+	const pillOff =
+		"h-10 min-w-[3rem] rounded-full border border-kiosk-border bg-black/30 px-3 text-sm font-semibold tracking-[0.02em] text-white transition-[background,color,border-color] duration-150";
+	const pillOn =
+		"h-10 min-w-[3rem] rounded-full border border-kiosk-cyan bg-kiosk-cyan px-3 text-sm font-semibold tracking-[0.02em] text-[#111] transition-[background,color,border-color] duration-150";
+	const sizeOn =
+		"h-10 min-w-[3rem] rounded-full border border-[#4f0] bg-[#4f0] px-3 text-sm font-semibold tracking-[0.02em] text-[#111] transition-[background,color,border-color] duration-150";
+
+	const group = (name, aria) => {
+		const wrap = document.createElement("div");
+		wrap.className = "w-full";
+		const cap = document.createElement("p");
+		cap.className = labelCls;
+		cap.textContent = name;
 		const row = document.createElement("div");
 		row.className = "flex flex-wrap items-center justify-center gap-2 sm:justify-start";
 		row.setAttribute("role", "radiogroup");
-		row.setAttribute("aria-label", "Color");
+		row.setAttribute("aria-label", aria);
+		wrap.append(cap, row);
+		host.appendChild(wrap);
+		return row;
+	};
+
+	if (hasMultiColor) {
+		const row = group("COLOR", "Color");
 		p.colors.forEach((c) => {
 			const btn = document.createElement("button");
 			btn.type = "button";
 			const on = c.id === color.id;
 			btn.className =
 				"h-8 w-8 rounded-full border-2 transition-transform duration-150 active:scale-90 " +
-				(on ? "scale-110 border-kiosk-lime" : "border-transparent opacity-80");
+				(on ? "scale-110 border-kiosk-cyan" : "border-transparent opacity-80");
 			btn.style.background = c.swatch;
 			btn.style.boxShadow = `inset 0 0 0 1px ${c.border}`;
 			btn.setAttribute("aria-label", c.label);
@@ -477,22 +544,15 @@ function renderShirtControls(host, p, { onChange } = {}) {
 			};
 			row.appendChild(btn);
 		});
-		host.appendChild(row);
 	}
 
 	if (hasSides) {
-		const row = document.createElement("div");
-		row.className =
-			"inline-flex h-9 overflow-hidden rounded-kiosk-md border border-kiosk-border bg-black/20";
-		row.setAttribute("role", "radiogroup");
-		row.setAttribute("aria-label", "View");
+		const row = group("VIEW", "View");
 		[["front", "Front"], ["back", "Back"]].forEach(([side, label]) => {
 			const btn = document.createElement("button");
 			btn.type = "button";
 			const on = sel.side === side;
-			btn.className =
-				"h-full min-w-[4.25rem] px-3 text-xs font-semibold tracking-[0.02em] transition-[background,color] duration-150 " +
-				(on ? "bg-kiosk-lime text-[#111]" : "bg-transparent text-kiosk-muted");
+			btn.className = on ? pillOn : pillOff;
 			btn.textContent = label;
 			btn.setAttribute("aria-checked", String(on));
 			btn.setAttribute("role", "radio");
@@ -503,7 +563,27 @@ function renderShirtControls(host, p, { onChange } = {}) {
 			};
 			row.appendChild(btn);
 		});
-		host.appendChild(row);
+	}
+
+	if (shirt) {
+		const row = group("SIZE", "Size");
+		TSHIRT_SIZES.forEach((size) => {
+			const btn = document.createElement("button");
+			btn.type = "button";
+			const on = (sel.size || "M") === size;
+			btn.className = on ? sizeOn : pillOff;
+			btn.textContent = size;
+			btn.setAttribute("aria-label", TSHIRT_SIZE_LABEL[size]);
+			btn.setAttribute("aria-checked", String(on));
+			btn.setAttribute("role", "radio");
+			btn.title = TSHIRT_SIZE_LABEL[size];
+			btn.onclick = (e) => {
+				e.stopPropagation();
+				setShirtSize(p, size);
+				onChange?.();
+			};
+			row.appendChild(btn);
+		});
 	}
 }
 
@@ -523,15 +603,27 @@ async function fetchProducts() {
 	products = groupTshirts(raw);
 
 	const validIds = new Set();
+	const shirtSkus = new Set();
 	for (const p of products) {
 		if (p.colors?.length) p.colors.forEach((c) => validIds.add(c.id));
 		else validIds.add(p.id);
+		if (isShirt(p)) {
+			if (p.colors?.length) p.colors.forEach((c) => shirtSkus.add(c.id));
+			else shirtSkus.add(p.id);
+		}
 	}
 
-	// Drop cart entries for products that no longer exist
+	// Drop gone SKUs; unsized shirt lines become Medium
 	let pruned = false;
 	for (const id of Object.keys(cart)) {
-		if (!validIds.has(id)) { delete cart[id]; pruned = true; }
+		const { skuId, size } = parseLineId(id);
+		if (!validIds.has(skuId)) { delete cart[id]; pruned = true; continue; }
+		if (!size && shirtSkus.has(skuId)) {
+			const next = `${skuId}::M`;
+			cart[next] = (cart[next] || 0) + cart[id];
+			delete cart[id];
+			pruned = true;
+		}
 	}
 	if (pruned) saveCart();
 }
@@ -1017,7 +1109,7 @@ function renderGrid() {
 			? "absolute inset-0 h-full w-full object-cover transition-transform duration-300 sm:group-hover:scale-105"
 			: "absolute inset-0 h-full w-full object-contain p-3 transition-transform duration-300 sm:p-4 sm:group-hover:scale-105";
 		const imgSrc = shirtImage(p) || p.image;
-		const skuId = activeSkuId(p);
+		const skuId = cartIdFor(p);
 		const canZoom = allowsLightbox(p);
 		const mediaTag = canZoom ? "button" : "div";
 		const mediaCls = canZoom
@@ -1064,10 +1156,23 @@ function renderQtyBox(host, id) {
 
 	if (q === 0) {
 		const add = document.createElement("button");
-		add.className = "h-11 w-full rounded-kiosk-md border border-transparent bg-black/18 text-2xl font-bold text-kiosk-cyan transition-[transform,background,color] duration-150 active:scale-95 active:bg-kiosk-cyan active:text-[#111]";
-		add.textContent = "+";
-		add.setAttribute("aria-label", "Added to cart");
+		add.setAttribute("aria-label", "Add to cart");
 		add.onclick = () => changeQty(id, 1);
+		if (lightbox) {
+			add.className =
+				"relative flex h-12 w-full items-center justify-center rounded-full bg-kiosk-cyan px-12 text-sm font-bold tracking-[0.08em] text-[#111] transition-transform duration-150 active:scale-95";
+			const plus = document.createElement("span");
+			plus.className = "absolute start-4 text-2xl leading-none font-bold";
+			plus.textContent = "+";
+			plus.setAttribute("aria-hidden", "true");
+			const label = document.createElement("span");
+			label.textContent = "ADD TO CART";
+			add.append(plus, label);
+		} else {
+			add.className =
+				"h-11 w-full rounded-full border border-kiosk-cyan/40 bg-transparent text-2xl font-bold text-kiosk-cyan transition-transform duration-150 active:scale-95";
+			add.textContent = "+";
+		}
 		host.appendChild(add);
 		return;
 	}
@@ -1075,7 +1180,7 @@ function renderQtyBox(host, id) {
 	const row = document.createElement("div");
 	row.className = "flex h-11 items-center justify-between gap-1 rounded-kiosk-md bg-black/18 px-2";
 	const btnCls = lightbox
-		? "grid h-11 w-11 shrink-0 place-items-center rounded-kiosk-md bg-kiosk-cyan text-2xl leading-none font-bold text-[#111] transition-transform duration-150 active:scale-90"
+		? "grid h-11 w-11 shrink-0 place-items-center rounded-full bg-kiosk-cyan text-2xl leading-none font-bold text-[#111] transition-transform duration-150 active:scale-90"
 		: "grid h-11 w-11 shrink-0 place-items-center rounded-kiosk-md bg-transparent text-2xl leading-none font-bold text-kiosk-cyan transition-transform duration-150 active:scale-90";
 	const btn = (label, delta, aria) => {
 		const b = document.createElement("button");
@@ -1284,7 +1389,7 @@ function openLightbox(index, { pushHash = true, fromRoute = false } = {}) {
 	if (!wasOpen) lockScroll();
 	requestAnimationFrame(() => lb.classList.add("is-visible"));
 
-	const line = resolveLine(activeSkuId(p));
+	const line = resolveLine(cartIdFor(p));
 	const item = itemFromLine(line || {
 		id: p.id,
 		name: p.name,
@@ -1336,19 +1441,20 @@ function paintLightbox({ pushHash = true, replace = true } = {}) {
 
 	const lbQty = document.getElementById("lbQty");
 	const skuId = activeSkuId(p);
+	const cartId = cartIdFor(p);
 	if (activeSectionMeta()?.viewOnly) {
 		lbQty.hidden = true;
 		lbQty.innerHTML = "";
 		lbQty.removeAttribute("data-qtybox");
 	} else {
 		lbQty.hidden = false;
-		renderQtyBox(lbQty, skuId);
+		renderQtyBox(lbQty, cartId);
 	}
 
 	if (pushHash) setHash(productHash(skuId), { push: !replace });
 	setDocumentTitle();
 
-	trackViewItem(resolveLine(skuId) || {
+	trackViewItem(resolveLine(cartId) || {
 		id: skuId,
 		name: p.name,
 		price: sku?.price ?? p.price,
@@ -1439,13 +1545,16 @@ function initLightboxSwipe() {
 }
 
 /* ---------- toasts ---------- */
-function toast(msg, kind = "ok") {
+function toast(msg, kind = "info") {
 	const host = document.getElementById("toasts");
 	[...host.children].slice(0, -2).forEach((el) => el.remove());
 	const el = document.createElement("div");
-	el.className = kind === "err"
-		? "max-w-full animate-pop overflow-hidden rounded-full bg-red-600 px-4 py-2.5 text-sm font-medium text-white text-ellipsis whitespace-nowrap shadow-kiosk"
-		: "max-w-full animate-pop overflow-hidden rounded-full bg-kiosk-accent-light px-4 py-2.5 text-sm font-medium text-[#14140a] text-ellipsis whitespace-nowrap shadow-kiosk";
+	const toastClass = {
+		err: "max-w-full animate-pop overflow-hidden rounded-full bg-red-600 px-4 py-2.5 text-sm font-medium text-white text-ellipsis whitespace-nowrap shadow-kiosk",
+		ok: "max-w-full animate-pop overflow-hidden rounded-full bg-[#4f0] px-4 py-2.5 text-sm font-medium text-[#14140a] text-ellipsis whitespace-nowrap shadow-kiosk",
+		info: "max-w-full animate-pop overflow-hidden rounded-full bg-kiosk-accent-light px-4 py-2.5 text-sm font-medium text-[#14140a] text-ellipsis whitespace-nowrap shadow-kiosk",
+	};
+	el.className = toastClass[kind] || toastClass.info;
 	el.textContent = msg;
 	host.appendChild(el);
 	setTimeout(() => {
@@ -1502,6 +1611,7 @@ async function submitOrder(event) {
 			const line = resolveLine(id);
 			return line && {
 				id: line.id, name: line.name, category: sectionLabel(line.type, line.section),
+				size: line.size || "",
 				quantity: q, price: line.price, subtotal: line.price * q,
 			};
 		})

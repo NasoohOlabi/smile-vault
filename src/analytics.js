@@ -67,6 +67,7 @@ export function itemFromLine(line, qty = 1) {
 	};
 	if (line.type) item.item_category = String(line.type);
 	if (line.section) item.item_category2 = String(line.section);
+	if (line.size) item.item_variant = String(line.size);
 	return item;
 }
 

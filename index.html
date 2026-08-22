@@ -35,35 +35,35 @@
 				src="assets/header-stamp.png" alt="" decoding="async" />
 		</span>
 
-		<div class="relative z-[3] grid min-h-[9rem] grid-cols-[auto_minmax(0,1fr)_auto] items-stretch overflow-visible border-b-[3px] border-kiosk-lime-rail sm:min-h-[11rem]">
+		<div class="relative z-[3] grid min-h-0 grid-cols-[auto_minmax(0,1fr)] items-stretch overflow-visible border-b-[3px] border-kiosk-lime-rail sm:min-h-[11rem] sm:grid-cols-[auto_minmax(0,1fr)_auto] sm:grid-rows-[minmax(0,1fr)_auto]">
 			<!-- Shadow sits on the yellow rail only — a full-row drop-shadow would show through the transparent header. -->
 			<span class="pointer-events-none absolute inset-x-0 top-[calc(100%+3px)] z-[4] h-5 bg-gradient-to-b from-black/25 to-transparent" aria-hidden="true"></span>
 
-			<a id="brandHome" href="#shop" class="relative z-[2] flex h-full min-h-0 shrink-0 items-center self-stretch py-1 pr-1 pl-3 sm:pr-2 sm:pl-5" aria-label="DAMA OBSRV home">
-				<img class="block h-auto w-auto max-h-[5rem] max-w-[min(11rem,32vw)] object-contain object-left mix-blend-lighten sm:max-h-[6.25rem] sm:max-w-[min(15rem,26vw)]" src="assets/logo-dama.png" alt="DAMA OBSRV" />
+			<a id="brandHome" href="#shop" class="relative z-[2] col-start-1 row-start-1 flex h-full min-h-0 shrink-0 items-center self-stretch py-1 pr-1 pl-3 sm:row-span-2 sm:pr-2 sm:pl-5" aria-label="DAMA OBSRV home">
+				<img class="block h-auto w-auto max-h-[3.25rem] max-w-[min(8.5rem,38vw)] object-contain object-left mix-blend-lighten sm:max-h-[6.25rem] sm:max-w-[min(15rem,26vw)]" src="assets/logo-dama.png" alt="DAMA OBSRV" />
 			</a>
 
-			<div class="relative z-[3] flex min-w-0 flex-col justify-between gap-1 pt-1.5 pb-0">
-				<div class="flex min-h-10 items-center justify-end gap-2 px-2 sm:min-h-11 sm:px-3">
-					<nav id="topNav" class="flex min-w-0 items-center gap-0.5 sm:gap-1" aria-label="Primary">
-						<a href="#shop" class="inline-flex h-9 shrink-0 items-center rounded-full px-2.5 text-[0.7rem] font-semibold tracking-[0.04em] text-kiosk-fg/70 no-underline transition-[transform,background,color] duration-150 active:scale-95 is-active:bg-kiosk-lime is-active:text-[#111] not-is-active:hover:text-kiosk-fg sm:h-10 sm:px-3.5 sm:text-sm is-active" data-view="shop" aria-current="page" hidden>Giftshop</a>
-						<a href="#observatory" class="inline-flex h-9 shrink-0 items-center rounded-full px-2.5 text-[0.7rem] font-semibold tracking-[0.04em] text-kiosk-fg/70 no-underline transition-[transform,background,color] duration-150 active:scale-95 is-active:bg-kiosk-lime is-active:text-[#111] not-is-active:hover:text-kiosk-fg sm:h-10 sm:px-3.5 sm:text-sm" data-view="observatory">The Observatory</a>
-						<a href="#about" class="inline-flex h-9 shrink-0 items-center rounded-full px-2.5 text-[0.7rem] font-semibold tracking-[0.04em] text-kiosk-fg/70 no-underline transition-[transform,background,color] duration-150 active:scale-95 is-active:bg-kiosk-lime is-active:text-[#111] not-is-active:hover:text-kiosk-fg sm:h-10 sm:px-3.5 sm:text-sm" data-view="about">About Us</a>
+			<div class="relative z-[3] col-start-2 row-start-1 flex min-w-0 items-center justify-end pt-1 pb-0 sm:min-h-11 sm:pt-1.5">
+				<div class="flex min-h-10 min-w-0 items-center justify-end gap-1 px-1.5 sm:min-h-11 sm:gap-2 sm:px-3">
+					<nav id="topNav" class="flex min-w-0 items-center gap-0 overflow-x-auto scrollbar-none sm:gap-1" aria-label="Primary">
+						<a href="#shop" class="inline-flex h-9 shrink-0 items-center rounded-full px-2 text-[0.65rem] font-semibold tracking-[0.04em] text-kiosk-fg/70 no-underline transition-[transform,background,color] duration-150 active:scale-95 is-active:bg-kiosk-lime is-active:text-[#111] not-is-active:hover:text-kiosk-fg sm:h-10 sm:px-3.5 sm:text-sm is-active" data-view="shop" aria-current="page" hidden>Giftshop</a>
+						<a href="#observatory" class="inline-flex h-9 shrink-0 items-center rounded-full px-2 text-[0.65rem] font-semibold tracking-[0.04em] text-kiosk-fg/70 no-underline transition-[transform,background,color] duration-150 active:scale-95 is-active:bg-kiosk-lime is-active:text-[#111] not-is-active:hover:text-kiosk-fg sm:h-10 sm:px-3.5 sm:text-sm" data-view="observatory">The Observatory</a>
+						<a href="#about" class="inline-flex h-9 shrink-0 items-center rounded-full px-2 text-[0.65rem] font-semibold tracking-[0.04em] text-kiosk-fg/70 no-underline transition-[transform,background,color] duration-150 active:scale-95 is-active:bg-kiosk-lime is-active:text-[#111] not-is-active:hover:text-kiosk-fg sm:h-10 sm:px-3.5 sm:text-sm" data-view="about">About Us</a>
 					</nav>
-					<div class="flex shrink-0 items-center gap-1">
-						<button id="cartBtn" class="inline-flex h-11 items-center justify-center gap-2 rounded-full bg-kiosk-accent px-4 text-sm font-semibold whitespace-nowrap text-white transition-transform duration-150 active:scale-95 disabled:opacity-40">
-							<span>Cart</span>
+					<div class="flex shrink-0 items-center">
+						<button id="cartBtn" class="inline-flex h-10 min-w-10 items-center justify-center gap-2 rounded-full bg-kiosk-accent px-2 text-sm font-semibold whitespace-nowrap text-white transition-transform duration-150 active:scale-95 disabled:opacity-40 sm:h-11 sm:px-4" aria-label="Cart">
+							<span class="hidden sm:inline">Cart</span>
 							<span id="cartCount" class="grid h-6 min-w-6 place-items-center rounded-full bg-black/30 px-1 text-xs tabular-nums">0</span>
 						</button>
 					</div>
 				</div>
-
-				<nav id="filterNav" class="relative z-[1] -mb-[3px] flex min-w-0 justify-center overflow-x-auto pb-[3px] scrollbar-none [scroll-snap-type:x_proximity] [-webkit-overflow-scrolling:touch]" data-shop-only>
-					<div id="filterTrack" class="mx-auto flex w-max items-end justify-center gap-[0.15rem] px-2 sm:px-3"></div>
-				</nav>
 			</div>
 
-			<span class="pointer-events-none relative z-[1] box-border h-full w-[9rem] shrink-0 self-stretch overflow-hidden sm:w-[11rem]" aria-hidden="true">
+			<nav id="filterNav" class="relative z-[1] col-span-2 row-start-2 -mb-[3px] flex min-w-0 justify-center overflow-x-auto pb-[3px] scrollbar-none [scroll-snap-type:x_proximity] [-webkit-overflow-scrolling:touch] sm:col-span-1 sm:col-start-2" data-shop-only>
+				<div id="filterTrack" class="mx-auto flex w-max items-end justify-center gap-[0.15rem] px-2 sm:px-3"></div>
+			</nav>
+
+			<span class="pointer-events-none relative z-[1] col-start-3 row-start-1 hidden h-full w-[11rem] shrink-0 self-stretch overflow-hidden sm:row-span-2 sm:block" aria-hidden="true">
 				<img class="block h-full w-full origin-center animate-sun-spin object-contain mix-blend-lighten motion-reduce:animate-none" src="assets/header-sun.png" alt="" width="176" height="176" decoding="async" />
 			</span>
 		</div>
@@ -116,10 +116,25 @@
 		</section>
 
 		<!-- ============ ABOUT ============ -->
-		<section id="about" class="mx-auto max-w-7xl overflow-hidden px-4 pt-6 pb-[calc(7rem+env(safe-area-inset-bottom))] sm:px-6 sm:pt-10" data-view-panel="about" hidden aria-labelledby="aboutTitle">
-			<div class="relative z-[1] max-w-xl">
-				<h1 id="aboutTitle" class="font-display text-2xl leading-tight font-bold tracking-[-0.02em] uppercase sm:text-5xl">About Us</h1>
-				<p class="mt-2 text-sm text-kiosk-muted sm:text-base">DAMA OBSRV — hand-drawn stickers and prints from Damascus. More soon.</p>
+		<section id="about" class="relative mx-auto max-w-7xl px-4 pt-6 pb-[calc(7rem+env(safe-area-inset-bottom))] sm:px-6 sm:pt-8 sm:pb-10" data-view-panel="about" hidden aria-labelledby="aboutTitle">
+			<div class="grid items-center gap-6 md:grid-cols-3 md:gap-10">
+				<div class="md:col-span-2">
+					<h1 id="aboutTitle" class="font-display text-2xl leading-tight font-bold tracking-[-0.02em] uppercase sm:text-4xl">About Us</h1>
+					<div class="mt-4 space-y-4 text-[0.8rem] leading-[1.65] text-kiosk-fg sm:mt-5 sm:text-[0.9rem] sm:leading-[1.7]">
+						<p>Dama is an independent creative platform observing Damascus through the lens of urban life, culture, and everyday experience. We tell stories, document visual and cultural details, and create designs and projects that invite people to look at familiar places and topics differently.</p>
+						<p>Imagine it this way: an observatory overlooking Damascus from Mount Qassioun, with a shop on the first floor selling graphic t-shirts and prints. The designs are based on what this observatory has noticed and learned, presented artfully and sarcastically to accompany you some days a week. We prioritise growing through collabs with other creatives and community support, along with some side gigs!</p>
+						<p>Since I came up with the idea around 24 July 2024, Dama has lived through my Architect — parametric design career, then the shift to Architect — experience design, then to creative production / project management. Plus, all the side gigs and voluntary work I do. So, what I am presenting to you is what I fought to have the time to finish and put up, piece by piece, and day by day. From my mind and soul to yours…</p>
+						<p>- Sham</p>
+					</div>
+				</div>
+				<img
+					src="assets/dama-diagram.png"
+					alt="Three overlapping hearts labelled Satire, Critical Thinking, and Art, intersecting as Dama"
+					width="800"
+					height="800"
+					decoding="async"
+					class="mx-auto w-full max-h-[14rem] origin-center object-contain select-none sm:max-h-[18rem] md:max-h-[min(22rem,42dvh)] md:scale-[1.2]"
+				/>
 			</div>
 		</section>
 	</div>
@@ -264,18 +279,18 @@
 		</button>
 
 		<div id="lbStage" class="flex h-full w-full touch-pan-y items-center justify-center px-5 pt-14 pb-[calc(env(safe-area-inset-bottom)+1rem)] transition-[transform,opacity] duration-[250ms] ease-[cubic-bezier(0.32,0.72,0,1)] is-dragging:transition-none">
-			<div class="flex w-full max-w-5xl flex-col items-center gap-4 sm:flex-row sm:items-center sm:gap-8 lg:gap-12">
+			<div class="flex w-full max-w-5xl flex-col items-center gap-4 rounded-2xl bg-[#161616] p-4 sm:flex-row sm:items-center sm:gap-8 sm:p-6 lg:gap-12">
 				<div id="lbMedia" class="flex shrink-0 items-center justify-center rounded-2xl bg-checker-dark p-3 sm:flex-1">
 					<img id="lbImg" class="max-h-[42vh] max-w-[84vw] object-contain select-none sm:max-h-[72vh] sm:max-w-full" draggable="false" alt="" />
 				</div>
-				<div class="flex w-full max-w-xs flex-col items-center gap-3 text-white sm:w-auto sm:max-w-[16rem] sm:shrink-0 sm:items-start">
+				<div class="flex w-full max-w-xs flex-col items-center gap-4 text-white sm:w-auto sm:max-w-[18rem] sm:shrink-0 sm:items-start">
 					<div class="px-2 text-center sm:px-0 sm:text-start">
-						<h3 id="lbName" class="text-lg font-semibold sm:text-xl"></h3>
-						<p id="lbCat" class="mt-0.5 text-sm text-white/60"></p>
-						<p id="lbPrice" class="mt-1.5 font-bold text-kiosk-accent-light tabular-nums"></p>
+						<h3 id="lbName" class="text-xl font-semibold sm:text-2xl"></h3>
+						<p id="lbCat" class="mt-0.5 text-base text-white/60"></p>
+						<p id="lbPrice" class="mt-1.5 text-lg font-bold text-kiosk-cyan tabular-nums"></p>
 					</div>
-					<div id="lbVariants" class="flex w-full flex-col items-center gap-2.5 sm:items-start" hidden></div>
-					<div id="lbQty" class="w-48 text-white" data-variant="lightbox"></div>
+					<div id="lbVariants" class="flex w-full flex-col items-center gap-3 sm:items-start" hidden></div>
+					<div id="lbQty" class="w-full text-white" data-variant="lightbox"></div>
 					<p class="text-[0.6875rem] text-white/40 sm:hidden">Swipe to browse · swipe down to close</p>
 				</div>
 			</div>
@@ -283,7 +298,7 @@
 	</div>
 
 	<!-- ============ TOASTS ============ -->
-	<div id="toasts" class="pointer-events-none fixed inset-x-0 bottom-[calc(6rem+env(safe-area-inset-bottom))] z-[70] flex flex-col items-center gap-2 px-4 sm:bottom-6"></div>
+	<div id="toasts" class="pointer-events-none fixed inset-x-0 top-[calc(env(safe-area-inset-top)+4.25rem)] z-[70] flex flex-col-reverse items-center gap-2 px-4 sm:top-auto sm:bottom-6 sm:flex-col"></div>
 
 	<script type="module" src="/src/main.js"></script>
 </body>

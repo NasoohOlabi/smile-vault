@@ -2,83 +2,148 @@
 #   price: 350                 ← file default (below)
 #   - title: … / price: 400    ← per item
 #   - color: W / price: 425    ← per variant (tees)
+# 240 / 280 folders from The Shop set item prices.
 price: 350
 items:
-  - title: Crosswords
+  - title: Circus
+    price: 280
     variants:
       - color: B
+        front: Tshirts/Circus_B_F.jpg
+
+  - title: CoJ
+    price: 280
+    variants:
+      - color: B
+        front: Tshirts/CoJ_B_F.jpg
+      - color: W
+        front: Tshirts/CoJ_W_F.jpg
+
+  - title: CoY
+    price: 280
+    variants:
+      - color: B
+        front: Tshirts/CoY_B_F.jpg
+        back: Tshirts/CoY_B_B.jpg
+
+  - title: Crosswords
+    price: 240
+    variants:
+      - color: B
+        front: Tshirts/Crosswords_B_F.jpg
         back: Tshirts/Crosswords_B.jpg
       - color: W
+        front: Tshirts/Crosswords_W_F.jpg
         back: Tshirts/Crosswords_W.jpg
 
   - title: D4m45cu5
+    price: 240
     variants:
       - color: B
+        front: Tshirts/D4m45cu5_B_F_1.jpg
         back: Tshirts/D4m45cu5_B.jpg
+      - color: W
+        front: Tshirts/D4m45cu5_W_F_1.jpg
 
   - title: Damascape
-    image: Tshirts/Damascape.jpg
+    price: 240
+    variants:
+      - front: Tshirts/Damascape_F.jpg
 
   - title: Godzilla
-    image: Tshirts/Godzilla.jpg
+    price: 280
+    variants:
+      - color: B
+        front: Tshirts/Godzilla_B_F.jpg
+      - color: W
+        front: Tshirts/Godzilla_W_F.jpg
 
   - title: Goodbye Columbus
+    price: 280
     variants:
       - color: B
+        front: Tshirts/GoodbyeColumbus_B_F.jpg
         back: Tshirts/GoodbyeColumbus_B.jpg
-      - back: Tshirts/GoodbyeColumbus.jpg
+      - color: W
+        front: Tshirts/GoodbyeColumbus_W_F.jpg
 
   - title: Hafez V Cat
+    price: 280
     variants:
       - color: B
+        front: Tshirts/HafezVCat_B_F.jpg
         back: Tshirts/HafezVCat_B.jpg
       - color: W
+        front: Tshirts/HafezVCat_W_F.jpg
         back: Tshirts/HafezVCat_W.jpg
 
   - title: Jahez
-    image: Tshirts/Jahez.jpg
+    price: 280
+    variants:
+      - color: W
+        front: Tshirts/Jahez_W_F.jpg
 
   - title: Jenin Jenin
-    image: Tshirts/JeninJenin.jpg
+    price: 280
+    variants:
+      - color: W
+        front: Tshirts/JeninJenin_W_F.jpg
 
   - title: Kiddo
+    price: 280
     variants:
       - color: B
+        front: Tshirts/Kiddo_B_F.jpg
         back: Tshirts/Kiddo_B.jpg
-      - back: Tshirts/Kiddo.jpg
+      - color: W
+        front: Tshirts/Kiddo_W_F.jpg
 
   - title: Local Product
-    image: Tshirts/LocalProduct.jpg
+    price: 280
+    variants:
+      - color: W
+        front: Tshirts/LocalProduct_W_F.jpg
 
   - title: Map
+    price: 280
     variants:
       - color: B
         front: Tshirts/Map_B_F.jpg
-        back: Tshirts/Map_B.jpg
+        back: Tshirts/Map_B_B.jpg
       - color: W
         default: true
         defaultSide: front
         front: Tshirts/Map_W_F.jpg
-        back: Tshirts/Map_W.jpg
+        back: Tshirts/Map_W_B.jpg
 
   - title: Mosaic
+    price: 280
     variants:
       - color: B
+        front: Tshirts/Mosaic_B_F.jpg
         back: Tshirts/Mosaic_B.jpg
       - color: W
+        front: Tshirts/Mosaic_W_F.jpg
         back: Tshirts/Mosaic_W.jpg
 
   - title: National Team
+    price: 240
     variants:
       - color: B
+        front: Tshirts/NationalTeam_B_F.jpg
         back: Tshirts/NationalTeam_B.jpg
       - color: W
+        front: Tshirts/NationalTeam_W_F.jpg
         back: Tshirts/NationalTeam_W.jpg
 
   - title: P@R
-    image: Tshirts/P@R.jpg
+    price: 280
+    variants:
+      - color: W
+        front: Tshirts/P@R_W_F.jpg
 
   - title: P vs P
+    price: 280
     variants:
       - color: B
         front: Tshirts/PvsP_B_F.jpg
@@ -86,40 +151,64 @@ items:
       - front: Tshirts/PvsP_F.jpg
 
   - title: Qlb Dmshq
+    price: 240
     variants:
       - color: B
+        front: Tshirts/QlbDmshq_B_F.jpg
         back: Tshirts/QlbDmshq_B.jpg
       - color: W
+        front: Tshirts/QlbDmshq_W_F.jpg
         back: Tshirts/QlbDmshq_W.jpg
 
   - title: Royal
+    price: 240
     variants:
       - color: B
+        front: Tshirts/Royal_B_F.jpg
         back: Tshirts/Royal_B.jpg
 
   - title: SL
+    price: 280
     variants:
       - color: B
+        front: Tshirts/SL_B_F_1.jpg
         back: Tshirts/SL_B.jpg
       - color: BL
         front: Tshirts/SL_BL.jpg
         back: Tshirts/SL_BL_B.jpg
       - color: W
+        front: Tshirts/SL_W_F_1.jpg
         back: Tshirts/SL_W.jpg
 
-  - title: Supreme
+  - title: SR
+    price: 280
     variants:
       - color: B
+        front: Tshirts/SR_B_F.jpg
+        back: Tshirts/SR_B_B.jpg
+
+  - title: Supreme
+    price: 240
+    variants:
+      - color: B
+        front: Tshirts/Supreme_B_F.jpg
         back: Tshirts/Supreme_B.jpg
       - color: W
+        front: Tshirts/Supreme_W_F.jpg
         back: Tshirts/Supreme_W.jpg
 
   - title: Varsity
+    price: 240
     variants:
       - color: B
+        front: Tshirts/Varsity_B_F.jpg
         back: Tshirts/Varsity_B.jpg
       - color: W
+        front: Tshirts/Varsity_W_F.jpg
         back: Tshirts/Varsity_W.jpg
 
   - title: Watermelon
-    image: Tshirts/Watermelon.jpg
+    price: 240
+    variants:
+      - color: W
+        front: Tshirts/Watermelon_W_F.jpg

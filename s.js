@@ -185,7 +185,9 @@ function orderedChildDirs(dir, meta) {
 }
 
 function resolvePrice(value, fallback) {
-	const n = typeof value === "number" ? value : Number(String(value ?? "").trim());
+	if (typeof value === "number" && Number.isFinite(value)) return value;
+	if (value == null || value === "") return fallback;
+	const n = Number(String(value).trim());
 	return Number.isFinite(n) ? n : fallback;
 }
 
