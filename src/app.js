@@ -1626,34 +1626,46 @@ async function submitOrder(event) {
 	const el = (id) => document.getElementById(id);
 	const val = (id) => el(id).value.trim();
 	const customerName = val("customerName");
+	const instaAccount = val("instaAccount").replace(/^@+/, "");
 	const phone = val("phone");
-	const instaAccount = val("instaAccount");
-	const customerAddress = val("customerAddress");
+	const phoneCall = val("phoneCall");
+	const customerAddress = document.querySelector('#orderForm input[name="customerAddress"]:checked')?.value || "";
 	const orderNotes = val("orderNotes");
 
-	["customerName", "phone", "customerAddress"].forEach((id) => el(id).classList.remove("is-invalid"));
+	["customerName", "instaAccount", "phone", "phoneCall", "customerAddressGroup"].forEach((id) => el(id).classList.remove("is-invalid"));
 	const missing = [];
 	if (!customerName) missing.push(["customerName", "Name"]);
-	if (!customerAddress) missing.push(["customerAddress", "Shipping address"]);
+	if (!instaAccount) missing.push(["instaAccount", "Instagram"]);
+	if (!customerAddress) missing.push(["customerAddressGroup", "Pickup / delivery"]);
 
-	const digits = phone.replace(/\D/g, "");
-	let phoneErr = "";
-	if (!phone) missing.push(["phone", "Phone"]);
-	else if (digits.length !== 10) phoneErr = "Phone must be 10 digits (e.g. 0912345678).";
+	const phoneDigits = (n) => n.replace(/\D/g, "");
+	const phoneErrs = [];
+	if (!phone) missing.push(["phone", "WhatsApp"]);
+	else if (phoneDigits(phone).length !== 10) {
+		el("phone").classList.add("is-invalid");
+		phoneErrs.push("WhatsApp must be 10 digits (e.g. 0912345678).");
+	}
+	if (phoneCall && phoneDigits(phoneCall).length !== 10) {
+		el("phoneCall").classList.add("is-invalid");
+		phoneErrs.push("Call number must be 10 digits, or leave it blank.");
+	}
 
-	if (missing.length || phoneErr) {
+	if (missing.length || phoneErrs.length) {
 		missing.forEach(([id]) => el(id).classList.add("is-invalid"));
-		if (phoneErr) el("phone").classList.add("is-invalid");
 		const msg = [
 			missing.length ? `Please fill in: ${missing.map(([, l]) => l).join(", ")}` : "",
-			phoneErr,
+			...phoneErrs,
 		].filter(Boolean).join(" ");
 		notice(responseDiv, msg, "warn");
 		buzz(30);
-		// Bring the first offending field into view above the on-screen keyboard
-		const firstBad = (missing[0] && el(missing[0][0])) || el("phone");
+		const firstBad = (missing[0] && el(missing[0][0]))
+			|| (el("phone").classList.contains("is-invalid") && el("phone"))
+			|| el("phoneCall");
 		firstBad.scrollIntoView({ block: "center", behavior: "smooth" });
-		firstBad.focus({ preventScroll: true });
+		const focusEl = firstBad.id === "customerAddressGroup"
+			? firstBad.querySelector("input")
+			: firstBad;
+		focusEl?.focus({ preventScroll: true });
 		return;
 	}
 
@@ -1684,13 +1696,16 @@ async function submitOrder(event) {
 			body: JSON.stringify({
 				data: {
 					Timestamp: new Date().toISOString(),
+					Delivered: false,
 					Name: customerName,
-					Phone: phone,
+					Phone: phoneCall,
+					"WA number": phone,
 					"Insta Account": instaAccount,
-					Address: customerAddress,
-					Notes: orderNotes,
 					Items: JSON.stringify(orderItems, null, 2),
+					"Pickup / delivery": customerAddress,
+					Notes: orderNotes,
 					Total: cartTotal(),
+					"N. of Items": orderItems.reduce((n, line) => n + line.quantity, 0),
 				},
 			}),
 		});
@@ -1705,8 +1720,8 @@ async function submitOrder(event) {
 			items: purchaseItems,
 		});
 
-		notice(responseDiv, "Order sent! We'll be in touch shortly.", "ok");
-		toast("Order sent! We'll be in touch shortly.");
+		notice(responseDiv, "Request sent. DM @dama.obsrv to confirm your order.", "ok");
+		toast("Request sent. DM @dama.obsrv to confirm.");
 		buzz(40);
 		setTimeout(() => {
 			cart = {};
@@ -1778,6 +1793,9 @@ async function boot() {
 	document.getElementById("checkoutBtn").onclick = showCheckoutStep;
 	document.getElementById("backToCart").onclick = showCartStep;
 	document.getElementById("orderForm").onsubmit = submitOrder;
+	document.getElementById("customerAddressGroup")?.addEventListener("change", () => {
+		document.getElementById("customerAddressGroup").classList.remove("is-invalid");
+	});
 
 	document.getElementById("lbClose").onclick = () => closeLightbox();
 	document.getElementById("lbShare")?.addEventListener("click", () => shareCurrent());

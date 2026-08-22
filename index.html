@@ -227,23 +227,45 @@
 					<input id="customerName" type="text" autocomplete="name" enterkeyhint="next" class="w-full rounded-xl border border-kiosk-border bg-black/28 px-3.5 py-3 text-base leading-snug text-kiosk-fg outline-none focus:border-kiosk-accent focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--color-kiosk-accent)_20%,transparent)] is-invalid:border-red-500" />
 				</div>
 				<div class="flex flex-col gap-1.5">
-					<label class="text-xs font-medium" for="phone">Phone <span class="text-kiosk-accent">*</span></label>
+					<label class="text-xs font-medium" for="instaAccount">Instagram <span class="text-kiosk-accent">*</span></label>
+					<input id="instaAccount" type="text" placeholder="@yourhandle" autocapitalize="none" autocorrect="off"
+						spellcheck="false" autocomplete="username" enterkeyhint="next" class="w-full rounded-xl border border-kiosk-border bg-black/28 px-3.5 py-3 text-base leading-snug text-kiosk-fg outline-none focus:border-kiosk-accent focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--color-kiosk-accent)_20%,transparent)] is-invalid:border-red-500" />
+				</div>
+				<div class="flex flex-col gap-1.5">
+					<label class="text-xs font-medium" for="phone">WhatsApp <span class="text-kiosk-accent">*</span></label>
 					<input id="phone" type="tel" inputmode="tel" pattern="[0-9]*" placeholder="09XXXXXXXX" autocomplete="tel"
 						enterkeyhint="next" class="w-full rounded-xl border border-kiosk-border bg-black/28 px-3.5 py-3 text-base leading-snug text-kiosk-fg outline-none focus:border-kiosk-accent focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--color-kiosk-accent)_20%,transparent)] is-invalid:border-red-500" />
 				</div>
 				<div class="flex flex-col gap-1.5">
-					<label class="text-xs font-medium" for="instaAccount">Instagram</label>
-					<input id="instaAccount" type="text" placeholder="@yourhandle" autocapitalize="none" autocorrect="off"
-						spellcheck="false" enterkeyhint="next" class="w-full rounded-xl border border-kiosk-border bg-black/28 px-3.5 py-3 text-base leading-snug text-kiosk-fg outline-none focus:border-kiosk-accent focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--color-kiosk-accent)_20%,transparent)] is-invalid:border-red-500" />
+					<label class="text-xs font-medium" for="phoneCall">Call number <span class="font-normal text-kiosk-muted">(if different)</span></label>
+					<input id="phoneCall" type="tel" inputmode="tel" pattern="[0-9]*" placeholder="09XXXXXXXX" autocomplete="tel"
+						enterkeyhint="next" class="w-full rounded-xl border border-kiosk-border bg-black/28 px-3.5 py-3 text-base leading-snug text-kiosk-fg outline-none focus:border-kiosk-accent focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--color-kiosk-accent)_20%,transparent)] is-invalid:border-red-500" />
 				</div>
 				<div class="flex flex-col gap-1.5">
-					<label class="text-xs font-medium" for="customerAddress">Shipping address <span class="text-kiosk-accent">*</span></label>
-					<textarea id="customerAddress" rows="3" autocomplete="street-address" class="w-full resize-y rounded-xl border border-kiosk-border bg-black/28 px-3.5 py-3 text-base leading-snug text-kiosk-fg outline-none focus:border-kiosk-accent focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--color-kiosk-accent)_20%,transparent)] is-invalid:border-red-500"></textarea>
+					<p id="deliveryLabel" class="text-xs font-medium">Pickup / delivery <span class="text-kiosk-accent">*</span></p>
+					<div id="customerAddressGroup" role="radiogroup" aria-labelledby="deliveryLabel" class="flex gap-1 rounded-xl border border-kiosk-border bg-black/28 p-1 is-invalid:border-red-500">
+						<label class="min-w-0 flex-1 cursor-pointer">
+							<input type="radio" name="customerAddress" value="Mashrou Dummar" class="peer sr-only" />
+							<span class="flex min-h-11 items-center justify-center rounded-[0.7rem] px-1.5 text-center text-[0.65rem] leading-tight font-semibold tracking-[0.02em] text-kiosk-fg/70 transition-[background,color] duration-150 peer-checked:bg-kiosk-cyan peer-checked:text-[#111] peer-focus-visible:shadow-[0_0_0_3px_color-mix(in_srgb,var(--color-kiosk-accent)_20%,transparent)] sm:text-xs">Mashrou Dummar</span>
+						</label>
+						<label class="min-w-0 flex-1 cursor-pointer">
+							<input type="radio" name="customerAddress" value="Shalaan" class="peer sr-only" />
+							<span class="flex min-h-11 items-center justify-center rounded-[0.7rem] px-1.5 text-center text-[0.65rem] leading-tight font-semibold tracking-[0.02em] text-kiosk-fg/70 transition-[background,color] duration-150 peer-checked:bg-kiosk-cyan peer-checked:text-[#111] peer-focus-visible:shadow-[0_0_0_3px_color-mix(in_srgb,var(--color-kiosk-accent)_20%,transparent)] sm:text-xs">Shalaan</span>
+						</label>
+						<label class="min-w-0 flex-1 cursor-pointer">
+							<input type="radio" name="customerAddress" value="Yalla Go" class="peer sr-only" />
+							<span class="flex min-h-11 items-center justify-center rounded-[0.7rem] px-1.5 text-center text-[0.65rem] leading-tight font-semibold tracking-[0.02em] text-kiosk-fg/70 transition-[background,color] duration-150 peer-checked:bg-kiosk-cyan peer-checked:text-[#111] peer-focus-visible:shadow-[0_0_0_3px_color-mix(in_srgb,var(--color-kiosk-accent)_20%,transparent)] sm:text-xs">Yalla Go</span>
+						</label>
+					</div>
 				</div>
 				<div class="flex flex-col gap-1.5">
 					<label class="text-xs font-medium" for="orderNotes">Notes (optional)</label>
 					<textarea id="orderNotes" rows="2" class="w-full resize-y rounded-xl border border-kiosk-border bg-black/28 px-3.5 py-3 text-base leading-snug text-kiosk-fg outline-none focus:border-kiosk-accent focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--color-kiosk-accent)_20%,transparent)] is-invalid:border-red-500"></textarea>
 				</div>
+				<p class="rounded-xl border border-kiosk-lime/35 bg-kiosk-lime/8 px-3.5 py-3 text-xs leading-relaxed text-kiosk-fg/90">
+					Damascus delivery only. Placing this form is a request — your order is confirmed when you send a direct message to
+					<a href="https://ig.me/m/dama.obsrv" target="_blank" rel="noopener noreferrer" class="font-semibold text-kiosk-lime underline decoration-kiosk-lime/40 underline-offset-2 hover:opacity-80">@dama.obsrv</a>.
+				</p>
 				<div id="orderResponse"></div>
 			</div>
 

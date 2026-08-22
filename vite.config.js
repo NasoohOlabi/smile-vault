@@ -73,8 +73,28 @@ function catalogStatic() {
 	};
 }
 
+function ordersProxy() {
+	return {
+		name: "dama-orders-proxy",
+		configureServer(server) {
+			server.middlewares.use(async (req, res, next) => {
+				if (!(req.url || "").startsWith("/__dama_orders")) return next();
+				try {
+					const upstream = await fetch("https://docs.google.com/spreadsheets/d/1W2wjikf5fOYqkaY5Qoal4820Z5WYw2FiIZyU8JNIJZY/gviz/tq?tqx=out:json&gid=0");
+					res.statusCode = upstream.status;
+					res.setHeader("Content-Type", "application/json; charset=utf-8");
+					res.end(await upstream.text());
+				} catch {
+					res.statusCode = 502;
+					res.end(JSON.stringify({ error: "Orders sheet unavailable" }));
+				}
+			});
+		},
+	};
+}
+
 export default defineConfig({
-	plugins: [tailwindcss(), catalogStatic()],
+	plugins: [tailwindcss(), catalogStatic(), ordersProxy()],
 	server: {
 		port: 5173,
 		open: false,
