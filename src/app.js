@@ -216,7 +216,7 @@ function groupTshirts(raw) {
 	const buckets = new Map();
 
 	for (const p of raw) {
-		if ((p.type || "") !== "Tshirts") {
+		if ((p.type || "") !== "Tshirts" && (p.type || "") !== "Collabs") {
 			others.push(p);
 			continue;
 		}
@@ -312,7 +312,7 @@ function groupTshirts(raw) {
 			title,
 			price: primary.price,
 			image: thumb,
-			type: "Tshirts",
+			type: items[0].type || "Tshirts",
 			category: items[0].category || "tshirts",
 			section: items[0].section,
 			colors,
@@ -327,7 +327,8 @@ function groupTshirts(raw) {
 }
 
 function isShirt(p) {
-	return (p?.type || "") === "Tshirts";
+	const type = p?.type || "";
+	return type === "Tshirts" || type === "Collabs";
 }
 
 function parseLineId(id) {
@@ -501,11 +502,11 @@ function renderShirtControls(host, p, { onChange } = {}) {
 
 	const labelCls = "mb-1.5 text-sm font-semibold tracking-wide text-white";
 	const pillOff =
-		"h-10 min-w-[3rem] rounded-full border border-kiosk-border bg-black/30 px-3 text-sm font-semibold tracking-[0.02em] text-white transition-[background,color,border-color] duration-150";
+		"h-10 min-w-[3rem] rounded-kiosk-md border border-kiosk-border bg-black/30 px-3 text-sm font-semibold tracking-[0.02em] text-white transition-[background,color,border-color] duration-150";
 	const pillOn =
-		"h-10 min-w-[3rem] rounded-full border border-kiosk-cyan bg-kiosk-cyan px-3 text-sm font-semibold tracking-[0.02em] text-[#111] transition-[background,color,border-color] duration-150";
+		"h-10 min-w-[3rem] rounded-kiosk-md border border-kiosk-cyan bg-kiosk-cyan px-3 text-sm font-semibold tracking-[0.02em] text-[#111] transition-[background,color,border-color] duration-150";
 	const sizeOn =
-		"h-10 min-w-[3rem] rounded-full border border-[#4f0] bg-[#4f0] px-3 text-sm font-semibold tracking-[0.02em] text-[#111] transition-[background,color,border-color] duration-150";
+		"h-10 min-w-[3rem] rounded-kiosk-md border border-[#4f0] bg-[#4f0] px-3 text-sm font-semibold tracking-[0.02em] text-[#111] transition-[background,color,border-color] duration-150";
 
 	const group = (name, aria) => {
 		const wrap = document.createElement("div");
@@ -945,6 +946,10 @@ function activeSectionMeta() {
 	return sectionsFor(activeCat).find((s) => s.id === activeSection) || null;
 }
 
+function isTeaseSection() {
+	return !!activeSectionMeta()?.tease;
+}
+
 function productType(p) {
 	return p.type || "Stickers";
 }
@@ -961,12 +966,12 @@ function allowsLightbox(p) {
 /* Full-bleed card/lightbox media (no checker) for photo products. */
 function fillsCardMedia(p) {
 	const type = productType(p);
-	return type === "Tshirts" || (type === "Stickers" && productSection(p) === "curated");
+	return type === "Tshirts" || type === "Collabs" || (type === "Stickers" && productSection(p) === "curated");
 }
 
 function fillMediaAspect(p) {
 	const type = productType(p);
-	if (type === "Tshirts") return "aspect-[4/5]";
+	if (type === "Tshirts" || type === "Collabs") return "aspect-[4/5]";
 	if (type === "Stickers" && productSection(p) === "curated") return "aspect-[5/7]";
 	return null;
 }
@@ -982,7 +987,7 @@ function renderSectionSubnav() {
 	if (!show) return;
 
 	const subchipCls =
-		"inline-flex h-[2.35rem] max-w-[min(18rem,70vw)] shrink-0 items-center truncate rounded-full border-0 bg-transparent px-[0.85rem] text-sm font-bold tracking-[0.02em] text-kiosk-fg no-underline is-active:bg-kiosk-accent is-active:text-white";
+		"inline-flex h-[2.35rem] max-w-[min(18rem,70vw)] shrink-0 items-center truncate rounded-kiosk-md border-0 bg-transparent px-[0.85rem] text-sm font-bold tracking-[0.02em] text-kiosk-fg no-underline is-active:bg-kiosk-accent is-active:text-white";
 	wrap.innerHTML = "";
 	sections.forEach((section) => {
 		const button = document.createElement("a");
@@ -1033,7 +1038,6 @@ function renderSectionFeature() {
 	const top = document.getElementById("top");
 	const panel = document.getElementById("sectionFeature");
 	const grid = document.getElementById("grid");
-	const empty = document.getElementById("emptyState");
 	if (!panel) return !!feature;
 
 	if (!feature) {
@@ -1044,20 +1048,35 @@ function renderSectionFeature() {
 	}
 
 	const img = document.getElementById("sectionFeatureImg");
+	const media = document.getElementById("sectionFeatureMedia");
+	const title = document.getElementById("sectionFeatureTitle");
+	const dates = document.getElementById("sectionFeatureDates");
 	const copy = document.getElementById("sectionFeatureCopy");
+	const hasImage = Boolean(feature.image);
+	panel.classList.toggle("md:grid-cols-2", hasImage);
+	if (media) media.hidden = !hasImage;
 	if (img) {
-		img.src = encodeURI(assetUrl(feature.image));
-		img.alt = feature.alt || meta.label || "";
+		if (hasImage) {
+			img.src = encodeURI(assetUrl(feature.image));
+			img.alt = feature.alt || meta.label || "";
+		} else {
+			img.removeAttribute("src");
+			img.alt = "";
+		}
+	}
+	if (title) {
+		title.textContent = feature.title || "";
+		title.hidden = !feature.title;
+	}
+	if (dates) {
+		dates.textContent = feature.dates || "";
+		dates.hidden = !feature.dates;
 	}
 	if (copy) copy.textContent = feature.copy || "";
 
 	panel.hidden = false;
 	if (top) top.hidden = true;
-	if (grid) {
-		grid.hidden = true;
-		grid.innerHTML = "";
-	}
-	if (empty) empty.hidden = true;
+	if (grid) grid.hidden = false;
 	return true;
 }
 
@@ -1067,14 +1086,11 @@ function updateStatCount(n) {
 }
 
 function renderGrid() {
-	if (renderSectionFeature()) {
-		visible = [];
-		updateStatCount(0);
-		return;
-	}
-
+	const hasFeature = renderSectionFeature();
 	const grid = document.getElementById("grid");
+	const rule = document.getElementById("sectionFeatureRule");
 	visible = filtered();
+	if (rule) rule.hidden = !hasFeature || !visible.length;
 	updateStatCount(visible.length);
 	grid.innerHTML = "";
 	const viewOnly = !!activeSectionMeta()?.viewOnly;
@@ -1105,9 +1121,10 @@ function renderGrid() {
 		const fillMedia = fillsCardMedia(p);
 		const mediaAspect = fillMediaAspect(p) || "aspect-square";
 		const mediaBg = fillMedia ? "bg-kiosk-elevated" : "bg-checker";
+		const tease = isTeaseSection();
 		const mediaImg = fillMedia
-			? "absolute inset-0 h-full w-full object-cover transition-transform duration-300 sm:group-hover:scale-105"
-			: "absolute inset-0 h-full w-full object-contain p-3 transition-transform duration-300 sm:p-4 sm:group-hover:scale-105";
+			? `absolute inset-0 h-full w-full object-cover transition-[transform,filter] duration-300 ${tease ? "scale-[1.06] blur-[8px] saturate-[0.85]" : "sm:group-hover:scale-105"}`
+			: `absolute inset-0 h-full w-full object-contain p-3 transition-[transform,filter] duration-300 sm:p-4 ${tease ? "scale-[1.06] blur-[8px] saturate-[0.85]" : "sm:group-hover:scale-105"}`;
 		const imgSrc = shirtImage(p) || p.image;
 		const skuId = cartIdFor(p);
 		const canZoom = allowsLightbox(p);
@@ -1125,7 +1142,7 @@ function renderGrid() {
 					onerror="this.style.opacity=.15" />
 			</${mediaTag}>
 			<div class="flex flex-1 flex-col">
-				<p class="relative z-[1] -mt-5 mb-0 ms-3 self-start rounded-full bg-[#111] px-[0.9rem] py-[0.3rem] text-[0.8125rem] font-bold text-white tabular-nums shadow-[0_2px_6px_rgb(0_0_0_/_0.35)]" dir="rtl">${money(p.price)}</p>
+				<p class="relative z-[1] -mt-5 mb-0 ms-3 self-start rounded-kiosk-md bg-[#111] px-[0.9rem] py-[0.3rem] text-[0.8125rem] font-bold text-white tabular-nums shadow-[0_2px_6px_rgb(0_0_0_/_0.35)]" dir="rtl">${money(p.price)}</p>
 				<div class="mt-3 mb-2.5 px-5">
 					<h3 class="line-clamp-2 overflow-hidden text-start text-[0.8125rem] leading-snug font-semibold sm:text-sm" dir="${textDir(p.title || p.name)}">${escapeHtml(p.title || p.name)}</h3>
 				</div>
@@ -1146,7 +1163,7 @@ function renderGrid() {
 }
 
 /* Quantity control: full-width "add" button at qty 0, stepper otherwise.
-   Everything is 44px tall so it clears the minimum touch target. */
+   Cards/cart stay 44px; lightbox matches the 48px add-to-cart bar. */
 function renderQtyBox(host, id) {
 	if (!host) return;
 	const q = qtyOf(id);
@@ -1160,7 +1177,7 @@ function renderQtyBox(host, id) {
 		add.onclick = () => changeQty(id, 1);
 		if (lightbox) {
 			add.className =
-				"relative flex h-12 w-full items-center justify-center rounded-full bg-kiosk-cyan px-12 text-sm font-bold tracking-[0.08em] text-[#111] transition-transform duration-150 active:scale-95";
+				"relative flex h-12 w-full items-center justify-center rounded-kiosk-md bg-kiosk-cyan px-12 text-sm font-bold tracking-[0.08em] text-[#111] transition-transform duration-150 active:scale-95";
 			const plus = document.createElement("span");
 			plus.className = "absolute start-4 text-2xl leading-none font-bold";
 			plus.textContent = "+";
@@ -1170,7 +1187,7 @@ function renderQtyBox(host, id) {
 			add.append(plus, label);
 		} else {
 			add.className =
-				"h-11 w-full rounded-full border border-kiosk-cyan/40 bg-transparent text-2xl font-bold text-kiosk-cyan transition-transform duration-150 active:scale-95";
+				"h-11 w-full rounded-kiosk-md border border-kiosk-cyan/40 bg-transparent text-2xl font-bold text-kiosk-cyan transition-transform duration-150 active:scale-95";
 			add.textContent = "+";
 		}
 		host.appendChild(add);
@@ -1178,9 +1195,11 @@ function renderQtyBox(host, id) {
 	}
 
 	const row = document.createElement("div");
-	row.className = "flex h-11 items-center justify-between gap-1 rounded-kiosk-md bg-black/18 px-2";
+	row.className = lightbox
+		? "flex h-12 w-full items-stretch gap-3"
+		: "flex h-11 items-center justify-between gap-1 rounded-kiosk-md bg-black/18 px-2";
 	const btnCls = lightbox
-		? "grid h-11 w-11 shrink-0 place-items-center rounded-full bg-kiosk-cyan text-2xl leading-none font-bold text-[#111] transition-transform duration-150 active:scale-90"
+		? "grid h-12 min-w-12 flex-1 place-items-center rounded-kiosk-md bg-kiosk-cyan px-6 text-3xl leading-none font-bold text-[#111] transition-transform duration-150 active:scale-90"
 		: "grid h-11 w-11 shrink-0 place-items-center rounded-kiosk-md bg-transparent text-2xl leading-none font-bold text-kiosk-cyan transition-transform duration-150 active:scale-90";
 	const btn = (label, delta, aria) => {
 		const b = document.createElement("button");
@@ -1191,7 +1210,9 @@ function renderQtyBox(host, id) {
 		return b;
 	};
 	const num = document.createElement("span");
-	num.className = "select-none text-base font-bold text-kiosk-fg tabular-nums";
+	num.className = lightbox
+		? "grid min-w-[3rem] flex-1 place-items-center select-none text-xl font-bold text-kiosk-fg tabular-nums"
+		: "select-none text-base font-bold text-kiosk-fg tabular-nums";
 	num.textContent = q;
 
 	row.append(btn("−", -1, "-1"), num, btn("+", 1, "+1"));
@@ -1417,13 +1438,15 @@ function paintLightbox({ pushHash = true, replace = true } = {}) {
 	img.alt = p.name;
 
 	const fill = fillsCardMedia(p);
+	const tease = isTeaseSection();
+	const teaseImg = tease ? " scale-[1.06] blur-[8px] saturate-[0.85]" : "";
 	if (fill) {
 		const aspect = fillMediaAspect(p) || "aspect-[4/5]";
 		media.className = `relative ${aspect} h-[42vh] w-auto max-w-[84vw] shrink-0 overflow-hidden rounded-2xl bg-kiosk-elevated sm:h-[72vh] sm:max-w-full`;
-		img.className = "absolute inset-0 h-full w-full object-cover select-none";
+		img.className = `absolute inset-0 h-full w-full object-cover select-none${teaseImg}`;
 	} else {
 		media.className = "flex shrink-0 items-center justify-center rounded-2xl bg-checker-dark p-3 sm:flex-1";
-		img.className = "max-h-[42vh] max-w-[84vw] object-contain select-none sm:max-h-[72vh] sm:max-w-full";
+		img.className = `max-h-[42vh] max-w-[84vw] object-contain select-none sm:max-h-[72vh] sm:max-w-full${teaseImg}`;
 	}
 
 	const lbName = document.getElementById("lbName");
@@ -1550,9 +1573,9 @@ function toast(msg, kind = "info") {
 	[...host.children].slice(0, -2).forEach((el) => el.remove());
 	const el = document.createElement("div");
 	const toastClass = {
-		err: "max-w-full animate-pop overflow-hidden rounded-full bg-red-600 px-4 py-2.5 text-sm font-medium text-white text-ellipsis whitespace-nowrap shadow-kiosk",
-		ok: "max-w-full animate-pop overflow-hidden rounded-full bg-[#4f0] px-4 py-2.5 text-sm font-medium text-[#14140a] text-ellipsis whitespace-nowrap shadow-kiosk",
-		info: "max-w-full animate-pop overflow-hidden rounded-full bg-kiosk-accent-light px-4 py-2.5 text-sm font-medium text-[#14140a] text-ellipsis whitespace-nowrap shadow-kiosk",
+		err: "max-w-full animate-pop overflow-hidden rounded-kiosk-md bg-red-600 px-4 py-2.5 text-sm font-medium text-white text-ellipsis whitespace-nowrap shadow-kiosk",
+		ok: "max-w-full animate-pop overflow-hidden rounded-kiosk-md bg-[#4f0] px-4 py-2.5 text-sm font-medium text-[#14140a] text-ellipsis whitespace-nowrap shadow-kiosk",
+		info: "max-w-full animate-pop overflow-hidden rounded-kiosk-md bg-kiosk-accent-light px-4 py-2.5 text-sm font-medium text-[#14140a] text-ellipsis whitespace-nowrap shadow-kiosk",
 	};
 	el.className = toastClass[kind] || toastClass.info;
 	el.textContent = msg;

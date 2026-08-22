@@ -1,2 +1,17 @@
 price: 350
-items: []
+items:
+  - title: Bracelet
+    variants:
+      - color: W
+        front: Tshirts/Bracelet_W_F.jpg
+
+  - title: CS
+    variants:
+      - color: W
+        front: Tshirts/CS_W_F.jpg
+
+  - title: Sayyar
+    variants:
+      - color: W
+        front: Tshirts/Sayyar_W_F.jpg
+        back: Tshirts/Sayyar_W_B.jpg

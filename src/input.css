@@ -45,7 +45,7 @@
 	--color-kiosk-checker-b: rgb(255 255 255 / 0.05);
 	--color-kiosk-media: #5a5a5a;
 
-	--radius-kiosk-sm: 999px;
+	--radius-kiosk-sm: 0.75rem;
 	--radius-kiosk-md: 0.75rem;
 	--radius-kiosk-lg: 1rem;
 

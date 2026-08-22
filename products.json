@@ -713,7 +713,7 @@
         "id": 72,
         "name": "Circus",
         "title": "Circus",
-        "price": 280,
+        "price": 2800,
         "image": "Tshirts/Circus_B_F.jpg",
         "type": "Tshirts",
         "variantColor": "B",
@@ -724,7 +724,7 @@
         "id": 73,
         "name": "CoJ",
         "title": "CoJ",
-        "price": 280,
+        "price": 2800,
         "image": "Tshirts/CoJ_B_F.jpg",
         "type": "Tshirts",
         "variantColor": "B",
@@ -735,7 +735,7 @@
         "id": 74,
         "name": "CoJ",
         "title": "CoJ",
-        "price": 280,
+        "price": 2800,
         "image": "Tshirts/CoJ_W_F.jpg",
         "type": "Tshirts",
         "variantColor": "W",
@@ -746,7 +746,7 @@
         "id": 75,
         "name": "CoY",
         "title": "CoY",
-        "price": 280,
+        "price": 2800,
         "image": "Tshirts/CoY_B_F.jpg",
         "type": "Tshirts",
         "variantColor": "B",
@@ -757,7 +757,7 @@
         "id": 76,
         "name": "CoY",
         "title": "CoY",
-        "price": 280,
+        "price": 2800,
         "image": "Tshirts/CoY_B_B.jpg",
         "type": "Tshirts",
         "variantColor": "B",
@@ -768,7 +768,7 @@
         "id": 77,
         "name": "Crosswords",
         "title": "Crosswords",
-        "price": 240,
+        "price": 2400,
         "image": "Tshirts/Crosswords_B_F.jpg",
         "type": "Tshirts",
         "variantColor": "B",
@@ -779,18 +779,7 @@
         "id": 78,
         "name": "Crosswords",
         "title": "Crosswords",
-        "price": 240,
-        "image": "Tshirts/Crosswords_B.jpg",
-        "type": "Tshirts",
-        "variantColor": "B",
-        "variantSide": "back",
-        "category": "tshirts"
-    },
-    {
-        "id": 79,
-        "name": "Crosswords",
-        "title": "Crosswords",
-        "price": 240,
+        "price": 2400,
         "image": "Tshirts/Crosswords_W_F.jpg",
         "type": "Tshirts",
         "variantColor": "W",
@@ -798,21 +787,10 @@
         "category": "tshirts"
     },
     {
-        "id": 80,
-        "name": "Crosswords",
-        "title": "Crosswords",
-        "price": 240,
-        "image": "Tshirts/Crosswords_W.jpg",
-        "type": "Tshirts",
-        "variantColor": "W",
-        "variantSide": "back",
-        "category": "tshirts"
-    },
-    {
-        "id": 81,
+        "id": 79,
         "name": "D4m45cu5",
         "title": "D4m45cu5",
-        "price": 240,
+        "price": 2400,
         "image": "Tshirts/D4m45cu5_B_F_1.jpg",
         "type": "Tshirts",
         "variantColor": "B",
@@ -820,21 +798,10 @@
         "category": "tshirts"
     },
     {
-        "id": 82,
+        "id": 80,
         "name": "D4m45cu5",
         "title": "D4m45cu5",
-        "price": 240,
-        "image": "Tshirts/D4m45cu5_B.jpg",
-        "type": "Tshirts",
-        "variantColor": "B",
-        "variantSide": "back",
-        "category": "tshirts"
-    },
-    {
-        "id": 83,
-        "name": "D4m45cu5",
-        "title": "D4m45cu5",
-        "price": 240,
+        "price": 2400,
         "image": "Tshirts/D4m45cu5_W_F_1.jpg",
         "type": "Tshirts",
         "variantColor": "W",
@@ -842,20 +809,20 @@
         "category": "tshirts"
     },
     {
-        "id": 84,
+        "id": 81,
         "name": "Damascape",
         "title": "Damascape",
-        "price": 240,
+        "price": 2400,
         "image": "Tshirts/Damascape_F.jpg",
         "type": "Tshirts",
         "variantSide": "front",
         "category": "tshirts"
     },
     {
-        "id": 85,
+        "id": 82,
         "name": "Godzilla",
         "title": "Godzilla",
-        "price": 280,
+        "price": 2800,
         "image": "Tshirts/Godzilla_B_F.jpg",
         "type": "Tshirts",
         "variantColor": "B",
@@ -863,10 +830,10 @@
         "category": "tshirts"
     },
     {
-        "id": 86,
+        "id": 83,
         "name": "Godzilla",
         "title": "Godzilla",
-        "price": 280,
+        "price": 2800,
         "image": "Tshirts/Godzilla_W_F.jpg",
         "type": "Tshirts",
         "variantColor": "W",
@@ -874,10 +841,10 @@
         "category": "tshirts"
     },
     {
-        "id": 87,
+        "id": 84,
         "name": "Goodbye Columbus",
         "title": "Goodbye Columbus",
-        "price": 280,
+        "price": 2800,
         "image": "Tshirts/GoodbyeColumbus_B_F.jpg",
         "type": "Tshirts",
         "variantColor": "B",
@@ -885,21 +852,10 @@
         "category": "tshirts"
     },
     {
-        "id": 88,
+        "id": 85,
         "name": "Goodbye Columbus",
         "title": "Goodbye Columbus",
-        "price": 280,
-        "image": "Tshirts/GoodbyeColumbus_B.jpg",
-        "type": "Tshirts",
-        "variantColor": "B",
-        "variantSide": "back",
-        "category": "tshirts"
-    },
-    {
-        "id": 89,
-        "name": "Goodbye Columbus",
-        "title": "Goodbye Columbus",
-        "price": 280,
+        "price": 2800,
         "image": "Tshirts/GoodbyeColumbus_W_F.jpg",
         "type": "Tshirts",
         "variantColor": "W",
@@ -907,10 +863,10 @@
         "category": "tshirts"
     },
     {
-        "id": 90,
+        "id": 86,
         "name": "Hafez V Cat",
         "title": "Hafez V Cat",
-        "price": 280,
+        "price": 2800,
         "image": "Tshirts/HafezVCat_B_F.jpg",
         "type": "Tshirts",
         "variantColor": "B",
@@ -918,21 +874,10 @@
         "category": "tshirts"
     },
     {
-        "id": 91,
+        "id": 87,
         "name": "Hafez V Cat",
         "title": "Hafez V Cat",
-        "price": 280,
-        "image": "Tshirts/HafezVCat_B.jpg",
-        "type": "Tshirts",
-        "variantColor": "B",
-        "variantSide": "back",
-        "category": "tshirts"
-    },
-    {
-        "id": 92,
-        "name": "Hafez V Cat",
-        "title": "Hafez V Cat",
-        "price": 280,
+        "price": 2800,
         "image": "Tshirts/HafezVCat_W_F.jpg",
         "type": "Tshirts",
         "variantColor": "W",
@@ -940,21 +885,10 @@
         "category": "tshirts"
     },
     {
-        "id": 93,
-        "name": "Hafez V Cat",
-        "title": "Hafez V Cat",
-        "price": 280,
-        "image": "Tshirts/HafezVCat_W.jpg",
-        "type": "Tshirts",
-        "variantColor": "W",
-        "variantSide": "back",
-        "category": "tshirts"
-    },
-    {
-        "id": 94,
+        "id": 88,
         "name": "Jahez",
         "title": "Jahez",
-        "price": 280,
+        "price": 2800,
         "image": "Tshirts/Jahez_W_F.jpg",
         "type": "Tshirts",
         "variantColor": "W",
@@ -962,10 +896,10 @@
         "category": "tshirts"
     },
     {
-        "id": 95,
+        "id": 89,
         "name": "Jenin Jenin",
         "title": "Jenin Jenin",
-        "price": 280,
+        "price": 2800,
         "image": "Tshirts/JeninJenin_W_F.jpg",
         "type": "Tshirts",
         "variantColor": "W",
@@ -973,10 +907,10 @@
         "category": "tshirts"
     },
     {
-        "id": 96,
+        "id": 90,
         "name": "Kiddo",
         "title": "Kiddo",
-        "price": 280,
+        "price": 2800,
         "image": "Tshirts/Kiddo_B_F.jpg",
         "type": "Tshirts",
         "variantColor": "B",
@@ -984,21 +918,10 @@
         "category": "tshirts"
     },
     {
-        "id": 97,
+        "id": 91,
         "name": "Kiddo",
         "title": "Kiddo",
-        "price": 280,
-        "image": "Tshirts/Kiddo_B.jpg",
-        "type": "Tshirts",
-        "variantColor": "B",
-        "variantSide": "back",
-        "category": "tshirts"
-    },
-    {
-        "id": 98,
-        "name": "Kiddo",
-        "title": "Kiddo",
-        "price": 280,
+        "price": 2800,
         "image": "Tshirts/Kiddo_W_F.jpg",
         "type": "Tshirts",
         "variantColor": "W",
@@ -1006,10 +929,10 @@
         "category": "tshirts"
     },
     {
-        "id": 99,
+        "id": 92,
         "name": "Local Product",
         "title": "Local Product",
-        "price": 280,
+        "price": 2800,
         "image": "Tshirts/LocalProduct_W_F.jpg",
         "type": "Tshirts",
         "variantColor": "W",
@@ -1017,10 +940,10 @@
         "category": "tshirts"
     },
     {
-        "id": 100,
+        "id": 93,
         "name": "Map",
         "title": "Map",
-        "price": 280,
+        "price": 2800,
         "image": "Tshirts/Map_B_F.jpg",
         "type": "Tshirts",
         "variantColor": "B",
@@ -1028,10 +951,10 @@
         "category": "tshirts"
     },
     {
-        "id": 101,
+        "id": 94,
         "name": "Map",
         "title": "Map",
-        "price": 280,
+        "price": 2800,
         "image": "Tshirts/Map_B_B.jpg",
         "type": "Tshirts",
         "variantColor": "B",
@@ -1039,10 +962,10 @@
         "category": "tshirts"
     },
     {
-        "id": 102,
+        "id": 95,
         "name": "Map",
         "title": "Map",
-        "price": 280,
+        "price": 2800,
         "image": "Tshirts/Map_W_F.jpg",
         "type": "Tshirts",
         "variantColor": "W",
@@ -1052,10 +975,10 @@
         "category": "tshirts"
     },
     {
-        "id": 103,
+        "id": 96,
         "name": "Map",
         "title": "Map",
-        "price": 280,
+        "price": 2800,
         "image": "Tshirts/Map_W_B.jpg",
         "type": "Tshirts",
         "variantColor": "W",
@@ -1065,10 +988,10 @@
         "category": "tshirts"
     },
     {
-        "id": 104,
+        "id": 97,
         "name": "Mosaic",
         "title": "Mosaic",
-        "price": 280,
+        "price": 2800,
         "image": "Tshirts/Mosaic_B_F.jpg",
         "type": "Tshirts",
         "variantColor": "B",
@@ -1076,21 +999,10 @@
         "category": "tshirts"
     },
     {
-        "id": 105,
+        "id": 98,
         "name": "Mosaic",
         "title": "Mosaic",
-        "price": 280,
-        "image": "Tshirts/Mosaic_B.jpg",
-        "type": "Tshirts",
-        "variantColor": "B",
-        "variantSide": "back",
-        "category": "tshirts"
-    },
-    {
-        "id": 106,
-        "name": "Mosaic",
-        "title": "Mosaic",
-        "price": 280,
+        "price": 2800,
         "image": "Tshirts/Mosaic_W_F.jpg",
         "type": "Tshirts",
         "variantColor": "W",
@@ -1098,21 +1010,10 @@
         "category": "tshirts"
     },
     {
-        "id": 107,
-        "name": "Mosaic",
-        "title": "Mosaic",
-        "price": 280,
-        "image": "Tshirts/Mosaic_W.jpg",
-        "type": "Tshirts",
-        "variantColor": "W",
-        "variantSide": "back",
-        "category": "tshirts"
-    },
-    {
-        "id": 108,
+        "id": 99,
         "name": "National Team",
         "title": "National Team",
-        "price": 240,
+        "price": 2400,
         "image": "Tshirts/NationalTeam_B_F.jpg",
         "type": "Tshirts",
         "variantColor": "B",
@@ -1120,21 +1021,10 @@
         "category": "tshirts"
     },
     {
-        "id": 109,
+        "id": 100,
         "name": "National Team",
         "title": "National Team",
-        "price": 240,
-        "image": "Tshirts/NationalTeam_B.jpg",
-        "type": "Tshirts",
-        "variantColor": "B",
-        "variantSide": "back",
-        "category": "tshirts"
-    },
-    {
-        "id": 110,
-        "name": "National Team",
-        "title": "National Team",
-        "price": 240,
+        "price": 2400,
         "image": "Tshirts/NationalTeam_W_F.jpg",
         "type": "Tshirts",
         "variantColor": "W",
@@ -1142,21 +1032,10 @@
         "category": "tshirts"
     },
     {
-        "id": 111,
-        "name": "National Team",
-        "title": "National Team",
-        "price": 240,
-        "image": "Tshirts/NationalTeam_W.jpg",
-        "type": "Tshirts",
-        "variantColor": "W",
-        "variantSide": "back",
-        "category": "tshirts"
-    },
-    {
-        "id": 112,
+        "id": 101,
         "name": "P@R",
         "title": "P@R",
-        "price": 280,
+        "price": 2800,
         "image": "Tshirts/P@R_W_F.jpg",
         "type": "Tshirts",
         "variantColor": "W",
@@ -1164,10 +1043,10 @@
         "category": "tshirts"
     },
     {
-        "id": 113,
+        "id": 102,
         "name": "P vs P",
         "title": "P vs P",
-        "price": 280,
+        "price": 2800,
         "image": "Tshirts/PvsP_B_F.jpg",
         "type": "Tshirts",
         "variantColor": "B",
@@ -1175,10 +1054,10 @@
         "category": "tshirts"
     },
     {
-        "id": 114,
+        "id": 103,
         "name": "P vs P",
         "title": "P vs P",
-        "price": 280,
+        "price": 2800,
         "image": "Tshirts/PvsP_B_B.jpg",
         "type": "Tshirts",
         "variantColor": "B",
@@ -1186,20 +1065,20 @@
         "category": "tshirts"
     },
     {
-        "id": 115,
+        "id": 104,
         "name": "P vs P",
         "title": "P vs P",
-        "price": 280,
+        "price": 2800,
         "image": "Tshirts/PvsP_F.jpg",
         "type": "Tshirts",
         "variantSide": "front",
         "category": "tshirts"
     },
     {
-        "id": 116,
+        "id": 105,
         "name": "Qlb Dmshq",
         "title": "Qlb Dmshq",
-        "price": 240,
+        "price": 2400,
         "image": "Tshirts/QlbDmshq_B_F.jpg",
         "type": "Tshirts",
         "variantColor": "B",
@@ -1207,21 +1086,10 @@
         "category": "tshirts"
     },
     {
-        "id": 117,
+        "id": 106,
         "name": "Qlb Dmshq",
         "title": "Qlb Dmshq",
-        "price": 240,
-        "image": "Tshirts/QlbDmshq_B.jpg",
-        "type": "Tshirts",
-        "variantColor": "B",
-        "variantSide": "back",
-        "category": "tshirts"
-    },
-    {
-        "id": 118,
-        "name": "Qlb Dmshq",
-        "title": "Qlb Dmshq",
-        "price": 240,
+        "price": 2400,
         "image": "Tshirts/QlbDmshq_W_F.jpg",
         "type": "Tshirts",
         "variantColor": "W",
@@ -1229,21 +1097,10 @@
         "category": "tshirts"
     },
     {
-        "id": 119,
-        "name": "Qlb Dmshq",
-        "title": "Qlb Dmshq",
-        "price": 240,
-        "image": "Tshirts/QlbDmshq_W.jpg",
-        "type": "Tshirts",
-        "variantColor": "W",
-        "variantSide": "back",
-        "category": "tshirts"
-    },
-    {
-        "id": 120,
+        "id": 107,
         "name": "Royal",
         "title": "Royal",
-        "price": 240,
+        "price": 2400,
         "image": "Tshirts/Royal_B_F.jpg",
         "type": "Tshirts",
         "variantColor": "B",
@@ -1251,21 +1108,10 @@
         "category": "tshirts"
     },
     {
-        "id": 121,
-        "name": "Royal",
-        "title": "Royal",
-        "price": 240,
-        "image": "Tshirts/Royal_B.jpg",
-        "type": "Tshirts",
-        "variantColor": "B",
-        "variantSide": "back",
-        "category": "tshirts"
-    },
-    {
-        "id": 122,
+        "id": 108,
         "name": "SL",
         "title": "SL",
-        "price": 280,
+        "price": 2800,
         "image": "Tshirts/SL_B_F_1.jpg",
         "type": "Tshirts",
         "variantColor": "B",
@@ -1273,21 +1119,10 @@
         "category": "tshirts"
     },
     {
-        "id": 123,
+        "id": 109,
         "name": "SL",
         "title": "SL",
-        "price": 280,
-        "image": "Tshirts/SL_B.jpg",
-        "type": "Tshirts",
-        "variantColor": "B",
-        "variantSide": "back",
-        "category": "tshirts"
-    },
-    {
-        "id": 124,
-        "name": "SL",
-        "title": "SL",
-        "price": 280,
+        "price": 2800,
         "image": "Tshirts/SL_BL.jpg",
         "type": "Tshirts",
         "variantColor": "BL",
@@ -1295,21 +1130,10 @@
         "category": "tshirts"
     },
     {
-        "id": 125,
+        "id": 110,
         "name": "SL",
         "title": "SL",
-        "price": 280,
-        "image": "Tshirts/SL_BL_B.jpg",
-        "type": "Tshirts",
-        "variantColor": "BL",
-        "variantSide": "back",
-        "category": "tshirts"
-    },
-    {
-        "id": 126,
-        "name": "SL",
-        "title": "SL",
-        "price": 280,
+        "price": 2800,
         "image": "Tshirts/SL_W_F_1.jpg",
         "type": "Tshirts",
         "variantColor": "W",
@@ -1317,21 +1141,10 @@
         "category": "tshirts"
     },
     {
-        "id": 127,
-        "name": "SL",
-        "title": "SL",
-        "price": 280,
-        "image": "Tshirts/SL_W.jpg",
-        "type": "Tshirts",
-        "variantColor": "W",
-        "variantSide": "back",
-        "category": "tshirts"
-    },
-    {
-        "id": 128,
+        "id": 111,
         "name": "SR",
         "title": "SR",
-        "price": 280,
+        "price": 2800,
         "image": "Tshirts/SR_B_F.jpg",
         "type": "Tshirts",
         "variantColor": "B",
@@ -1339,10 +1152,10 @@
         "category": "tshirts"
     },
     {
-        "id": 129,
+        "id": 112,
         "name": "SR",
         "title": "SR",
-        "price": 280,
+        "price": 2800,
         "image": "Tshirts/SR_B_B.jpg",
         "type": "Tshirts",
         "variantColor": "B",
@@ -1350,10 +1163,10 @@
         "category": "tshirts"
     },
     {
-        "id": 130,
+        "id": 113,
         "name": "Supreme",
         "title": "Supreme",
-        "price": 240,
+        "price": 2400,
         "image": "Tshirts/Supreme_B_F.jpg",
         "type": "Tshirts",
         "variantColor": "B",
@@ -1361,21 +1174,10 @@
         "category": "tshirts"
     },
     {
-        "id": 131,
+        "id": 114,
         "name": "Supreme",
         "title": "Supreme",
-        "price": 240,
-        "image": "Tshirts/Supreme_B.jpg",
-        "type": "Tshirts",
-        "variantColor": "B",
-        "variantSide": "back",
-        "category": "tshirts"
-    },
-    {
-        "id": 132,
-        "name": "Supreme",
-        "title": "Supreme",
-        "price": 240,
+        "price": 2400,
         "image": "Tshirts/Supreme_W_F.jpg",
         "type": "Tshirts",
         "variantColor": "W",
@@ -1383,21 +1185,10 @@
         "category": "tshirts"
     },
     {
-        "id": 133,
-        "name": "Supreme",
-        "title": "Supreme",
-        "price": 240,
-        "image": "Tshirts/Supreme_W.jpg",
-        "type": "Tshirts",
-        "variantColor": "W",
-        "variantSide": "back",
-        "category": "tshirts"
-    },
-    {
-        "id": 134,
+        "id": 115,
         "name": "Varsity",
         "title": "Varsity",
-        "price": 240,
+        "price": 2400,
         "image": "Tshirts/Varsity_B_F.jpg",
         "type": "Tshirts",
         "variantColor": "B",
@@ -1405,21 +1196,10 @@
         "category": "tshirts"
     },
     {
-        "id": 135,
+        "id": 116,
         "name": "Varsity",
         "title": "Varsity",
-        "price": 240,
-        "image": "Tshirts/Varsity_B.jpg",
-        "type": "Tshirts",
-        "variantColor": "B",
-        "variantSide": "back",
-        "category": "tshirts"
-    },
-    {
-        "id": 136,
-        "name": "Varsity",
-        "title": "Varsity",
-        "price": 240,
+        "price": 2400,
         "image": "Tshirts/Varsity_W_F.jpg",
         "type": "Tshirts",
         "variantColor": "W",
@@ -1427,25 +1207,62 @@
         "category": "tshirts"
     },
     {
-        "id": 137,
-        "name": "Varsity",
-        "title": "Varsity",
-        "price": 240,
-        "image": "Tshirts/Varsity_W.jpg",
-        "type": "Tshirts",
-        "variantColor": "W",
-        "variantSide": "back",
-        "category": "tshirts"
-    },
-    {
-        "id": 138,
+        "id": 117,
         "name": "Watermelon",
         "title": "Watermelon",
-        "price": 240,
+        "price": 2400,
         "image": "Tshirts/Watermelon_W_F.jpg",
         "type": "Tshirts",
         "variantColor": "W",
         "variantSide": "front",
         "category": "tshirts"
+    },
+    {
+        "id": 118,
+        "name": "Bracelet",
+        "title": "Bracelet",
+        "price": 350,
+        "image": "Tshirts/Bracelet_W_F.jpg",
+        "type": "Collabs",
+        "variantColor": "W",
+        "variantSide": "front",
+        "section": "dama-x-elat",
+        "category": "dama-x-elat"
+    },
+    {
+        "id": 119,
+        "name": "CS",
+        "title": "CS",
+        "price": 350,
+        "image": "Tshirts/CS_W_F.jpg",
+        "type": "Collabs",
+        "variantColor": "W",
+        "variantSide": "front",
+        "section": "dama-x-elat",
+        "category": "dama-x-elat"
+    },
+    {
+        "id": 120,
+        "name": "Sayyar",
+        "title": "Sayyar",
+        "price": 350,
+        "image": "Tshirts/Sayyar_W_F.jpg",
+        "type": "Collabs",
+        "variantColor": "W",
+        "variantSide": "front",
+        "section": "dama-x-elat",
+        "category": "dama-x-elat"
+    },
+    {
+        "id": 121,
+        "name": "Sayyar",
+        "title": "Sayyar",
+        "price": 350,
+        "image": "Tshirts/Sayyar_W_B.jpg",
+        "type": "Collabs",
+        "variantColor": "W",
+        "variantSide": "back",
+        "section": "dama-x-elat",
+        "category": "dama-x-elat"
     }
 ]

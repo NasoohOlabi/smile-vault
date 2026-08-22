@@ -41,7 +41,6 @@ function loadYaml(text) {
 	}
 
 	function parseFolded(baseIndent) {
-		i++;
 		const parts = [];
 		while (i < lines.length) {
 			const line = lines[i];
@@ -344,9 +343,13 @@ function build() {
 				id: sectionSlug,
 				label: sectionMeta.label || humanize(sectionSlug),
 			};
+			if (sectionMeta.tease === true) section.tease = true;
+			if (sectionMeta.viewOnly === true) section.viewOnly = true;
 			if (sectionMeta.feature && typeof sectionMeta.feature === "object") {
 				const feature = { ...sectionMeta.feature };
-				if (typeof feature.copy === "string") feature.copy = feature.copy.trim();
+				for (const key of ["copy", "title", "dates"]) {
+					if (typeof feature[key] === "string") feature[key] = feature[key].trim();
+				}
 				section.feature = feature;
 			}
 			sections.push(section);
