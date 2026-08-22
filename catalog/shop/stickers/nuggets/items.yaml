@@ -1,4 +1,4 @@
-price: 350
+price: 500
 items:
   - title: "Kohl Pot"
     image: "Stickers/Nuggets/02 ع-small.png"
@@ -128,7 +128,15 @@ items:
     image: "Stickers/Nuggets/98 ع-small.png"
   - title: "Syrian Dance"
     image: "Stickers/Nuggets/Matisse - Dance but Syrian-small.png"
+  - title: "Syrian Dance Outline"
+    image: "Stickers/Nuggets/Matisse - Dance but Syrian-stroked-small.png"
   - title: "Mirror Mad Damascus"
     image: "Stickers/Nuggets/mirro3r ع-small.png"
   - title: "Inlaid Mirror"
     image: "Stickers/Nuggets/mirror ع-small.png"
+  - title: "No Morty"
+    image: "Stickers/Nuggets/morty-small.png"
+  - title: "Sandid"
+    image: "Stickers/Nuggets/صنديد-small.png"
+  - title: "Harbingers of Misfortune"
+    image: "Stickers/Nuggets/طلائع النحس-small.png"

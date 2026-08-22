@@ -164,6 +164,30 @@ function trackViewItem(line) {
 
 const changeQty = (id, delta) => setQty(id, qtyOf(id) + delta);
 
+function setEmptyConfirm(on) {
+	document.getElementById("emptyCartConfirm").hidden = !on;
+	document.getElementById("checkoutBtn").hidden = on;
+	document.getElementById("emptyCartBtn").hidden = on || cartCount() === 0;
+}
+
+function emptyCart() {
+	const ids = Object.keys(cart);
+	if (!ids.length) return;
+	const value = cartTotal();
+	const items = itemsFromCart(resolveLine, cart);
+	cart = {};
+	saveCart();
+	ids.forEach(syncQtyUI);
+	setEmptyConfirm(false);
+	renderCartBody();
+	updateTotals();
+	toast("Cart emptied");
+	buzz();
+	if (items.length) {
+		track("remove_from_cart", { currency: CURRENCY, value, items });
+	}
+}
+
 /* ---------- t-shirt variants ----------
  * Filenames: Design_B / Design_W / Design_B_F / Design_W_F
  *   Color codes: B black · W white · BL blue
@@ -1236,6 +1260,10 @@ function updateTotals() {
 	document.getElementById("mobileTotal").textContent = money(total);
 	document.getElementById("barCount").textContent = itemsCount(count);
 	document.getElementById("checkoutBtn").disabled = count === 0;
+	if (document.getElementById("emptyCartConfirm").hidden) {
+		document.getElementById("emptyCartBtn").hidden = count === 0;
+	}
+	if (!count) setEmptyConfirm(false);
 	renderBarThumbs();
 	document.getElementById("mobileBar").classList.toggle("is-visible", count > 0);
 }
@@ -1343,6 +1371,7 @@ function closeCart() {
 		overlay.hidden = true;
 		drawer.hidden = true;
 		showCartStep();
+		setEmptyConfirm(false);
 	}, 320);
 }
 
@@ -1741,6 +1770,9 @@ async function boot() {
 
 	document.getElementById("cartBtn").onclick = openCart;
 	document.getElementById("mobileCartBtn").onclick = openCart;
+	document.getElementById("emptyCartBtn").onclick = () => setEmptyConfirm(true);
+	document.getElementById("emptyCartCancel").onclick = () => setEmptyConfirm(false);
+	document.getElementById("emptyCartDo").onclick = emptyCart;
 	document.getElementById("cartClose").onclick = closeCart;
 	document.getElementById("cartOverlay").onclick = closeCart;
 	document.getElementById("checkoutBtn").onclick = showCheckoutStep;

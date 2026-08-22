@@ -201,6 +201,14 @@
 				<span id="totalPrice"></span>
 			</div>
 			<button id="checkoutBtn" class="inline-flex h-14 w-full items-center justify-center gap-2 rounded-kiosk-lg bg-kiosk-accent-light px-4 text-sm font-bold whitespace-nowrap text-[#14140a] transition-transform duration-150 active:scale-95 disabled:opacity-40">Checkout</button>
+			<button type="button" id="emptyCartBtn" hidden class="inline-flex h-11 w-full items-center justify-center rounded-kiosk-lg border border-kiosk-border px-4 text-sm font-bold text-kiosk-muted transition-transform duration-150 active:scale-95">Empty cart</button>
+			<div id="emptyCartConfirm" hidden class="flex flex-col gap-2">
+				<p class="text-sm text-kiosk-muted">Remove everything from this order?</p>
+				<div class="flex gap-2">
+					<button type="button" id="emptyCartCancel" class="inline-flex h-14 flex-1 items-center justify-center rounded-kiosk-lg border border-kiosk-border px-4 text-sm font-bold transition-transform duration-150 active:scale-95">Cancel</button>
+					<button type="button" id="emptyCartDo" class="inline-flex h-14 flex-1 items-center justify-center rounded-kiosk-lg bg-red-600 px-4 text-sm font-bold text-white transition-transform duration-150 active:scale-95">Empty</button>
+				</div>
+			</div>
 		</div>
 
 		<form id="orderForm" hidden class="absolute inset-0 flex flex-col rounded-[inherit] bg-kiosk">

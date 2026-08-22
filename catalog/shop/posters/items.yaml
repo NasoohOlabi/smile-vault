@@ -1,2 +1,14 @@
-price: 350
-items: []
+price: 200
+items:
+  - title: Ready 4 Dama
+    image: Posters/01.png
+  - title: Kafu
+    image: Posters/02.png
+  - title: Old Silk Road
+    image: Posters/03.png
+  - title: Streets
+    image: Posters/04.png
+  - title: Hal Anna
+    image: Posters/05.png
+  - title: Ya Rab
+    image: Posters/06.png

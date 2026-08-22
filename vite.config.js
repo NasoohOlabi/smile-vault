@@ -15,6 +15,7 @@ const CATALOG = [
 	"newThings",
 	"nostalgia",
 	"Tshirts",
+	"Posters",
 	"products.json",
 	"catalog-nav.json",
 ];
