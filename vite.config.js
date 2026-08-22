@@ -102,5 +102,11 @@ export default defineConfig({
 	build: {
 		outDir: "dist",
 		emptyOutDir: true,
+		rollupOptions: {
+			input: {
+				main: path.join(root, "index.html"),
+				orders: path.join(root, "orders.html"),
+			},
+		},
 	},
 });
