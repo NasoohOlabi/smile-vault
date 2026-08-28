@@ -13,14 +13,11 @@
 @custom-variant is-active (&:where(.is-active));
 @custom-variant is-invalid (&:where(.is-invalid));
 @custom-variant is-locked (&:where(.is-locked));
-@custom-variant is-blurred (&:where(.is-blurred));
-@custom-variant is-revealed (&:where(.is-revealed));
 
 /* ---- Kiosk tokens ---- */
 @theme {
 	--animate-sun-spin: sun-spin 10s linear infinite;
 	--animate-fade-up: fade-up 0.3s ease-out both;
-	--animate-obs-fade-in: obs-fade-in 0.7s ease both;
 	--animate-skel-pulse: skel-pulse 1.5s ease-in-out infinite;
 	--animate-pop: pop 0.16s ease-out both;
 
@@ -61,11 +58,6 @@
 @keyframes fade-up {
 	from { opacity: 0; transform: translateY(10px); }
 	to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes obs-fade-in {
-	from { opacity: 0; transform: translateY(0.6rem); }
-	to { opacity: 1; transform: none; }
 }
 
 @keyframes skel-pulse {

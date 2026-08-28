@@ -207,6 +207,7 @@ function pushProduct(products, {
 	section,
 	variantColor,
 	variantSide,
+	variantPrint,
 	variantDefault,
 	defaultSide,
 }) {
@@ -220,6 +221,7 @@ function pushProduct(products, {
 	};
 	if (variantColor != null && variantColor !== "") product.variantColor = String(variantColor);
 	if (variantSide) product.variantSide = variantSide;
+	if (variantPrint) product.variantPrint = String(variantPrint);
 	if (variantDefault) product.variantDefault = true;
 	if (defaultSide) product.defaultSide = defaultSide;
 	if (section) {
@@ -252,6 +254,7 @@ function expandItemImages(raw, defaultPrice) {
 		for (const v of raw.variants) {
 			if (!v || typeof v !== "object") continue;
 			const color = v.color == null || v.color === "" ? "" : String(v.color).trim();
+			const print = v.print == null || v.print === "" ? "" : String(v.print).trim();
 			const vPrice = resolvePrice(v.price, price);
 			const isDefault =
 				isTruthyDefault(v.default) ||
@@ -274,6 +277,7 @@ function expandItemImages(raw, defaultPrice) {
 					image,
 					variantColor: color,
 					variantSide: side,
+					variantPrint: print,
 					variantDefault: isDefault,
 					defaultSide: isDefault ? variantDefaultSide : null,
 				});
@@ -286,6 +290,7 @@ function expandItemImages(raw, defaultPrice) {
 					image: lone,
 					variantColor: color,
 					variantSide: color ? "back" : "",
+					variantPrint: print,
 					variantDefault: isDefault,
 					defaultSide: isDefault ? variantDefaultSide : null,
 				});

@@ -6,13 +6,13 @@
 price: 350
 items:
   - title: Circus
-    price: 2800
+    price: 2750
     variants:
       - color: B
         front: Tshirts/Circus_B_F.jpg
 
   - title: CoJ
-    price: 2800
+    price: 2750
     variants:
       - color: B
         front: Tshirts/CoJ_B_F.jpg
@@ -20,7 +20,7 @@ items:
         front: Tshirts/CoJ_W_F.jpg
 
   - title: CoY
-    price: 2800
+    price: 2750
     variants:
       - color: B
         front: Tshirts/CoY_B_F.jpg
@@ -35,7 +35,7 @@ items:
         front: Tshirts/Crosswords_W_F.jpg
 
   - title: D4m45cu5
-    price: 2400
+    price: 1900
     variants:
       - color: B
         front: Tshirts/D4m45cu5_B_F_1.jpg
@@ -48,7 +48,7 @@ items:
       - front: Tshirts/Damascape_F.jpg
 
   - title: Godzilla
-    price: 2800
+    price: 2750
     variants:
       - color: B
         front: Tshirts/Godzilla_B_F.jpg
@@ -56,7 +56,7 @@ items:
         front: Tshirts/Godzilla_W_F.jpg
 
   - title: Goodbye Columbus
-    price: 2800
+    price: 2750
     variants:
       - color: B
         front: Tshirts/GoodbyeColumbus_B_F.jpg
@@ -64,7 +64,7 @@ items:
         front: Tshirts/GoodbyeColumbus_W_F.jpg
 
   - title: Hafez V Cat
-    price: 2800
+    price: 2750
     variants:
       - color: B
         front: Tshirts/HafezVCat_B_F.jpg
@@ -72,19 +72,19 @@ items:
         front: Tshirts/HafezVCat_W_F.jpg
 
   - title: Jahez
-    price: 2800
+    price: 2750
     variants:
       - color: W
         front: Tshirts/Jahez_W_F.jpg
 
   - title: Jenin Jenin
-    price: 2800
+    price: 2750
     variants:
       - color: W
         front: Tshirts/JeninJenin_W_F.jpg
 
   - title: Kiddo
-    price: 2800
+    price: 2750
     variants:
       - color: B
         front: Tshirts/Kiddo_B_F.jpg
@@ -92,13 +92,13 @@ items:
         front: Tshirts/Kiddo_W_F.jpg
 
   - title: Local Product
-    price: 2800
+    price: 2750
     variants:
       - color: W
         front: Tshirts/LocalProduct_W_F.jpg
 
   - title: Map
-    price: 2800
+    price: 2750
     variants:
       - color: B
         front: Tshirts/Map_B_F.jpg
@@ -110,7 +110,7 @@ items:
         back: Tshirts/Map_W_B.jpg
 
   - title: Mosaic
-    price: 2800
+    price: 2750
     variants:
       - color: B
         front: Tshirts/Mosaic_B_F.jpg
@@ -126,13 +126,13 @@ items:
         front: Tshirts/NationalTeam_W_F.jpg
 
   - title: P@R
-    price: 2800
+    price: 2750
     variants:
       - color: W
         front: Tshirts/P@R_W_F.jpg
 
   - title: P vs P
-    price: 2800
+    price: 2750
     variants:
       - color: B
         front: Tshirts/PvsP_B_F.jpg
@@ -140,7 +140,7 @@ items:
       - front: Tshirts/PvsP_F.jpg
 
   - title: Qlb Dmshq
-    price: 2400
+    price: 1900
     variants:
       - color: B
         front: Tshirts/QlbDmshq_B_F.jpg
@@ -154,24 +154,30 @@ items:
         front: Tshirts/Royal_B_F.jpg
 
   - title: SL
-    price: 2800
+    price: 2750
     variants:
       - color: B
+        print: Blue
         front: Tshirts/SL_B_F_1.jpg
-      - color: BL
-        front: Tshirts/SL_BL.jpg
+      - color: B
+        print: Pink
+        front: Tshirts/SL_B_F_2.jpg
       - color: W
+        print: Pink
         front: Tshirts/SL_W_F_1.jpg
+      - color: W
+        print: Blue
+        front: Tshirts/SL_W_F_2.jpg
 
   - title: SR
-    price: 2800
+    price: 2750
     variants:
       - color: B
         front: Tshirts/SR_B_F.jpg
         back: Tshirts/SR_B_B.jpg
 
   - title: Supreme
-    price: 2400
+    price: 1900
     variants:
       - color: B
         front: Tshirts/Supreme_B_F.jpg
@@ -179,7 +185,7 @@ items:
         front: Tshirts/Supreme_W_F.jpg
 
   - title: Varsity
-    price: 2400
+    price: 1900
     variants:
       - color: B
         front: Tshirts/Varsity_B_F.jpg
