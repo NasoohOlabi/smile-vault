@@ -14,6 +14,8 @@ import {
 } from "./analytics.js";
 
 const SHEETDB_URL = "https://sheetdb.io/api/v1/jog7er8l976bz";
+const SHEETDB_ELAT_URL = "https://sheetdb.io/api/v1/vr4xr9qeeervg";
+const ELAT_SECTION = "dama-x-elat";
 const CART_KEY = "dama_cart_v2";
 
 const assetUrl = (path) => (window.DAMA_BASE || "") + path;
@@ -1684,6 +1686,8 @@ function toast(msg, kind = "info") {
 }
 
 /* ---------- checkout ---------- */
+const isElatItem = (line) => line.type === "Collabs" && line.section === ELAT_SECTION;
+
 async function submitOrder(event) {
 	event.preventDefault();
 	const submitBtn = document.getElementById("submitBtn");
@@ -1744,6 +1748,7 @@ async function submitOrder(event) {
 				id: line.id, name: line.name, category: sectionLabel(line.type, line.section),
 				size: line.size || "",
 				quantity: q, price: line.price, subtotal: line.price * q,
+				type: line.type, section: line.section,
 			};
 		})
 		.filter(Boolean);
@@ -1757,31 +1762,50 @@ async function submitOrder(event) {
 	submitBtn.textContent = "Sending…";
 
 	try {
-		const res = await fetch(SHEETDB_URL, {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({
-				data: {
-					Timestamp: new Date().toISOString(),
-					Delivered: false,
-					Name: customerName,
-					Phone: phoneCall,
-					"WA number": phone,
-					"Insta Account": instaAccount,
-					Items: JSON.stringify(orderItems, null, 2),
-					"Pickup / delivery": customerAddress,
-					Notes: orderNotes,
-					Total: cartTotal(),
-					"N. of Items": orderItems.reduce((n, line) => n + line.quantity, 0),
-				},
-			}),
+		const elatItems = orderItems.filter(isElatItem);
+		const mainItems = orderItems.filter((line) => !isElatItem(line));
+		const stamp = new Date().toISOString();
+		const split = elatItems.length > 0 && mainItems.length > 0;
+		const orderId = (crypto.randomUUID && crypto.randomUUID()) || `order_${Date.now()}`;
+		const notes = split
+			? [orderNotes, `Split order ${orderId}`].filter(Boolean).join("\n")
+			: orderNotes;
+
+		const sheetLine = ({ type, section, ...rest }) => rest;
+		const payload = (items) => ({
+			data: {
+				Timestamp: stamp,
+				Delivered: false,
+				Name: customerName,
+				Phone: phoneCall,
+				"WA number": phone,
+				"Insta Account": instaAccount,
+				Items: JSON.stringify(items.map(sheetLine), null, 2),
+				"Pickup / delivery": customerAddress,
+				Notes: notes,
+				Total: items.reduce((n, line) => n + line.subtotal, 0),
+				"N. of Items": items.reduce((n, line) => n + line.quantity, 0),
+			},
 		});
-		if (!res.ok) throw new Error(`HTTP ${res.status} ${res.statusText}`);
+
+		const postSheet = async (url, items) => {
+			const res = await fetch(url, {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify(payload(items)),
+			});
+			if (!res.ok) throw new Error(`HTTP ${res.status} ${res.statusText}`);
+		};
+
+		await Promise.all([
+			mainItems.length ? postSheet(SHEETDB_URL, mainItems) : null,
+			elatItems.length ? postSheet(SHEETDB_ELAT_URL, elatItems) : null,
+		].filter(Boolean));
 
 		const value = cartTotal();
 		const purchaseItems = itemsFromCart(resolveLine, cart);
 		track("purchase", {
-			transaction_id: (crypto.randomUUID && crypto.randomUUID()) || `order_${Date.now()}`,
+			transaction_id: orderId,
 			currency: CURRENCY,
 			value,
 			items: purchaseItems,
