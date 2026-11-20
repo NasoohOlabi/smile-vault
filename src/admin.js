@@ -375,13 +375,22 @@ async function assetsPage(version) {
 
 function mcpPage() {
   const endpoint = new URL("/mcp", location.origin).href;
+  const prompt = `Help me connect to Dama Store Nightly as a remote MCP server.
+
+Server URL: ${endpoint}
+Transport: Streamable HTTP
+Authentication: OAuth with dynamic client registration
+
+Add the server if you can, or show me the setup steps for this client. Start the OAuth flow so I can sign in to Dama Studio and approve access in my browser. After approval, list the available tools to verify the connection.`;
   page.innerHTML = `
     <section class="panel help-panel">
       <h2>Connect with OAuth</h2>
       <div class="help-endpoint">
-        <label>MCP server URL<input value="${escape(endpoint)}" readonly></label>
-        <button type="button">Copy URL</button>
+        <label>MCP server URL<input id="mcp-url" value="${escape(endpoint)}" readonly></label>
+        <button class="primary" id="copy-mcp-prompt" type="button">Copy prompt</button>
+        <button id="copy-mcp-url" type="button">Copy URL</button>
       </div>
+      <label class="help-prompt" hidden>MCP setup prompt<textarea id="mcp-prompt" rows="6" readonly></textarea></label>
       <ol>
         <li>Add the URL as a Streamable HTTP server in a client that supports OAuth dynamic client registration.</li>
         <li>Connect and sign in with the Dama Studio admin password if prompted.</li>
@@ -389,16 +398,21 @@ function mcpPage() {
       </ol>
       <p>Approved clients can manage orders, products, storefront content, and images. Your client manages its OAuth credentials.</p>
     </section>`;
-  const endpointField = $("input", page);
-  $("button", page).onclick = async () => {
+  const copy = (field, message) => async () => {
     try {
-      await navigator.clipboard.writeText(endpoint);
-      announce("MCP URL copied.");
+      await navigator.clipboard.writeText(field.value);
+      announce(message);
     } catch {
-      endpointField.select();
-      announce("The URL is selected. Use your browser’s copy command.");
+      field.closest("label").hidden = false;
+      field.focus();
+      field.select();
+      announce("Text selected. Use your device’s copy command.");
     }
   };
+  const promptField = $("#mcp-prompt", page);
+  promptField.value = prompt;
+  $("#copy-mcp-prompt", page).onclick = copy(promptField, "MCP setup prompt copied.");
+  $("#copy-mcp-url", page).onclick = copy($("#mcp-url", page), "MCP URL copied.");
 }
 
 const pages = { orders: ordersPage, products: productsPage, storefront: storefrontPage, assets: assetsPage, mcp: mcpPage };
