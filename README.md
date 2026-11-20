@@ -14,7 +14,9 @@ The Storefront page publishes announcements, page introductions, collection labe
 
 ## Admin MCP
 
-Use Streamable HTTP with a client that supports custom request headers. Set the endpoint to `https://dama-store-nightly.up.railway.app/mcp` and send `Authorization: Bearer <MCP_ADMIN_TOKEN>` on each request. Get the token from the nightly app service's Railway Variables. The MCP tools manage the same orders, products, copy, collections, and images as Dama Studio. Edit tools take the current revision from the corresponding read tool.
+Open **MCP setup** in Dama Studio to copy the server URL. Add `https://dama-store-nightly.up.railway.app/mcp` to a client that supports Streamable HTTP and OAuth dynamic client registration. Connect to open Dama Studio in your browser. Sign in with the nightly admin password if prompted, review the client's name and callback, and select **Approve access**. The client handles the OAuth credentials and refreshes access automatically. [Dama Studio MCP setup](https://dama-store-nightly.up.railway.app/admin#mcp)
+
+The MCP tools manage the same orders, products, copy, collections, and images as Dama Studio. Edit tools take the current revision from the corresponding read tool. Clients can revoke a connection through the advertised OAuth revocation endpoint.
 
 ## Import historical orders
 
@@ -29,7 +31,7 @@ Use the same source name and row order when retrying an export. A second run ski
 
 ## Develop and verify
 
-Set `DATABASE_URL`, `ADMIN_PASSWORD`, `SESSION_SECRET`, and `MCP_ADMIN_TOKEN` in a local ignored `.env` file. Use distinct secrets of at least 24 characters. Set `APP_ORIGIN` to the HTTPS origin when hosting the app behind a proxy. Analytics stay disabled unless the build sets `VITE_ENABLE_ANALYTICS=true`.
+Set `DATABASE_URL`, `ADMIN_PASSWORD`, and `SESSION_SECRET` in a local ignored `.env` file. Use distinct secrets of at least 24 characters. Set `APP_ORIGIN` to the HTTPS origin when hosting the app behind a proxy. For local MCP, use `http://127.0.0.1:3000/mcp`. Analytics stay disabled unless the build sets `VITE_ENABLE_ANALYTICS=true`.
 
 ```sh
 bun install --frozen-lockfile

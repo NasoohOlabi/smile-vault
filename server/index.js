@@ -1,6 +1,7 @@
 import { createHash, createHmac, timingSafeEqual } from "node:crypto";
 import { z } from "zod";
 import { mcp } from "./mcp.js";
+import { createOAuth } from "./oauth.js";
 import {
   addAsset, assetId, assets, checkoutInput, collectionInput, copyInput, getAsset, initialize,
   listOrders, orderSummary, orderUpdateInput, placeOrder, productInput, products, removeAsset,
@@ -8,9 +9,9 @@ import {
   StoreError, updateOrder, updateProductInput, validate,
 } from "./store.js";
 
-const { DATABASE_URL, ADMIN_PASSWORD, SESSION_SECRET, MCP_ADMIN_TOKEN, RAILWAY_PUBLIC_DOMAIN } = process.env;
-if (!DATABASE_URL || [ADMIN_PASSWORD, SESSION_SECRET, MCP_ADMIN_TOKEN].some((value) => !value || value.length < 24)) {
-  throw new Error("Set DATABASE_URL and at least 24 characters each for ADMIN_PASSWORD, SESSION_SECRET, and MCP_ADMIN_TOKEN.");
+const { DATABASE_URL, ADMIN_PASSWORD, SESSION_SECRET, RAILWAY_PUBLIC_DOMAIN } = process.env;
+if (!DATABASE_URL || [ADMIN_PASSWORD, SESSION_SECRET].some((value) => !value || value.length < 24)) {
+  throw new Error("Set DATABASE_URL and at least 24 characters each for ADMIN_PASSWORD and SESSION_SECRET.");
 }
 const port = Number(process.env.PORT || 3000);
 const publicOrigin = process.env.APP_ORIGIN || (RAILWAY_PUBLIC_DOMAIN ? `https://${RAILWAY_PUBLIC_DOMAIN}` : "");
@@ -62,6 +63,21 @@ function throttle(server, request, operation, max, windowMs) {
   return key;
 }
 
+function signIn(password, key) {
+  const value = validate(z.string().min(1).max(256), password);
+  if (!safe(value, ADMIN_PASSWORD)) throw new StoreError(401, "That password doesn’t match. Try again.");
+  attempts.delete(key);
+  const expiry = Date.now() + sessionSeconds * 1000;
+  return cookie(`${expiry}.${sign(expiry)}`, sessionSeconds);
+}
+
+const oauth = createOAuth({
+  origin: publicOrigin || `http://127.0.0.1:${port}`,
+  secret: SESSION_SECRET,
+  hasSession,
+  signIn: (request, server, password) => signIn(password, throttle(server, request, "login", 10, 10 * 60_000)),
+});
+
 async function readJson(request) {
   if (request.headers.get("content-type")?.split(";")[0] !== "application/json") {
     throw new StoreError(415, "Send this request as JSON.");
@@ -83,10 +99,14 @@ async function handle(request, server) {
   }
   if (pathname === "/mcp") {
     checkOrigin(request);
-    if (!safe(request.headers.get("authorization"), `Bearer ${MCP_ADMIN_TOKEN}`)) {
-      return json({ error: "Admin MCP token required." }, 401, { "WWW-Authenticate": 'Bearer realm="Dama Nightly"' });
-    }
-    return mcp.fetch(request);
+    const authInfo = await oauth.authenticate(request);
+    return authInfo instanceof Response ? authInfo : mcp.fetch(request, { authInfo });
+  }
+  if (pathname.startsWith("/.well-known/") || pathname.startsWith("/oauth/")) {
+    if (method === "POST" && pathname === "/oauth/register") throttle(server, request, "oauth-register", 30, 10 * 60_000);
+    if (method === "POST" && pathname === "/oauth/token") throttle(server, request, "oauth-token", 120, 60_000);
+    const response = await oauth.handle(request, url, server);
+    if (response) return response;
   }
   if (pathname === "/api/storefront" && method === "GET") {
     const [site, catalog] = await Promise.all([settings(), products()]);
@@ -101,11 +121,8 @@ async function handle(request, server) {
   if (pathname === "/api/admin/login" && method === "POST") {
     checkOrigin(request);
     const key = throttle(server, request, "login", 10, 10 * 60_000);
-    const { password } = validate(z.object({ password: z.string().min(1).max(256) }), await readJson(request));
-    if (!safe(password, ADMIN_PASSWORD)) throw new StoreError(401, "That password doesn’t match. Try again.");
-    attempts.delete(key);
-    const expiry = Date.now() + sessionSeconds * 1000;
-    return json({ signedIn: true }, 200, { "Set-Cookie": cookie(`${expiry}.${sign(expiry)}`, sessionSeconds) });
+    const { password } = (await readJson(request)) ?? {};
+    return json({ signedIn: true }, 200, { "Set-Cookie": signIn(password, key) });
   }
   if (pathname.startsWith("/api/admin/")) {
     if (method !== "GET") checkOrigin(request);
@@ -190,7 +207,9 @@ Bun.serve({
     headers.set("X-Content-Type-Options", "nosniff");
     headers.set("X-Robots-Tag", "noindex, nofollow");
     headers.set("Referrer-Policy", "same-origin");
-    headers.set("Content-Security-Policy", "frame-ancestors 'none'; base-uri 'self'; object-src 'none'");
+    if (!headers.has("Content-Security-Policy")) {
+      headers.set("Content-Security-Policy", "frame-ancestors 'none'; base-uri 'self'; object-src 'none'");
+    }
     return new Response(response.body, { status: response.status, headers });
   },
 });

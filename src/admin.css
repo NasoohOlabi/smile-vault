@@ -111,7 +111,9 @@ td small { display: block; margin-top: .18rem; }
 .collection-row + .collection-row { border-top: 1px solid var(--line); }
 .collection-row.child { padding-inline-start: 1rem; }
 .upload-panel { padding: 1rem; margin-bottom: 1rem; }
-.upload-panel form { display: flex; flex-wrap: wrap; align-items: end; gap: .75rem; }
+.upload-panel form, .help-endpoint { display: flex; flex-wrap: wrap; align-items: end; gap: .75rem; }
+.help-panel { max-width: 44rem; padding: 1.25rem; }
+.help-endpoint label { flex: 1 1 18rem; }
 .asset-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr)); gap: .8rem; }
 .asset-card { background: white; border: 1px solid var(--line); border-radius: .8rem; overflow: hidden; }
 .asset-card img { display: block; width: 100%; aspect-ratio: 1.35; object-fit: contain; background: #e9e3f2; }

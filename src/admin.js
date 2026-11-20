@@ -19,6 +19,7 @@ const section = {
   products: ["Products", "Set prices, update images, and choose what appears in the shop."],
   storefront: ["Storefront", "Publish announcements, page introductions, and collection features."],
   assets: ["Images", "Upload and reuse artwork and product photos across the shop."],
+  mcp: ["MCP setup", "Connect an MCP client to manage the nightly store."],
 };
 let pageVersion = 0;
 let toastTimer;
@@ -372,7 +373,35 @@ async function assetsPage(version) {
   });
 }
 
-const pages = { orders: ordersPage, products: productsPage, storefront: storefrontPage, assets: assetsPage };
+function mcpPage() {
+  const endpoint = new URL("/mcp", location.origin).href;
+  page.innerHTML = `
+    <section class="panel help-panel">
+      <h2>Connect with OAuth</h2>
+      <div class="help-endpoint">
+        <label>MCP server URL<input value="${escape(endpoint)}" readonly></label>
+        <button type="button">Copy URL</button>
+      </div>
+      <ol>
+        <li>Add the URL as a Streamable HTTP server in a client that supports OAuth dynamic client registration.</li>
+        <li>Connect and sign in with the Dama Studio admin password if prompted.</li>
+        <li>Review the client and callback, then select <strong>Approve access</strong>.</li>
+      </ol>
+      <p>Approved clients can manage orders, products, storefront content, and images. Your client manages its OAuth credentials.</p>
+    </section>`;
+  const endpointField = $("input", page);
+  $("button", page).onclick = async () => {
+    try {
+      await navigator.clipboard.writeText(endpoint);
+      announce("MCP URL copied.");
+    } catch {
+      endpointField.select();
+      announce("The URL is selected. Use your browser’s copy command.");
+    }
+  };
+}
+
+const pages = { orders: ordersPage, products: productsPage, storefront: storefrontPage, assets: assetsPage, mcp: mcpPage };
 async function renderPage() {
   if ($("#studio").hidden) return;
   const version = ++pageVersion;

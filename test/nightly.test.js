@@ -1,5 +1,6 @@
 import { test, expect } from "bun:test";
 import { SQL } from "bun";
+import { createHash, randomBytes } from "node:crypto";
 import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
@@ -14,7 +15,6 @@ const env = {
   PORT: "3100",
   ADMIN_PASSWORD: "nightly-local-test-admin-passphrase",
   SESSION_SECRET: "nightly-local-test-session-signature",
-  MCP_ADMIN_TOKEN: "nightly-local-test-mcp-access-token",
 };
 const origin = `http://127.0.0.1:${env.PORT}`;
 
@@ -48,6 +48,82 @@ async function request(path, { body, headers, method, status = 200, file } = {})
   return response;
 }
 
+const resource = origin + "/mcp";
+const authorizePath = "/oauth/authorize";
+
+function postForm(path, fields, status = 200, headers = {}) {
+  return request(path, {
+    method: "POST", status, file: new URLSearchParams(fields),
+    headers: { "Content-Type": "application/x-www-form-urlencoded", ...headers },
+  });
+}
+
+async function authorizeMcp() {
+  const unauthenticated = await request("/mcp", { status: 401 });
+  expect(unauthenticated.headers.get("www-authenticate")).toContain(
+    `resource_metadata="${origin}/.well-known/oauth-protected-resource/mcp"`,
+  );
+  await request("/mcp", { status: 401, headers: { Authorization: "Bearer nightly-local-test-mcp-access-token" } });
+  const resourceMetadata = await (await request("/.well-known/oauth-protected-resource/mcp")).json();
+  expect(resourceMetadata.resource).toBe(resource);
+  expect(resourceMetadata.authorization_servers).toEqual([origin]);
+  const issuer = await (await request("/.well-known/oauth-authorization-server")).json();
+  expect(issuer.issuer).toBe(origin);
+  expect(issuer.code_challenge_methods_supported).toEqual(["S256"]);
+  const redirect = "http://127.0.0.1:54000/callback";
+  const clientRegistration = (redirectUri, status) => request(new URL(issuer.registration_endpoint).pathname, {
+    method: "POST", status, body: {
+      client_name: "Nightly CI & OAuth",
+      redirect_uris: [redirectUri],
+      token_endpoint_auth_method: "none",
+      grant_types: ["authorization_code", "refresh_token"],
+      response_types: ["code"],
+    },
+  });
+  await clientRegistration("http://unrelated.example/callback", 400);
+  const client = await (await clientRegistration(redirect, 201)).json();
+  const verifier = randomBytes(32).toString("base64url");
+  const query = {
+    client_id: client.client_id,
+    redirect_uri: redirect,
+    response_type: "code",
+    code_challenge: createHash("sha256").update(verifier).digest("base64url"),
+    code_challenge_method: "S256",
+    resource,
+    state: crypto.randomUUID(),
+    scope: "mcp:admin",
+  };
+  const authorizationUrl = (overrides) => authorizePath + "?" + new URLSearchParams({ ...query, ...overrides });
+  await request(authorizationUrl({ redirect_uri: "https://unrelated.example/callback" }), { status: 400 });
+  await request(authorizationUrl({ code_challenge_method: "plain" }), { status: 400 });
+  const consent = await (await request(authorizationUrl())).text();
+  expect(consent).toContain("Nightly CI &amp; OAuth");
+  expect(consent).toContain("Admin password");
+  const ticket = /name="ticket" value="([^"]+)"/.exec(consent)[1];
+  const approve = { ticket, decision: "allow", password: env.ADMIN_PASSWORD };
+  await postForm(authorizePath, approve, 403, { Origin: "https://unrelated.example" });
+  const wrongPassword = await postForm(authorizePath, { ...approve, password: "incorrect" }, 401, { Origin: origin });
+  expect(wrongPassword.headers.has("location")).toBe(false);
+  const denied = await postForm(authorizePath, { ticket, decision: "deny" }, 303, { Origin: origin });
+  expect(new URL(denied.headers.get("location")).searchParams.get("error")).toBe("access_denied");
+  const approved = await postForm(authorizePath, approve, 303, { Origin: origin });
+  const callback = new URL(approved.headers.get("location"));
+  expect(callback.origin + callback.pathname).toBe(redirect);
+  expect(callback.searchParams.get("state")).toBe(query.state);
+  expect(callback.searchParams.get("iss")).toBe(origin);
+  const exchange = (fields, status = 200) => postForm("/oauth/token", { client_id: client.client_id, resource, ...fields }, status);
+  const grant = {
+    grant_type: "authorization_code", code: callback.searchParams.get("code"), code_verifier: verifier, redirect_uri: redirect,
+  };
+  await exchange({ ...grant, resource: origin + "/admin" }, 400);
+  await exchange({ ...grant, code_verifier: randomBytes(32).toString("base64url") }, 400);
+  const tokens = await (await exchange(grant)).json();
+  expect(tokens.scope).toBe("mcp:admin");
+  expect(tokens.expires_in).toBeGreaterThan(890);
+  await exchange(grant, 400);
+  return { tokens, exchange };
+}
+
 test("nightly checkout, admin, CMS and MCP share durable Postgres data", async () => {
   let app = await start();
   const sql = new SQL(databaseUrl);
@@ -66,7 +142,6 @@ test("nightly checkout, admin, CMS and MCP share durable Postgres data", async (
     expect(await (await request("/admin")).text()).toContain("Dama Studio");
     expect((await request("/orders.html", { status: 302 })).headers.get("location")).toBe("/admin");
     await request("/api/admin/orders", { status: 401 });
-    await request("/mcp", { status: 401 });
     await request("/api/admin/login", { method: "POST", status: 403, body: { password: env.ADMIN_PASSWORD }, headers: { Origin: "https://unrelated.example" } });
     const signedIn = await request("/api/admin/login", { method: "POST", body: { password: env.ADMIN_PASSWORD }, headers: { Origin: origin } });
     const cookie = signedIn.headers.get("set-cookie");
@@ -122,7 +197,8 @@ test("nightly checkout, admin, CMS and MCP share durable Postgres data", async (
     } })).json();
     await request(`/api/admin/assets/${featureAsset.id}`, { method: "DELETE", headers: admin, status: 409 });
 
-    const rpcHeaders = { Authorization: `Bearer ${env.MCP_ADMIN_TOKEN}`, Accept: "application/json, text/event-stream" };
+    const oauth = await authorizeMcp();
+    const rpcHeaders = { Authorization: `Bearer ${oauth.tokens.access_token}`, Accept: "application/json, text/event-stream" };
     async function rpc(method, params = {}, version) {
       const response = await request("/mcp", {
         method: "POST",
@@ -157,6 +233,15 @@ test("nightly checkout, admin, CMS and MCP share durable Postgres data", async (
     expect((await (await request("/api/storefront")).json()).copy.announcement).toBe("Nightly publication check");
     expect((await publicCatalog()).some(({ id }) => id === product.id)).toBe(true);
     await request("/api/admin/logout", { method: "POST", headers: admin });
+    await rpc("tools/list", {}, version);
+    const refresh = { grant_type: "refresh_token", refresh_token: oauth.tokens.refresh_token };
+    const rotated = await (await oauth.exchange(refresh)).json();
+    expect(rotated.refresh_token).not.toBe(refresh.refresh_token);
+    await request("/mcp", { status: 401, headers: rpcHeaders });
+    rpcHeaders.Authorization = `Bearer ${rotated.access_token}`;
+    await rpc("tools/list", {}, version);
+    await oauth.exchange(refresh, 400);
+    await request("/mcp", { status: 401, headers: rpcHeaders });
 
     const directory = await mkdtemp(join(tmpdir(), "dama-import-test-"));
     try {

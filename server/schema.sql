@@ -32,3 +32,38 @@ CREATE TABLE IF NOT EXISTS orders (
 );
 
 CREATE INDEX IF NOT EXISTS orders_recent ON orders (created_at DESC, id DESC);
+
+CREATE TABLE IF NOT EXISTS mcp_oauth_clients (
+  id text PRIMARY KEY,
+  name text NOT NULL,
+  redirect_uris jsonb NOT NULL CHECK (jsonb_typeof(redirect_uris) = 'array'),
+  auth_method text NOT NULL CHECK (auth_method IN ('none', 'client_secret_basic', 'client_secret_post')),
+  secret_hash text
+);
+
+CREATE TABLE IF NOT EXISTS mcp_oauth_codes (
+  digest text PRIMARY KEY,
+  client_id text NOT NULL REFERENCES mcp_oauth_clients (id) ON DELETE CASCADE,
+  redirect_uri text NOT NULL,
+  challenge text NOT NULL,
+  resource text NOT NULL,
+  expires_at timestamptz NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS mcp_oauth_grants (
+  id uuid PRIMARY KEY,
+  client_id text NOT NULL REFERENCES mcp_oauth_clients (id) ON DELETE CASCADE,
+  resource text NOT NULL,
+  expires_at timestamptz NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS mcp_oauth_tokens (
+  digest text PRIMARY KEY,
+  grant_id uuid NOT NULL REFERENCES mcp_oauth_grants (id) ON DELETE CASCADE,
+  kind text NOT NULL CHECK (kind IN ('access', 'refresh')),
+  expires_at timestamptz NOT NULL,
+  used boolean NOT NULL DEFAULT false
+);
+
+CREATE INDEX IF NOT EXISTS mcp_oauth_tokens_grant ON mcp_oauth_tokens (grant_id);
+CREATE INDEX IF NOT EXISTS mcp_oauth_grants_expiry ON mcp_oauth_grants (expires_at);
