@@ -13,9 +13,8 @@ import {
 	trackPageView,
 } from "./analytics.js";
 
-const SHEETDB_URL = "https://sheetdb.io/api/v1/jog7er8l976bz";
-const SHEETDB_ELAT_URL = "https://sheetdb.io/api/v1/vr4xr9qeeervg";
-const ELAT_SECTION = "dama-x-elat";
+import { groupTshirts, isShirt, parseLineId, productSection, resolveCatalogLine, TSHIRT_SIZES } from "./catalog.js";
+
 const CART_KEY = "dama_cart_v2";
 
 const assetUrl = (path) => (window.DAMA_BASE || "") + path;
@@ -195,205 +194,8 @@ function emptyCart() {
  *   Side: bare color = back · _F = front · Color_B = explicit back
  * Color is the purchasable SKU; front/back is preview only; size is S/M/L.
  */
-const TSHIRT_COLOR = {
-	B: { label: "Black", swatch: "#141414", border: "rgb(255 255 255 / 0.35)" },
-	W: { label: "White", swatch: "#f4f4f4", border: "rgb(0 0 0 / 0.25)" },
-	BL: { label: "Blue", swatch: "#1d4ed8", border: "rgb(255 255 255 / 0.35)" },
-};
-const TSHIRT_PRINT = {
-	Blue: { swatch: "#6d8cff", border: "rgb(255 255 255 / 0.35)" },
-	Pink: { swatch: "#e879a9", border: "rgb(0 0 0 / 0.2)" },
-};
-const TSHIRT_COLOR_ORDER = { B: 0, W: 1, BL: 2, "": 3 };
-const TSHIRT_SIZES = ["S", "M", "L"];
 const TSHIRT_SIZE_LABEL = { S: "Small", M: "Medium", L: "Large" };
 const shirtView = new Map(); // groupId → { colorId, side, size }
-
-function imageStem(image) {
-	const file = String(image || "").split(/[/\\]/).pop() || "";
-	return file.replace(/\.[^.]+$/, "");
-}
-
-function parseTshirtStem(stem) {
-	const parts = String(stem || "").split("_").filter(Boolean);
-	if (parts.length <= 1) return { base: stem, color: "", side: "" };
-
-	let side = "";
-	const rest = [...parts];
-	const last = rest[rest.length - 1];
-	const prev = rest[rest.length - 2];
-
-	if (last === "F") {
-		side = "front";
-		rest.pop();
-	} else if (rest.length >= 3 && last === "B" && Object.hasOwn(TSHIRT_COLOR, prev)) {
-		side = "back";
-		rest.pop();
-	}
-
-	let color = "";
-	if (rest.length >= 2 && Object.hasOwn(TSHIRT_COLOR, rest[rest.length - 1])) {
-		color = rest.pop();
-	}
-
-	if (color && !side) side = "back";
-	return { base: rest.join("_") || stem, color, side };
-}
-
-function groupTshirts(raw) {
-	const others = [];
-	const buckets = new Map();
-
-	for (const p of raw) {
-		if ((p.type || "") !== "Tshirts" && (p.type || "") !== "Collabs") {
-			others.push(p);
-			continue;
-		}
-		const parsed = parseTshirtStem(imageStem(p.image));
-		const color = p.variantColor != null && p.variantColor !== ""
-			? String(p.variantColor)
-			: parsed.color;
-		const side = p.variantSide || parsed.side || "back";
-		const key = p.title || parsed.base || p.name;
-		if (!buckets.has(key)) buckets.set(key, []);
-		buckets.get(key).push({ ...p, _color: color, _side: side });
-	}
-
-	const grouped = [];
-	for (const [base, items] of buckets) {
-		if (items.length === 1 && !items[0]._color && items[0]._side === "back") {
-			const only = items[0];
-			delete only._color;
-			delete only._side;
-			if (only.title) only.name = only.title;
-			grouped.push(only);
-			continue;
-		}
-
-		const byColor = new Map();
-		let defaultColorCode = null;
-		let defaultSide = null;
-		const putSide = (images, side, image) => {
-			if (!images[side]) images[side] = image;
-			else if (side === "back" && !images.front) {
-				images.front = images.back;
-				images.back = image;
-			}
-		};
-		for (const item of items) {
-			const code = item._color || "";
-			const printLabel = item.variantPrint ? String(item.variantPrint) : "";
-			if (item.variantDefault && defaultColorCode == null) {
-				defaultColorCode = code;
-				if (item.defaultSide === "front" || item.defaultSide === "back") {
-					defaultSide = item.defaultSide;
-				}
-			}
-			if (!byColor.has(code)) {
-				byColor.set(code, {
-					id: String(item.id),
-					code,
-					label: TSHIRT_COLOR[code]?.label || "Default",
-					swatch: TSHIRT_COLOR[code]?.swatch || "#888",
-					border: TSHIRT_COLOR[code]?.border || "rgb(255 255 255 / 0.35)",
-					price: item.price,
-					images: {},
-					printMap: new Map(),
-				});
-			}
-			const slot = byColor.get(code);
-			const side = item._side === "front" ? "front" : "back";
-			if (printLabel) {
-				if (!slot.printMap.has(printLabel)) {
-					slot.printMap.set(printLabel, {
-						id: String(item.id),
-						label: printLabel,
-						swatch: TSHIRT_PRINT[printLabel]?.swatch || "#888",
-						border: TSHIRT_PRINT[printLabel]?.border || "rgb(255 255 255 / 0.35)",
-						price: item.price,
-						images: {},
-					});
-				}
-				putSide(slot.printMap.get(printLabel).images, side, item.image);
-			} else {
-				putSide(slot.images, side, item.image);
-			}
-			if (item._color && slot.id !== String(item.id) && !slot._lockedId) {
-				slot.id = String(item.id);
-			}
-			if (item._color) slot._lockedId = true;
-		}
-
-		const colors = [...byColor.values()]
-			.map(({ _lockedId, printMap, ...c }) => {
-				const prints = [...printMap.values()];
-				if (prints.length) {
-					c.prints = prints;
-					c.images = { ...prints[0].images };
-					c.price = prints[0].price;
-					c.id = prints[0].id;
-				}
-				return c;
-			})
-			.sort((a, b) => {
-				if (defaultColorCode != null) {
-					if (a.code === defaultColorCode && b.code !== defaultColorCode) return -1;
-					if (b.code === defaultColorCode && a.code !== defaultColorCode) return 1;
-				}
-				return (TSHIRT_COLOR_ORDER[a.code] ?? 9) - (TSHIRT_COLOR_ORDER[b.code] ?? 9);
-			});
-
-		const primary = colors[0];
-		const thumbSide =
-			defaultSide && primary.images[defaultSide]
-				? defaultSide
-				: primary.images.front
-					? "front"
-					: "back";
-		const thumb =
-			primary.images[thumbSide] ||
-			primary.images.front ||
-			primary.images.back ||
-			items[0].image;
-		const title =
-			items.find((i) => i.title)?.title ||
-			items.find((i) => i.name && i.name !== base)?.name ||
-			base;
-
-		const groupedProduct = {
-			id: `t-${base}`,
-			name: title,
-			title,
-			price: primary.price,
-			image: thumb,
-			type: items[0].type || "Tshirts",
-			category: items[0].category || "tshirts",
-			section: items[0].section,
-			colors,
-			skuIds: colors.flatMap((c) => (c.prints?.length ? c.prints.map((pr) => pr.id) : [c.id])),
-		};
-		if (defaultColorCode != null) groupedProduct.defaultColor = defaultColorCode;
-		if (defaultSide) groupedProduct.defaultSide = defaultSide;
-		grouped.push(groupedProduct);
-	}
-
-	return [...others, ...grouped];
-}
-
-function isShirt(p) {
-	const type = p?.type || "";
-	return type === "Tshirts" || type === "Collabs";
-}
-
-function parseLineId(id) {
-	id = String(id);
-	const i = id.lastIndexOf("::");
-	if (i > 0) {
-		const size = id.slice(i + 2);
-		if (TSHIRT_SIZES.includes(size)) return { skuId: id.slice(0, i), size };
-	}
-	return { skuId: id, size: null };
-}
 
 function shirtSelection(p) {
 	if (!p) return null;
@@ -505,47 +307,7 @@ function cartIdFor(p) {
 	return `${sku}::${shirtSelection(p)?.size || "M"}`;
 }
 
-function resolveLine(id) {
-	const { skuId, size } = parseLineId(id);
-	const sizeTag = size ? ` · ${size}` : "";
-	for (const p of products) {
-		if (p.colors?.length) {
-			for (const color of p.colors) {
-				const print = color.prints?.find((pr) => pr.id === skuId);
-				const hit = print || (!color.prints?.length && color.id === skuId ? color : null);
-				if (!hit) continue;
-				const colorLabel = print ? `${color.label} · ${print.label}` : color.label;
-				return {
-					id: size ? `${hit.id}::${size}` : hit.id,
-					name: `${p.name} · ${colorLabel}${sizeTag}`,
-					price: hit.price ?? color.price ?? p.price,
-					image: hit.images.front || hit.images.back || p.image,
-					type: p.type,
-					section: productSection(p),
-					product: p,
-					color: print ? { ...color, ...print, label: colorLabel } : color,
-					size,
-				};
-			}
-			continue;
-		}
-		if (p.id === skuId) {
-			return {
-				id: size ? `${p.id}::${size}` : p.id,
-				name: `${p.name}${sizeTag}`,
-				price: p.price,
-				image: p.image,
-				type: p.type,
-				section: productSection(p),
-				product: p,
-				color: null,
-				size,
-			};
-		}
-	}
-	return null;
-}
-
+const resolveLine = (id) => resolveCatalogLine(products, id);
 function findDisplayProduct(id) {
 	id = parseLineId(id).skuId;
 	const direct = products.find((p) => p.id === id);
@@ -704,18 +466,16 @@ function renderShirtControls(host, p, { onChange } = {}) {
 
 /* ---------- data ---------- */
 async function fetchProducts() {
-	const [navRes, res] = await Promise.all([
-		fetch(assetUrl("catalog-nav.json")),
-		fetch(assetUrl("products.json")),
-	]);
-	if (!navRes.ok) throw new Error(`catalog-nav.json → ${navRes.status}`);
-	if (!res.ok) throw new Error(`products.json → ${res.status}`);
-
-	applyCatalogNav(await navRes.json());
-
-	const data = await res.json();
-	const raw = data.map((p) => ({ ...p, id: String(p.id) }));
-	products = groupTshirts(raw);
+	const res = await fetch("/api/storefront");
+	if (!res.ok) throw new Error(`Storefront returned ${res.status}`);
+	const { navigation, products: catalog, copy } = await res.json();
+	applyCatalogNav(navigation);
+	products = groupTshirts(catalog.map((product) => ({ ...product, id: String(product.id) })));
+	document.querySelectorAll("[data-store-copy]").forEach((element) => {
+		const text = copy[element.dataset.storeCopy];
+		if (text) element.textContent = text;
+		if (element.dataset.storeCopy === "announcement") element.hidden = !text;
+	});
 
 	const validIds = new Set();
 	const shirtSkus = new Set();
@@ -1045,10 +805,6 @@ function isTeaseSection() {
 
 function productType(p) {
 	return p.type || "Stickers";
-}
-
-function productSection(p) {
-	return p.section || p.category;
 }
 
 /* Nuggets stay on the grid — no full-screen lightbox. */
@@ -1686,11 +1442,13 @@ function toast(msg, kind = "info") {
 }
 
 /* ---------- checkout ---------- */
-const isElatItem = (line) => line.type === "Collabs" && line.section === ELAT_SECTION;
+let pendingOrder;
+let orderSent = false;
 
 async function submitOrder(event) {
 	event.preventDefault();
 	const submitBtn = document.getElementById("submitBtn");
+	if (submitBtn.disabled || orderSent) return;
 	const responseDiv = document.getElementById("orderResponse");
 	responseDiv.innerHTML = "";
 
@@ -1741,17 +1499,11 @@ async function submitOrder(event) {
 	}
 
 	const orderItems = Object.entries(cart)
-		.filter(([, q]) => q > 0)
-		.map(([id, q]) => {
+		.filter(([, quantity]) => quantity > 0)
+		.flatMap(([id, quantity]) => {
 			const line = resolveLine(id);
-			return line && {
-				id: line.id, name: line.name, category: sectionLabel(line.type, line.section),
-				size: line.size || "",
-				quantity: q, price: line.price, subtotal: line.price * q,
-				type: line.type, section: line.section,
-			};
-		})
-		.filter(Boolean);
+			return line ? [{ id: line.id, quantity, price: line.price }] : [];
+		});
 
 	if (!orderItems.length) {
 		notice(responseDiv, "Your cart is empty.", "err");
@@ -1762,47 +1514,24 @@ async function submitOrder(event) {
 	submitBtn.textContent = "Sending…";
 
 	try {
-		const elatItems = orderItems.filter(isElatItem);
-		const mainItems = orderItems.filter((line) => !isElatItem(line));
-		const stamp = new Date().toISOString();
-		const split = elatItems.length > 0 && mainItems.length > 0;
-		const orderId = (crypto.randomUUID && crypto.randomUUID()) || `order_${Date.now()}`;
-		const notes = split
-			? [orderNotes, `Split order ${orderId}`].filter(Boolean).join("\n")
-			: orderNotes;
-
-		const sheetLine = ({ type, section, ...rest }) => rest;
-		const payload = (items) => ({
-			data: {
-				Timestamp: stamp,
-				Delivered: false,
-				Name: customerName,
-				Phone: phoneCall,
-				"WA number": phone,
-				"Insta Account": instaAccount,
-				Items: JSON.stringify(items.map(sheetLine), null, 2),
-				"Pickup / delivery": customerAddress,
-				Notes: notes,
-				Total: items.reduce((n, line) => n + line.subtotal, 0),
-				"N. of Items": items.reduce((n, line) => n + line.quantity, 0),
+		const payload = JSON.stringify({
+			customer: {
+				name: customerName, instagram: instaAccount, whatsapp: phoneDigits(phone),
+				phone: phoneDigits(phoneCall), pickup: customerAddress, notes: orderNotes,
 			},
+			items: orderItems,
 		});
+		if (pendingOrder?.payload !== payload) pendingOrder = { payload, id: crypto.randomUUID() };
+		const response = await fetch("/api/orders", {
+			method: "POST",
+			headers: { "Content-Type": "application/json", "Idempotency-Key": pendingOrder.id },
+			body: payload,
+		});
+		const result = await response.json();
+		if (!response.ok) throw new Error(result.error || "Couldn't send the order. Please try again.");
+		orderSent = true;
+		const { id: orderId, total: value } = result;
 
-		const postSheet = async (url, items) => {
-			const res = await fetch(url, {
-				method: "POST",
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify(payload(items)),
-			});
-			if (!res.ok) throw new Error(`HTTP ${res.status} ${res.statusText}`);
-		};
-
-		await Promise.all([
-			mainItems.length ? postSheet(SHEETDB_URL, mainItems) : null,
-			elatItems.length ? postSheet(SHEETDB_ELAT_URL, elatItems) : null,
-		].filter(Boolean));
-
-		const value = cartTotal();
 		const purchaseItems = itemsFromCart(resolveLine, cart);
 		track("purchase", {
 			transaction_id: orderId,
@@ -1816,6 +1545,8 @@ async function submitOrder(event) {
 		buzz(40);
 		setTimeout(() => {
 			cart = {};
+			pendingOrder = undefined;
+			orderSent = false;
 			saveCart();
 			document.getElementById("orderForm").reset();
 			renderGrid();
@@ -1825,7 +1556,7 @@ async function submitOrder(event) {
 		}, 1400);
 	} catch (err) {
 		console.error("Order submission failed:", err);
-		notice(responseDiv, "Couldn't send the order. Please try again.", "err");
+		notice(responseDiv, err instanceof SyntaxError ? "Couldn't send the order. Please try again." : err.message, "err");
 	} finally {
 		submitBtn.disabled = false;
 		submitBtn.textContent = "Place order";

@@ -58,7 +58,13 @@ function catalogStatic() {
 		name: "dama-catalog-static",
 		configureServer(server) {
 			server.middlewares.use((req, res, next) => {
-				const rel = decodeURIComponent((req.url || "").split("?")[0]).replace(/^\//, "");
+				let rel;
+				try {
+					rel = decodeURIComponent((req.url || "").split("?")[0]).replace(/^\//, "");
+				} catch {
+					return next();
+				}
+				if (rel.includes("\\") || rel.split("/").includes("..")) return next();
 				if (!rel || !isCatalog(rel)) return next();
 				const file = path.join(root, rel);
 				if (!fs.existsSync(file) || fs.statSync(file).isDirectory()) return next();
@@ -73,31 +79,12 @@ function catalogStatic() {
 	};
 }
 
-function ordersProxy() {
-	return {
-		name: "dama-orders-proxy",
-		configureServer(server) {
-			server.middlewares.use(async (req, res, next) => {
-				if (!(req.url || "").startsWith("/__dama_orders")) return next();
-				try {
-					const upstream = await fetch("https://docs.google.com/spreadsheets/d/1W2wjikf5fOYqkaY5Qoal4820Z5WYw2FiIZyU8JNIJZY/gviz/tq?tqx=out:json&gid=0");
-					res.statusCode = upstream.status;
-					res.setHeader("Content-Type", "application/json; charset=utf-8");
-					res.end(await upstream.text());
-				} catch {
-					res.statusCode = 502;
-					res.end(JSON.stringify({ error: "Orders sheet unavailable" }));
-				}
-			});
-		},
-	};
-}
-
 export default defineConfig({
-	plugins: [tailwindcss(), catalogStatic(), ordersProxy()],
+	plugins: [tailwindcss(), catalogStatic()],
 	server: {
 		port: 5173,
 		open: false,
+		proxy: Object.fromEntries(["/api", "/media", "/mcp"].map((path) => [path, "http://127.0.0.1:3000"])),
 	},
 	build: {
 		outDir: "dist",
@@ -105,7 +92,7 @@ export default defineConfig({
 		rollupOptions: {
 			input: {
 				main: path.join(root, "index.html"),
-				orders: path.join(root, "orders.html"),
+				admin: path.join(root, "admin.html"),
 			},
 		},
 	},

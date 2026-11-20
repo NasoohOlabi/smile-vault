@@ -11,12 +11,12 @@ const firebaseConfig = {
 	measurementId: "G-J557MTRP00",
 };
 
-export const app = initializeApp(firebaseConfig);
+export const app = import.meta.env.VITE_ENABLE_ANALYTICS === "true" ? initializeApp(firebaseConfig) : null;
 
 /** @type {import("firebase/analytics").Analytics | null} */
 export let analytics = null;
 
-export const whenAnalytics = isSupported()
+export const whenAnalytics = (app ? isSupported() : Promise.resolve(false))
 	.then((ok) => {
 		if (!ok) return null;
 		analytics = getAnalytics(app);

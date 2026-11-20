@@ -6,10 +6,10 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview",
+    "start": "bun server/index.js",
+    "check:nightly": "bun test test/nightly.test.js",
     "catalog": "bun s.js",
-    "firebase:login": "bunx firebase-tools@latest login",
-    "deploy": "bun run build && bunx firebase-tools@latest deploy --only hosting"
+    "import-orders": "bun scripts/import-orders.js"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.11",
@@ -17,6 +17,8 @@
     "vite": "^7.0.0"
   },
   "dependencies": {
-    "firebase": "^12.16.0"
+    "@modelcontextprotocol/server": "2.4.0",
+    "firebase": "^12.16.0",
+    "zod": "4"
   }
 }
