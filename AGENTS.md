@@ -8,3 +8,4 @@ Nightly runs independently of `main` in the Dama Store Nightly Railway project. 
 - Store operation changes belong in `server/store.js`. Use the same validation and storage from the HTTP dashboard and MCP tools.
 - Keep order records and admin credentials behind authenticated routes. Use synthetic data for verification.
 - Verify a change with `bun run build` and `bun run check:nightly` against disposable local Postgres.
+- For debugging across runs or adding temporary probes, use the [Log Pool skill](.agents/skills/log-pool/SKILL.md) when a local instance is available.
