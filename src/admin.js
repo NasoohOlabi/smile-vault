@@ -101,8 +101,8 @@ editor.querySelectorAll("[data-close]").forEach((button) => button.addEventListe
 editor.addEventListener("cancel", closeEditor);
 
 function table(headings, rows) {
-  return `<div class="table-wrap"><table><thead><tr>${headings.map((heading) =>
-    `<th scope="col">${heading}</th>`).join("")}</tr></thead><tbody>${rows}</tbody></table></div>`;
+  return `<div class="table-wrap"><table role="table"><thead role="rowgroup"><tr role="row">${headings.map((heading) =>
+    `<th role="columnheader" scope="col">${heading}</th>`).join("")}</tr></thead><tbody role="rowgroup">${rows}</tbody></table></div>`;
 }
 
 function orderEditor(order) {
@@ -145,10 +145,10 @@ async function ordersPage(version) {
         <button>Filter</button>
       </form>
       ${rows.length ? table(["Order", "Customer", "Total", "Status", "Action"], rows.map((order, index) =>
-        `<tr><td><strong>#${shortId(order.id)}</strong><small>${escape(date(order.created_at))}</small></td>
-          <td>${escape(order.customer.name)}<small>${escape(order.customer.pickup)}</small></td>
-          <td>${money(order.total)}</td><td><span class="status ${order.status}">${statusLabels[order.status]}</span></td>
-          <td><button type="button" data-order="${index}" aria-label="Open order ${shortId(order.id)}">Open</button></td></tr>`).join(""))
+        `<tr role="row"><td role="cell"><strong>#${shortId(order.id)}</strong><small>${escape(date(order.created_at))}</small></td>
+          <td role="cell">${escape(order.customer.name)}<small>${escape(order.customer.pickup)}</small></td>
+          <td role="cell">${money(order.total)}</td><td role="cell"><span class="status ${order.status}">${statusLabels[order.status]}</span></td>
+          <td role="cell"><button type="button" data-order="${index}" aria-label="Open order ${shortId(order.id)}">Open</button></td></tr>`).join(""))
         : `<p class="empty">${orderFilter.search || orderFilter.status ? "No orders match. Try another name or status." : "New orders will appear here as soon as customers check out."}</p>`}
       ${more || orderFilter.page > 1 ? `<div class="pagination">
         <button id="previous" ${orderFilter.page === 1 ? "disabled" : ""}>Previous</button>
@@ -268,11 +268,11 @@ async function productsPage(version) {
   const render = () => {
     const visible = rows.filter((row) => `${row.name} ${row.type} ${row.section || ""}`.toLowerCase().includes(productSearch.toLowerCase()));
     results.innerHTML = visible.length ? table(["Product", "Collection", "Price", "Visibility", "Action"], visible.map((row, index) =>
-      `<tr><td><div class="image-cell"><img src="${imageUrl(row.image)}" alt="" loading="lazy">
+      `<tr role="row"><td role="cell"><div class="image-cell"><img src="${imageUrl(row.image)}" alt="" loading="lazy">
         <div><strong>${escape(row.name)}</strong><small>${escape([row.variantColor, row.variantSide, row.variantPrint].filter(Boolean).join(" / "))}</small></div></div></td>
-        <td>${escape(navigation.types.find((type) => type.id === row.type)?.label || row.type)}</td><td>${money(row.price)}</td>
-        <td><span class="status ${row.published ? "published" : ""}">${row.published ? "Published" : "Hidden"}</span></td>
-        <td><button type="button" data-product="${index}" aria-label="Edit ${escape(row.name)}">Edit</button></td></tr>`).join(""))
+        <td role="cell">${escape(navigation.types.find((type) => type.id === row.type)?.label || row.type)}</td><td role="cell">${money(row.price)}</td>
+        <td role="cell"><span class="status ${row.published ? "published" : ""}">${row.published ? "Published" : "Hidden"}</span></td>
+        <td role="cell"><button type="button" data-product="${index}" aria-label="Edit ${escape(row.name)}">Edit</button></td></tr>`).join(""))
       : '<p class="empty">No products match. Try a different search or add a product.</p>';
     results.querySelectorAll("[data-product]").forEach((button) => {
       button.onclick = () => open(visible[Number(button.dataset.product)]);
