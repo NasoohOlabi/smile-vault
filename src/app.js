@@ -4,6 +4,7 @@
  * ============================================================ */
 
 import {
+	ANALYTICS_ENABLED,
 	CURRENCY,
 	capItems,
 	itemFromLine,
@@ -19,6 +20,16 @@ import { cardImageSizes, cardImageSrcset } from "./catalog-images.js";
 const CART_KEY = "dama_cart_v2";
 
 const assetUrl = (path) => (window.DAMA_BASE || "") + path;
+const gridImageObserver = typeof IntersectionObserver === "function"
+	? new IntersectionObserver((entries, observer) => {
+		for (const { target, isIntersecting } of entries) {
+			if (!isIntersecting) continue;
+			if (target.dataset.srcset) target.srcset = target.dataset.srcset;
+			target.src = target.dataset.src;
+			observer.unobserve(target);
+		}
+	}, { rootMargin: "320px 0px" })
+	: null;
 
 const money = (n) => `${n.toLocaleString("en-US")} ليرة سوري`;
 const itemsCount = (n) => `${n} ${n === 1 ? "item" : "items"}`;
@@ -942,11 +953,11 @@ function renderGrid() {
 	visible = filtered();
 	if (rule) rule.hidden = !hasFeature || !visible.length;
 	updateStatCount(visible.length);
-	grid.innerHTML = "";
+	gridImageObserver?.disconnect();
+	const designs = visible;
 	const viewOnly = !!activeSectionMeta()?.viewOnly;
-	const listMeta = shopListMeta();
-	const listItems = capItems(
-		visible.map((p) => {
+	if (ANALYTICS_ENABLED && visible.length) {
+		const listItems = capItems(visible).map((p) => {
 			const line = resolveLine(activeSkuId(p)) || {
 				id: p.id,
 				name: p.name,
@@ -955,16 +966,14 @@ function renderGrid() {
 				section: productSection(p),
 			};
 			return itemFromLine(line);
-		}).filter(Boolean),
-	);
-	if (listItems.length) {
+		});
 		track("view_item_list", {
-			...listMeta,
+			...shopListMeta(),
 			items: listItems,
 		});
 	}
 
-	visible.forEach((p, i) => {
+	function makeCard(p, i) {
 		const card = document.createElement("article");
 		card.className = "group flex flex-col overflow-hidden rounded-kiosk-lg border border-transparent bg-kiosk-elevated transition-[transform,box-shadow] duration-200 sm:hover:-translate-y-0.5 sm:hover:shadow-kiosk";
 		const fillMedia = fillsCardMedia(p);
@@ -976,6 +985,8 @@ function renderGrid() {
 			: `absolute inset-0 h-full w-full object-contain p-3 transition-[transform,filter] duration-300 sm:p-4 ${tease ? "scale-[1.06] blur-[8px] saturate-[0.85]" : "sm:group-hover:scale-105"}`;
 		const imgSrc = shirtImage(p) || p.image;
 		const srcset = import.meta.env.PROD ? cardImageSrcset(imgSrc) : "";
+		const deferImage = i >= 2 && gridImageObserver;
+		const sourceAttr = deferImage ? "data-" : "";
 		const skuId = cartIdFor(p);
 		const canZoom = allowsLightbox(p);
 		const mediaTag = canZoom ? "button" : "div";
@@ -988,8 +999,8 @@ function renderGrid() {
 
 		card.innerHTML = `
 			<${mediaTag} class="${mediaCls}"${mediaAttrs}>
-				<img class="${mediaImg}" src="${encodeURI(assetUrl(imgSrc))}" alt="${escapeAttr(p.name)}"
-					${srcset ? `srcset="${escapeAttr(srcset)}" sizes="${cardImageSizes}"` : ""}
+				<img class="${mediaImg}" ${sourceAttr}src="${encodeURI(assetUrl(imgSrc))}" alt="${escapeAttr(p.name)}"
+					${srcset ? `${sourceAttr}srcset="${escapeAttr(srcset)}" sizes="${cardImageSizes}"` : ""}
 					${i < 2 ? 'loading="eager"' : 'loading="lazy" decoding="async"'} />
 			</${mediaTag}>
 			<div class="flex flex-1 flex-col">
@@ -1001,20 +1012,44 @@ function renderGrid() {
 				<div class="mt-auto px-5 pb-3" data-qtybox="${skuId}"></div>
 			</div>`;
 
-		card.querySelector("img").onerror = function () {
+		const image = card.querySelector("img");
+		image.onerror = function () {
 			if (this.hasAttribute("srcset")) this.removeAttribute("srcset");
 			else this.style.opacity = ".15";
 		};
+		if (deferImage) gridImageObserver.observe(image);
 		if (canZoom) {
 			card.querySelector("[data-zoom]").onclick = () => openLightbox(i);
 		}
-		grid.appendChild(card);
 		const qtyHost = card.querySelector("[data-qtybox]");
 		if (viewOnly) qtyHost.remove();
 		else renderQtyBox(qtyHost, skuId);
-	});
+		return card;
+	}
 
-	document.getElementById("emptyState").hidden = visible.length > 0;
+	function batch(start, size) {
+		const cards = document.createDocumentFragment();
+		designs.slice(start, start + size).forEach((design, offset) => cards.append(makeCard(design, start + offset)));
+		return cards;
+	}
+
+	const firstBatch = 6;
+	const laterBatch = 4;
+	const schedule = typeof requestIdleCallback === "function"
+		? (callback) => requestIdleCallback(callback, { timeout: 120 })
+		: (callback) => setTimeout(callback, 0);
+	function appendLater(start) {
+		if (start >= designs.length) return;
+		schedule(() => {
+			// A newer collection render owns the grid once the visible list changes.
+			if (visible !== designs) return;
+			grid.append(batch(start, laterBatch));
+			appendLater(start + laterBatch);
+		});
+	}
+	grid.replaceChildren(batch(0, firstBatch));
+	document.getElementById("emptyState").hidden = designs.length > 0;
+	appendLater(firstBatch);
 }
 
 /* Quantity control: full-width "add" button at qty 0, stepper otherwise.
@@ -1079,7 +1114,6 @@ function syncQtyUI(id) {
 	document
 		.querySelectorAll(`[data-qtybox="${CSS.escape(String(id))}"]`)
 		.forEach((host) => renderQtyBox(host, String(id)));
-	updateTotals();
 }
 
 function updateTotals() {
@@ -1657,7 +1691,7 @@ async function boot() {
 			paintView(route.view);
 			setDocumentTitle();
 		}
-		renderCartBody();
+		if (!document.getElementById("cartDrawer").hidden) renderCartBody();
 		updateTotals();
 	} catch (err) {
 		console.error(err);

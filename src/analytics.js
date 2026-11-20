@@ -1,7 +1,8 @@
 export const CURRENCY = "SYP";
+export const ANALYTICS_ENABLED = import.meta.env.VITE_ENABLE_ANALYTICS === "true";
 
 const LIST_ITEM_CAP = 20;
-const telemetry = import.meta.env.VITE_ENABLE_ANALYTICS === "true"
+const telemetry = ANALYTICS_ENABLED
 	? import("./firebase.js").catch(() => null)
 	: null;
 

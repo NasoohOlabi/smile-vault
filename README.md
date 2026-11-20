@@ -42,3 +42,4 @@ Open http://localhost:3000 and http://localhost:3000/admin. For Vite hot reload,
 To regenerate fresh-database seed files, edit `catalog/shop/` and run `bun run catalog`. Apply live changes in Dama Studio or via MCP.
 
 The production build creates responsive WebP thumbnails for bundled product images. Product details and the lightbox still use the original files.
+The storefront renders the first rows immediately, fills in the remaining cards during idle time, and starts thumbnail requests near the viewport.
