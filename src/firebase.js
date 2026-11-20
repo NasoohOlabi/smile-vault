@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getAnalytics, isSupported } from "firebase/analytics";
+import { getAnalytics, isSupported, logEvent } from "firebase/analytics";
 
 const firebaseConfig = {
 	apiKey: "AIzaSyBDZSOlGnDZuv9LpDWCBE3MjhO9qUjfTwA",
@@ -11,15 +11,14 @@ const firebaseConfig = {
 	measurementId: "G-J557MTRP00",
 };
 
-export const app = import.meta.env.VITE_ENABLE_ANALYTICS === "true" ? initializeApp(firebaseConfig) : null;
-
-/** @type {import("firebase/analytics").Analytics | null} */
-export let analytics = null;
-
-export const whenAnalytics = (app ? isSupported() : Promise.resolve(false))
-	.then((ok) => {
-		if (!ok) return null;
-		analytics = getAnalytics(app);
-		return analytics;
-	})
+const analytics = isSupported()
+	.then((supported) => supported ? getAnalytics(initializeApp(firebaseConfig)) : null)
 	.catch(() => null);
+
+export async function sendEvent(name, params) {
+	const client = await analytics;
+	if (!client) return;
+	try {
+		logEvent(client, name, params);
+	} catch { /* Keep telemetry failures off the storefront. */ }
+}

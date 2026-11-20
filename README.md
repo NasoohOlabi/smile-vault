@@ -40,3 +40,5 @@ bun run start
 Open http://localhost:3000 and http://localhost:3000/admin. For Vite hot reload, keep the backend running on port 3000 and use `bun run dev`; the admin entry is `/admin.html` on Vite. Set `TEST_DATABASE_URL` to a disposable local Postgres database before running `bun run check:nightly`.
 
 To regenerate fresh-database seed files, edit `catalog/shop/` and run `bun run catalog`. Apply live changes in Dama Studio or via MCP.
+
+The production build creates responsive WebP thumbnails for bundled product images. Product details and the lightbox still use the original files.

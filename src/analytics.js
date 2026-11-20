@@ -1,11 +1,9 @@
-import { logEvent } from "firebase/analytics";
-import { analytics as analyticsRef, whenAnalytics } from "./firebase.js";
-
 export const CURRENCY = "SYP";
 
 const LIST_ITEM_CAP = 20;
-const queue = [];
-let ready = false;
+const telemetry = import.meta.env.VITE_ENABLE_ANALYTICS === "true"
+	? import("./firebase.js").catch(() => null)
+	: null;
 
 function debugMode() {
 	try {
@@ -15,37 +13,12 @@ function debugMode() {
 	}
 }
 
-function flush(a) {
-	ready = true;
-	while (queue.length) {
-		const { name, params } = queue.shift();
-		try {
-			logEvent(a, name, params);
-		} catch { /* ignore */ }
-	}
-}
-
-whenAnalytics.then((a) => {
-	if (a) flush(a);
-	else {
-		ready = true;
-		queue.length = 0;
-	}
-});
-
-/** Fire a GA4 event; queues until Analytics is ready; no-op if unsupported. */
+/** Wait for opt-in analytics without delaying storefront rendering. */
 export function track(name, params = {}) {
+	if (!telemetry) return;
 	const payload = { ...params };
 	if (debugMode()) payload.debug_mode = true;
-
-	const a = analyticsRef;
-	if (a && ready) {
-		try {
-			logEvent(a, name, payload);
-		} catch { /* never break the storefront for telemetry */ }
-		return;
-	}
-	if (!ready) queue.push({ name, params: payload });
+	void telemetry.then((module) => module?.sendEvent(name, payload));
 }
 
 export function trackPageView({ path, title } = {}) {

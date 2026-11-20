@@ -25,6 +25,13 @@ const sign = (value) => createHmac("sha256", SESSION_SECRET).update(`${value}:${
 const json = (data, status = 200, headers = {}) => Response.json(data, { status, headers: { "Cache-Control": "no-store", ...headers } });
 const cookie = (value, ttl) => `${cookieName}=${value}; Path=/; Max-Age=${ttl}; HttpOnly; SameSite=Strict${publicOrigin.startsWith("https:") ? "; Secure" : ""}`;
 
+function acceptsGzip(request) {
+  return (request.headers.get("accept-encoding") ?? "").split(",").some((entry) => {
+    const [coding, quality = "q=1"] = entry.trim().toLowerCase().split(/\s*;\s*/);
+    return coding === "gzip" && Number(quality.split("=")[1]) > 0;
+  });
+}
+
 function hasSession(request) {
   const value = request.headers.get("cookie")?.split(/;\s*/).find((part) => part.startsWith(`${cookieName}=`));
   const [timestamp, signature] = value?.slice(cookieName.length + 1).split(".") ?? [];
@@ -144,9 +151,21 @@ async function handle(request, server) {
     } else {
       const path = pathname === "/" ? "/index.html" : pathname === "/admin" ? "/admin.html" : pathname;
       const file = staticFile(decodeURIComponent(path));
-      if (await file?.exists()) return new Response(method === "HEAD" ? null : file, { headers: {
-        "Content-Type": file.type, "Cache-Control": path.endsWith(".html") ? "no-cache" : "public, max-age=3600",
-      } });
+      if (await file?.exists()) {
+        const headers = {
+          "Content-Type": file.type,
+          "Cache-Control": path.endsWith(".html") ? "no-cache" : "public, max-age=3600",
+        };
+        if (/\.(?:html|css|js)$/.test(path)) {
+          headers.Vary = "Accept-Encoding";
+          if (acceptsGzip(request)) {
+            headers["Content-Encoding"] = "gzip";
+            const body = method === "HEAD" ? null : file.stream().pipeThrough(new CompressionStream("gzip"));
+            return new Response(body, { headers });
+          }
+        }
+        return new Response(method === "HEAD" ? null : file, { headers });
+      }
     }
   }
   return json({ error: "This page or action was not found." }, 404);

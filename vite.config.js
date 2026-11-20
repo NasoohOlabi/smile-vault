@@ -1,24 +1,15 @@
 import { defineConfig } from "vite";
 import tailwindcss from "@tailwindcss/vite";
+import sharp from "sharp";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { catalogImageRoots, isCatalogImage, thumbnailWidths } from "./src/catalog-images.js";
 
 const root = path.dirname(fileURLToPath(import.meta.url));
 
 /** Catalog image folders + generated JSON stay at repo root; serve/copy them for Vite. */
-const CATALOG = [
-	"Stickers",
-	"backboneAndStories",
-	"blackAndWhite",
-	"life",
-	"newThings",
-	"nostalgia",
-	"Tshirts",
-	"Posters",
-	"products.json",
-	"catalog-nav.json",
-];
+const CATALOG = [...catalogImageRoots, "products.json", "catalog-nav.json"];
 
 const MIME = {
 	".png": "image/png",
@@ -54,6 +45,22 @@ function catalogStatic() {
 		}
 	};
 
+	async function makeThumbnails(outDir, directory) {
+		const entries = await fs.promises.readdir(path.join(root, directory), { withFileTypes: true });
+		for (const entry of entries) {
+			const image = `${directory}/${entry.name}`;
+			if (entry.isDirectory()) {
+				await makeThumbnails(outDir, image);
+			} else if (entry.isFile() && isCatalogImage(image)) {
+				await Promise.all(thumbnailWidths.map(async (width) => {
+					const target = path.join(outDir, "thumbnails", String(width), `${image}.webp`);
+					await fs.promises.mkdir(path.dirname(target), { recursive: true });
+					await sharp(path.join(root, image)).rotate().resize({ width }).webp({ quality: 78 }).toFile(target);
+				}));
+			}
+		}
+	}
+
 	return {
 		name: "dama-catalog-static",
 		configureServer(server) {
@@ -73,8 +80,10 @@ function catalogStatic() {
 				fs.createReadStream(file).pipe(res);
 			});
 		},
-		writeBundle(_opts, _bundle) {
-			copyInto(path.join(root, "dist"));
+		async writeBundle({ dir }) {
+			copyInto(dir);
+			await Promise.all(catalogImageRoots.filter((directory) => fs.existsSync(path.join(root, directory)))
+				.map((directory) => makeThumbnails(dir, directory)));
 		},
 	};
 }

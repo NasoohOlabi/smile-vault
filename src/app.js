@@ -14,6 +14,7 @@ import {
 } from "./analytics.js";
 
 import { groupTshirts, isShirt, parseLineId, productSection, resolveCatalogLine, TSHIRT_SIZES } from "./catalog.js";
+import { cardImageSizes, cardImageSrcset } from "./catalog-images.js";
 
 const CART_KEY = "dama_cart_v2";
 
@@ -770,7 +771,7 @@ function renderFilters() {
 		const b = document.createElement("a");
 		b.href = shopHash(key, sectionsFor(key)[0]?.id || null);
 		b.dataset.cat = key;
-		b.setAttribute("aria-pressed", String(activeCat === key));
+		if (activeCat === key) b.setAttribute("aria-current", "page");
 		b.textContent = label;
 		b.className = chipCls + (activeCat === key ? " is-active" : "");
 		b.onclick = (e) => {
@@ -845,7 +846,7 @@ function renderSectionSubnav() {
 		button.dataset.section = section.id;
 		button.textContent = section.label;
 		button.title = section.label;
-		button.setAttribute("aria-pressed", String(activeSection === section.id));
+		if (activeSection === section.id) button.setAttribute("aria-current", "page");
 		button.onclick = (e) => {
 			e.preventDefault();
 			activeSection = section.id;
@@ -965,8 +966,7 @@ function renderGrid() {
 
 	visible.forEach((p, i) => {
 		const card = document.createElement("article");
-		card.className = "group flex animate-fade-up flex-col overflow-hidden rounded-kiosk-lg border border-transparent bg-kiosk-elevated transition-[transform,box-shadow] duration-200 sm:hover:-translate-y-0.5 sm:hover:shadow-kiosk";
-		card.style.animationDelay = `${Math.min(i, 10) * 25}ms`;
+		card.className = "group flex flex-col overflow-hidden rounded-kiosk-lg border border-transparent bg-kiosk-elevated transition-[transform,box-shadow] duration-200 sm:hover:-translate-y-0.5 sm:hover:shadow-kiosk";
 		const fillMedia = fillsCardMedia(p);
 		const mediaAspect = fillMediaAspect(p) || "aspect-square";
 		const mediaBg = fillMedia ? "bg-kiosk-elevated" : "bg-checker";
@@ -975,6 +975,7 @@ function renderGrid() {
 			? `absolute inset-0 h-full w-full object-cover transition-[transform,filter] duration-300 ${tease ? "scale-[1.06] blur-[8px] saturate-[0.85]" : "sm:group-hover:scale-105"}`
 			: `absolute inset-0 h-full w-full object-contain p-3 transition-[transform,filter] duration-300 sm:p-4 ${tease ? "scale-[1.06] blur-[8px] saturate-[0.85]" : "sm:group-hover:scale-105"}`;
 		const imgSrc = shirtImage(p) || p.image;
+		const srcset = import.meta.env.PROD ? cardImageSrcset(imgSrc) : "";
 		const skuId = cartIdFor(p);
 		const canZoom = allowsLightbox(p);
 		const mediaTag = canZoom ? "button" : "div";
@@ -987,8 +988,9 @@ function renderGrid() {
 
 		card.innerHTML = `
 			<${mediaTag} class="${mediaCls}"${mediaAttrs}>
-				<img class="${mediaImg}" src="${encodeURI(assetUrl(imgSrc))}" alt="${escapeAttr(p.name)}" loading="lazy" decoding="async"
-					onerror="this.style.opacity=.15" />
+				<img class="${mediaImg}" src="${encodeURI(assetUrl(imgSrc))}" alt="${escapeAttr(p.name)}"
+					${srcset ? `srcset="${escapeAttr(srcset)}" sizes="${cardImageSizes}"` : ""}
+					${i < 2 ? 'loading="eager"' : 'loading="lazy" decoding="async"'} />
 			</${mediaTag}>
 			<div class="flex flex-1 flex-col">
 				<p class="relative z-[1] -mt-5 mb-0 ms-3 self-start rounded-kiosk-md bg-[#111] px-[0.9rem] py-[0.3rem] text-[0.8125rem] font-bold text-white tabular-nums shadow-[0_2px_6px_rgb(0_0_0_/_0.35)]" dir="rtl">${money(p.price)}</p>
@@ -999,6 +1001,10 @@ function renderGrid() {
 				<div class="mt-auto px-5 pb-3" data-qtybox="${skuId}"></div>
 			</div>`;
 
+		card.querySelector("img").onerror = function () {
+			if (this.hasAttribute("srcset")) this.removeAttribute("srcset");
+			else this.style.opacity = ".15";
+		};
 		if (canZoom) {
 			card.querySelector("[data-zoom]").onclick = () => openLightbox(i);
 		}
@@ -1080,6 +1086,7 @@ function updateTotals() {
 	const count = cartCount();
 	const total = cartTotal();
 	document.getElementById("cartCount").textContent = count;
+	document.getElementById("cartBtn").setAttribute("aria-label", `Cart, ${itemsCount(count)}`);
 	document.getElementById("totalPrice").textContent = money(total);
 	document.getElementById("totalPrice2").textContent = money(total);
 	document.getElementById("mobileTotal").textContent = money(total);
@@ -1658,6 +1665,7 @@ async function boot() {
 		empty.hidden = false;
 		empty.textContent = "Couldn't load the catalog. Please try again.";
 	} finally {
+		document.getElementById("shop").removeAttribute("aria-busy");
 		document.getElementById("skeleton").remove();
 	}
 }

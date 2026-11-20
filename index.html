@@ -11,9 +11,8 @@
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 	<meta name="format-detection" content="telephone=no" />
-	<link rel="preconnect" href="https://fonts.googleapis.com" />
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-	<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet" />
+	<link rel="icon" href="/assets/logo-dama-192.webp" type="image/webp" />
+	<link rel="preload" href="/api/storefront" as="fetch" crossorigin />
 </head>
 
 <body class="relative isolate flex min-h-dvh flex-col is-locked:fixed is-locked:inset-x-0 is-locked:w-full is-locked:overflow-hidden">
@@ -23,7 +22,10 @@
 	<img
 		id="stampPick"
 		class="pointer-events-none fixed top-0 left-[60%] z-0 h-auto w-[min(28rem,100vw)] -translate-x-1/2 object-contain opacity-70 select-none sm:left-[66%] sm:w-[min(52rem,76vw)] sm:opacity-75"
-		src="assets/header-stamp.png" alt="" aria-hidden="true" decoding="async" />
+		src="/assets/header-stamp-768.webp"
+		srcset="/assets/header-stamp-768.webp 768w, /assets/header-stamp-1440.webp 1440w"
+		sizes="(min-width: 640px) min(52rem, 76vw), min(28rem, 100vw)"
+		width="768" height="430" fetchpriority="high" alt="" aria-hidden="true" decoding="async" />
 
 	<!-- ============ HEADER ============ -->
 	<header class="sticky top-0 z-30 shrink-0 overflow-visible bg-kiosk pt-[env(safe-area-inset-top)]">
@@ -32,7 +34,10 @@
 		<span class="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
 			<img
 				class="absolute top-[calc(env(safe-area-inset-top)*-1)] left-[60%] h-auto w-[min(28rem,100vw)] -translate-x-1/2 object-contain opacity-70 select-none sm:left-[66%] sm:w-[min(52rem,76vw)] sm:opacity-75"
-				src="assets/header-stamp.png" alt="" decoding="async" />
+				src="/assets/header-stamp-768.webp"
+				srcset="/assets/header-stamp-768.webp 768w, /assets/header-stamp-1440.webp 1440w"
+				sizes="(min-width: 640px) min(52rem, 76vw), min(28rem, 100vw)"
+				width="768" height="430" alt="" decoding="async" />
 		</span>
 
 		<div class="relative z-[3] grid min-h-0 grid-cols-[auto_minmax(0,1fr)] items-stretch overflow-visible border-b-[3px] border-kiosk-lime-rail sm:min-h-[11rem] sm:grid-cols-[auto_minmax(0,1fr)_auto] sm:grid-rows-[minmax(0,1fr)_auto]">
@@ -40,7 +45,9 @@
 			<span class="pointer-events-none absolute inset-x-0 top-[calc(100%+3px)] z-[4] h-5 bg-gradient-to-b from-black/25 to-transparent" aria-hidden="true"></span>
 
 			<a id="brandHome" href="#shop" class="relative z-[2] col-start-1 row-start-1 flex h-full min-h-0 shrink-0 items-center self-stretch py-1 pr-1 pl-3 sm:row-span-2 sm:pr-2 sm:pl-5" aria-label="DAMA OBSRV home">
-				<img class="block h-auto w-auto max-h-[3.25rem] max-w-[min(8.5rem,38vw)] object-contain object-left mix-blend-lighten sm:max-h-[6.25rem] sm:max-w-[min(15rem,26vw)]" src="assets/logo-dama.png" alt="DAMA OBSRV" />
+				<img class="block h-auto w-auto max-h-[3.25rem] max-w-[min(8.5rem,38vw)] object-contain object-left mix-blend-lighten sm:max-h-[6.25rem] sm:max-w-[min(15rem,26vw)]"
+					src="/assets/logo-dama-192.webp" srcset="/assets/logo-dama-192.webp 192w, /assets/logo-dama-448.webp 421w"
+					sizes="(min-width: 640px) 160px, 84px" width="421" height="263" alt="DAMA OBSRV" />
 			</a>
 
 			<div class="relative z-[3] col-start-2 row-start-1 flex min-w-0 items-center justify-end pt-1 pb-0 sm:min-h-11 sm:pt-1.5">
@@ -51,21 +58,22 @@
 						<a href="#about" class="inline-flex h-9 shrink-0 items-center rounded-kiosk-md px-2 text-[0.65rem] font-semibold tracking-[0.04em] text-kiosk-fg/70 no-underline transition-[transform,background,color] duration-150 active:scale-95 is-active:bg-kiosk-lime is-active:text-[#111] not-is-active:hover:text-kiosk-fg sm:h-10 sm:px-3.5 sm:text-sm" data-view="about">About Us</a>
 					</nav>
 					<div class="flex shrink-0 items-center">
-						<button id="cartBtn" class="inline-flex h-10 min-w-10 items-center justify-center gap-2 rounded-kiosk-md bg-kiosk-accent px-2 text-sm font-semibold whitespace-nowrap text-white transition-transform duration-150 active:scale-95 disabled:opacity-40 sm:h-11 sm:px-4" aria-label="Cart">
+						<button id="cartBtn" class="inline-flex h-10 min-w-10 items-center justify-center gap-2 rounded-kiosk-md bg-kiosk-accent px-2 text-sm font-semibold whitespace-nowrap text-kiosk-accent-fg transition-transform duration-150 active:scale-95 disabled:opacity-40 sm:h-11 sm:px-4" aria-label="Cart, 0 items">
 							<span class="hidden sm:inline">Cart</span>
-							<span id="cartCount" class="grid h-6 min-w-6 place-items-center rounded-kiosk-md bg-black/30 px-1 text-xs tabular-nums">0</span>
+							<span id="cartCount" class="grid h-6 min-w-6 place-items-center rounded-kiosk-md bg-black/15 px-1 text-xs tabular-nums">0</span>
 						</button>
 					</div>
 				</div>
 			</div>
 
-			<nav id="filterNav" class="relative z-[1] col-span-2 row-start-2 -mb-[3px] flex min-w-0 justify-center overflow-x-auto pb-[3px] scrollbar-none [scroll-snap-type:x_proximity] [-webkit-overflow-scrolling:touch] sm:col-span-1 sm:col-start-2" data-shop-only>
+			<nav id="filterNav" class="relative z-[1] col-span-2 row-start-2 -mb-[3px] flex min-h-[43px] min-w-0 overflow-x-auto pb-[3px] scrollbar-none [scroll-snap-type:x_proximity] [-webkit-overflow-scrolling:touch] sm:col-span-1 sm:col-start-2" aria-label="Shop collections" data-shop-only>
 				<div id="filterTrack" class="mx-auto flex w-max items-end justify-center gap-[0.15rem] px-2 sm:px-3"></div>
 			</nav>
 
-			<span class="pointer-events-none relative z-[1] col-start-3 row-start-1 hidden h-full w-[11rem] shrink-0 self-stretch overflow-hidden sm:row-span-2 sm:block" aria-hidden="true">
-				<img class="block h-full w-full origin-center animate-sun-spin object-contain mix-blend-lighten motion-reduce:animate-none" src="assets/header-sun.png" alt="" width="176" height="176" decoding="async" />
-			</span>
+			<picture class="pointer-events-none relative z-[1] col-start-3 row-start-1 hidden h-full w-[11rem] shrink-0 self-stretch overflow-hidden sm:row-span-2 sm:block" aria-hidden="true">
+				<source media="(min-width: 640px)" srcset="/assets/header-sun-352.webp" />
+				<img class="block h-full w-full origin-center animate-sun-spin object-contain mix-blend-lighten motion-reduce:animate-none" alt="" width="176" height="176" decoding="async" />
+			</picture>
 		</div>
 
 		<nav id="sectionSubnav" class="relative z-[2] overflow-x-auto bg-transparent pt-3 scrollbar-none sm:pt-4" aria-label="Shop sections" data-shop-only hidden>
@@ -76,7 +84,7 @@
 	<!-- ============ MAIN (recessed under yellow rail) ============ -->
 	<div class="relative z-[1] flex-1">
 		<!-- ============ SHOP ============ -->
-		<div id="shop" data-view-panel="shop">
+		<div id="shop" data-view-panel="shop" aria-busy="true" class="aria-busy:min-h-svh">
 			<p data-store-copy="announcement" hidden class="mx-auto max-w-7xl px-4 pt-5 text-sm font-semibold text-kiosk-fg sm:px-6"></p>
 			<section id="top" class="mx-auto max-w-7xl px-4 pt-6 pb-4 sm:px-6 sm:pt-10 sm:pb-6">
 				<div id="shopStats" class="flex flex-wrap gap-x-5 gap-y-1 text-xs text-kiosk-muted">
@@ -97,7 +105,6 @@
 						<img
 							id="sectionFeatureImg"
 							class="mx-auto h-auto w-full max-w-xl object-contain md:ms-auto md:me-0"
-							src="assets/stunning-studio.png"
 							alt="Stunning Studio × Dama.Obsrv collab"
 							decoding="async"
 						/>
@@ -146,6 +153,7 @@
 					alt="Three overlapping hearts labelled Satire, Critical Thinking, and Art, intersecting as Dama"
 					width="800"
 					height="800"
+				loading="lazy"
 					decoding="async"
 					class="mx-auto w-full max-h-[14rem] origin-center object-contain select-none sm:max-h-[18rem] md:max-h-[min(22rem,42dvh)] md:scale-[1.2]"
 				/>
@@ -166,10 +174,11 @@
 				>@Dama.Obsrv</a>
 			</div>
 			<img
-				src="assets/footer-thumb.png"
+				src="/assets/footer-thumb-160.webp"
 				alt=""
-				width="120"
-				height="72"
+				width="160"
+				height="114"
+				loading="lazy"
 				decoding="async"
 				class="h-14 w-auto shrink-0 object-contain sm:h-16"
 			/>
@@ -178,7 +187,7 @@
 
 	<!-- ============ STICKY CART BAR (phones) ============ -->
 	<div id="mobileBar" class="fixed inset-x-0 bottom-0 z-30 translate-y-[130%] bg-gradient-to-t from-kiosk from-[62%] to-transparent px-3 pt-2 pb-[calc(env(safe-area-inset-bottom)+0.75rem)] transition-transform duration-300 ease-out is-visible:translate-y-0 sm:hidden">
-		<button id="mobileCartBtn" class="flex h-14 w-full items-center gap-3 rounded-kiosk-lg bg-kiosk-accent px-3 text-white shadow-kiosk transition-transform duration-150 active:scale-[0.98]">
+		<button id="mobileCartBtn" class="flex h-14 w-full items-center gap-3 rounded-kiosk-lg bg-kiosk-accent px-3 text-kiosk-accent-fg shadow-kiosk transition-transform duration-150 active:scale-[0.98]">
 			<span id="barThumbs" class="flex shrink-0 items-center"></span>
 			<span class="flex flex-col items-start leading-tight">
 				<span id="barCount" class="text-xs tabular-nums opacity-80"></span>
@@ -291,7 +300,7 @@
 	</aside>
 
 	<!-- ============ LIGHTBOX ============ -->
-	<div id="lightbox" hidden class="fixed inset-0 z-[60] bg-black/90 opacity-0 backdrop-blur-[4px] transition-opacity duration-200 is-visible:opacity-100" role="dialog" aria-modal="true">
+	<div id="lightbox" hidden class="fixed inset-0 z-[60] bg-black/90 opacity-0 backdrop-blur-[4px] transition-opacity duration-200 is-visible:opacity-100" role="dialog" aria-modal="true" aria-labelledby="lbName">
 		<div class="absolute inset-x-0 top-0 flex items-center justify-between px-3 pt-[calc(env(safe-area-inset-top)+0.75rem)]">
 			<span id="lbCounter" class="rounded-kiosk-md bg-white/10 px-3 py-1.5 text-xs text-white/80 tabular-nums"></span>
 			<div class="flex items-center gap-1">

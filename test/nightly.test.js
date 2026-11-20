@@ -55,6 +55,14 @@ test("nightly checkout, admin, CMS and MCP share durable Postgres data", async (
     const site = await (await request("/api/storefront")).json();
     expect(site.products.length).toBeGreaterThan(100);
     expect(await (await request("/")).text()).toContain("DAMA OBSRV");
+    const compressed = await request("/", { headers: { "Accept-Encoding": "gzip" } });
+    expect(compressed.headers.get("content-encoding")).toBe("gzip");
+    expect(compressed.headers.get("vary")).toBe("Accept-Encoding");
+    expect(await compressed.text()).toContain("DAMA OBSRV");
+    const thumbnail = await request("/thumbnails/384/Tshirts/Circus_B_F.jpg.webp");
+    expect(thumbnail.headers.get("content-type")).toBe("image/webp");
+    expect(Buffer.from(await thumbnail.arrayBuffer()).subarray(8, 12).toString()).toBe("WEBP");
+    expect((await request("/Tshirts/Circus_B_F.jpg")).headers.get("content-type")).toBe("image/jpeg");
     expect(await (await request("/admin")).text()).toContain("Dama Studio");
     expect((await request("/orders.html", { status: 302 })).headers.get("location")).toBe("/admin");
     await request("/api/admin/orders", { status: 401 });

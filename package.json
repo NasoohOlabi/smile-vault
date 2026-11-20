@@ -12,7 +12,10 @@
     "import-orders": "bun scripts/import-orders.js"
   },
   "devDependencies": {
+    "@fontsource/ibm-plex-sans-arabic": "^5.3.0",
+    "@fontsource/space-mono": "^5.3.0",
     "@tailwindcss/vite": "^4.1.11",
+    "sharp": "^0.35.5",
     "tailwindcss": "^4.1.11",
     "vite": "^7.0.0"
   },
