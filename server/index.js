@@ -10,8 +10,11 @@ import {
 } from "./store.js";
 
 const { DATABASE_URL, ADMIN_PASSWORD, SESSION_SECRET, RAILWAY_PUBLIC_DOMAIN } = process.env;
-if (!DATABASE_URL || [ADMIN_PASSWORD, SESSION_SECRET].some((value) => !value || value.length < 24)) {
-  throw new Error("Set DATABASE_URL and at least 24 characters each for ADMIN_PASSWORD and SESSION_SECRET.");
+if (!DATABASE_URL || !SESSION_SECRET || SESSION_SECRET.length < 24) {
+  throw new Error("Set DATABASE_URL and a SESSION_SECRET of at least 24 characters.");
+}
+if (!ADMIN_PASSWORD || [...ADMIN_PASSWORD].length < 15 || ADMIN_PASSWORD.length > 256) {
+  throw new Error("Set ADMIN_PASSWORD to a password between 15 and 256 characters.");
 }
 const port = Number(process.env.PORT || 3000);
 const publicOrigin = process.env.APP_ORIGIN || (RAILWAY_PUBLIC_DOMAIN ? `https://${RAILWAY_PUBLIC_DOMAIN}` : "");

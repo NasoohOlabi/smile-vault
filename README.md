@@ -8,7 +8,7 @@ Nightly runs in its own Railway project and Postgres database. GitHub Actions ve
 
 ## Manage the store
 
-Sign in to Dama Studio with the nightly app service's `ADMIN_PASSWORD` from Railway Variables. Review orders and change their fulfillment status. Search products, edit prices and variants, and hide or publish designs. Upload an image from the library or directly in an editor. Images used by products or collection features must be replaced before removal.
+Sign in to Dama Studio using the password set in `ADMIN_PASSWORD` on the nightly app service's Variables tab in Railway. Choose a password between 15 and 256 characters. Review orders and change their fulfillment status. Search products, edit prices and variants, and hide or publish designs. Upload an image from the library or directly in an editor. Images used by products or collection features must be replaced before removal.
 
 The Storefront page publishes announcements, page introductions, collection labels, and section features immediately. Products, copy, images, and orders live in Postgres. A fresh database seeds its catalog from `products.json` and `catalog-nav.json`. Future deployments preserve published changes.
 
@@ -31,7 +31,7 @@ Use the same source name and row order when retrying an export. A second run ski
 
 ## Develop and verify
 
-Set `DATABASE_URL`, `ADMIN_PASSWORD`, and `SESSION_SECRET` in a local ignored `.env` file. Use distinct secrets of at least 24 characters. Set `APP_ORIGIN` to the HTTPS origin when hosting the app behind a proxy. For local MCP, use `http://127.0.0.1:3000/mcp`. Analytics stay disabled unless the build sets `VITE_ENABLE_ANALYTICS=true`.
+Set `DATABASE_URL`, `ADMIN_PASSWORD`, and `SESSION_SECRET` in a local ignored `.env` file. Use a separate `SESSION_SECRET` of at least 24 characters. Set `APP_ORIGIN` to the HTTPS origin when hosting the app behind a proxy. For local MCP, use `http://127.0.0.1:3000/mcp`. Analytics stay disabled unless the build sets `VITE_ENABLE_ANALYTICS=true`.
 
 ```sh
 bun install --frozen-lockfile

@@ -13,7 +13,7 @@ if (!databaseUrl || !["127.0.0.1", "localhost"].includes(new URL(databaseUrl).ho
 const env = {
   DATABASE_URL: databaseUrl,
   PORT: "3100",
-  ADMIN_PASSWORD: "nightly-local-test-admin-passphrase",
+  ADMIN_PASSWORD: "nightly-test-15",
   SESSION_SECRET: "nightly-local-test-session-signature",
 };
 const origin = `http://127.0.0.1:${env.PORT}`;
